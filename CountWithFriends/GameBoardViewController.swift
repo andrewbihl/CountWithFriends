@@ -16,7 +16,7 @@ class GameBoardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        startNewRound()
         // Do any additional setup after loading the view.
     }
     
