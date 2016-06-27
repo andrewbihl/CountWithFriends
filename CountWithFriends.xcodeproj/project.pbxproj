@@ -12,6 +12,10 @@
 		2F61D3231D217A8600C9867F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3211D217A8600C9867F /* Main.storyboard */; };
 		2F61D3251D217A8600C9867F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3241D217A8600C9867F /* Assets.xcassets */; };
 		2F61D3281D217A8600C9867F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */; };
+		2F61D3301D217BD700C9867F /* RoundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F61D32F1D217BD700C9867F /* RoundHandler.swift */; };
+		2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC844611D21957A003134A4 /* GameKitManager.swift */; };
+		E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A61D217F0E00C515B9 /* MenuViewController.swift */; };
+		E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		2F61D3241D217A8600C9867F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F61D3271D217A8600C9867F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F61D3291D217A8600C9867F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F61D32F1D217BD700C9867F /* RoundHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHandler.swift; sourceTree = "<group>"; };
+		2FC844611D21957A003134A4 /* GameKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitManager.swift; sourceTree = "<group>"; };
+		E631B4A61D217F0E00C515B9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +46,7 @@
 		2F61D3111D217A8600C9867F = {
 			isa = PBXGroup;
 			children = (
+				2F61D32F1D217BD700C9867F /* RoundHandler.swift */,
 				2F61D31C1D217A8600C9867F /* CountWithFriends */,
 				2F61D31B1D217A8600C9867F /* Products */,
 			);
@@ -56,7 +65,10 @@
 			children = (
 				2F61D31D1D217A8600C9867F /* AppDelegate.swift */,
 				2F61D31F1D217A8600C9867F /* ViewController.swift */,
+				2FC844611D21957A003134A4 /* GameKitManager.swift */,
 				2F61D3211D217A8600C9867F /* Main.storyboard */,
+				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
+				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
 				2F61D3241D217A8600C9867F /* Assets.xcassets */,
 				2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */,
 				2F61D3291D217A8600C9867F /* Info.plist */,
@@ -136,7 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */,
 				2F61D3201D217A8600C9867F /* ViewController.swift in Sources */,
+				2F61D3301D217BD700C9867F /* RoundHandler.swift in Sources */,
+				E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */,
+				E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */,
 				2F61D31E1D217A8600C9867F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +305,7 @@
 				2F61D32E1D217A8600C9867F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
