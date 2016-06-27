@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xhy-1Z-NxI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xhy-1Z-NxI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -99,9 +99,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mox-9a-gU2">
                                         <rect key="frame" x="0.0" y="0.0" width="92" height="92"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="db3-nH-Jmp">
                                         <rect key="frame" x="94" y="0.0" width="92" height="92"/>
@@ -192,12 +189,12 @@
                     </view>
                     <connections>
                         <outlet property="targetLabel" destination="sdb-ng-geo" id="LY9-MA-J9G"/>
-                        <outletCollection property="gameNumberButtons" destination="db3-nH-Jmp" collectionClass="NSMutableArray" id="DGM-Ww-W5b"/>
-                        <outletCollection property="gameNumberButtons" destination="9Uh-qV-8Df" collectionClass="NSMutableArray" id="1MQ-c9-2bT"/>
-                        <outletCollection property="gameNumberButtons" destination="IgH-lE-BcJ" collectionClass="NSMutableArray" id="O6W-IR-aic"/>
-                        <outletCollection property="gameNumberButtons" destination="uD9-Gp-yOw" collectionClass="NSMutableArray" id="EGa-hM-6mV"/>
-                        <outletCollection property="gameNumberButtons" destination="26M-0c-dr5" collectionClass="NSMutableArray" id="nnP-I5-6ZP"/>
                         <outletCollection property="gameNumberButtons" destination="mox-9a-gU2" collectionClass="NSMutableArray" id="UVF-Lt-OgB"/>
+                        <outletCollection property="gameNumberButtons" destination="db3-nH-Jmp" collectionClass="NSMutableArray" id="Ss6-yM-joj"/>
+                        <outletCollection property="gameNumberButtons" destination="26M-0c-dr5" collectionClass="NSMutableArray" id="5Xm-Bk-Zpg"/>
+                        <outletCollection property="gameNumberButtons" destination="9Uh-qV-8Df" collectionClass="NSMutableArray" id="TQX-H4-pDt"/>
+                        <outletCollection property="gameNumberButtons" destination="uD9-Gp-yOw" collectionClass="NSMutableArray" id="fJt-gy-DSR"/>
+                        <outletCollection property="gameNumberButtons" destination="IgH-lE-BcJ" collectionClass="NSMutableArray" id="mWv-3N-nwS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfO-ak-CZ7" userLabel="First Responder" sceneMemberID="firstResponder"/>
