@@ -16,14 +16,18 @@ class GameBoardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    func startNewRound(){
         let roundHandler = RoundHandler()
         roundHandler.startNewRound(6)
         targetLabel.text = String(roundHandler.target!)
         for i in 0..<roundHandler.inputNumbers!.count{
-            let button = gameNumberButtons[i]
-            button.setTitle(String(roundHandler.inputNumbers![i]), forState: .Normal)
+        let button = gameNumberButtons[i]
+        button.setTitle(String(roundHandler.inputNumbers![i]), forState: .Normal)
         }
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func onOperatorTapped(sender: UIButton) {
