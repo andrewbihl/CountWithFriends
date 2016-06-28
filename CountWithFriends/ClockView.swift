@@ -10,14 +10,17 @@ import UIKit
 
 class ClockView: UIView {
 
-   private var shapeLayer = CAShapeLayer()
-   private var countDownTimer = NSTimer()
+    private var shapeLayer = CAShapeLayer()
+    private var countDownTimer = NSTimer()
     private var timerValue = 900
     private var label = UILabel()
+    private var circleCenter = CGPoint()
+    private var circleRadius = CGFloat()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        self.circleCenter = CGPoint(x: frame.size.width/2, y: frame.size.height/2)
+        self.circleRadius = frame.size.width/2
         self.createLabel()
     }
     
@@ -25,8 +28,9 @@ class ClockView: UIView {
         fatalError("This class does not support NSCoding")
     }
     
+    
     private func addCircle() {
-        let circlePath = UIBezierPath(arcCenter: CGPoint(x: 160,y: 240), radius: CGFloat(100), startAngle: CGFloat(-M_PI_2), endAngle: CGFloat(2*M_PI-M_PI_2), clockwise: true)
+        let circlePath = UIBezierPath(arcCenter: circleCenter, radius: circleRadius, startAngle: CGFloat(-M_PI_2), endAngle: CGFloat(2*M_PI-M_PI_2), clockwise: true)
         
         self.shapeLayer.path = circlePath.CGPath
         self.shapeLayer.fillColor = UIColor.clearColor().CGColor
@@ -37,8 +41,8 @@ class ClockView: UIView {
     }
     
     private func createLabel() {
-        self.label = UILabel(frame: CGRect(x: 72, y: 220, width: 200, height: 40))
-        self.label.font = UIFont(name: self.label.font.fontName, size: 30)
+        self.label = UILabel(frame: CGRect(x: circleRadius - 7, y: circleRadius - 10, width: 40, height: 20))
+        self.label.font = UIFont(name: self.label.font.fontName, size: 12)
         self.label.textColor = UIColor.redColor()
         
         self.addSubview(self.label)
@@ -66,9 +70,8 @@ class ClockView: UIView {
     
     private func timeFormatted(totalSeconds: Int) -> String{
         let seconds: Int = totalSeconds % 60
-        let minutes: Int = (totalSeconds / 60) % 60
-        let hours: Int = totalSeconds / 3600
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        //let minutes: Int = (totalSeconds / 60) % 60
+        return String(format: "%02d",seconds)
     }
     
     @objc private func countdown(dt: NSTimer) {
