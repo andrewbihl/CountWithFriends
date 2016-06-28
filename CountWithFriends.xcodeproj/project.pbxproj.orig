@@ -12,13 +12,13 @@
 		2F61D3231D217A8600C9867F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3211D217A8600C9867F /* Main.storyboard */; };
 		2F61D3251D217A8600C9867F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3241D217A8600C9867F /* Assets.xcassets */; };
 		2F61D3281D217A8600C9867F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */; };
+<<<<<<< HEAD
 		2F61D3301D217BD700C9867F /* RoundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F61D32F1D217BD700C9867F /* RoundHandler.swift */; };
 		2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC844611D21957A003134A4 /* GameKitManager.swift */; };
-		2FD0DF311D22EA7100466ED3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD0DF301D22EA7100466ED3 /* GameKit.framework */; };
-		2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */; };
+=======
 		E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A61D217F0E00C515B9 /* MenuViewController.swift */; };
 		E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */; };
-		E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660BEE61D21E384002D9CB5 /* ClockView.swift */; };
+>>>>>>> feature/ui
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,13 +29,13 @@
 		2F61D3241D217A8600C9867F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F61D3271D217A8600C9867F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F61D3291D217A8600C9867F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		2F61D32F1D217BD700C9867F /* RoundHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHandler.swift; sourceTree = "<group>"; };
 		2FC844611D21957A003134A4 /* GameKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitManager.swift; sourceTree = "<group>"; };
-		2FD0DF301D22EA7100466ED3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCTurnBasedMatchHelper.swift; sourceTree = "<group>"; };
+=======
 		E631B4A61D217F0E00C515B9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
-		E660BEE61D21E384002D9CB5 /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+>>>>>>> feature/ui
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +43,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FD0DF311D22EA7100466ED3 /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,7 +52,6 @@
 		2F61D3111D217A8600C9867F = {
 			isa = PBXGroup;
 			children = (
-				2FD0DF301D22EA7100466ED3 /* GameKit.framework */,
 				2F61D32F1D217BD700C9867F /* RoundHandler.swift */,
 				2F61D31C1D217A8600C9867F /* CountWithFriends */,
 				2F61D31B1D217A8600C9867F /* Products */,
@@ -73,11 +71,9 @@
 			children = (
 				2F61D31D1D217A8600C9867F /* AppDelegate.swift */,
 				2F61D31F1D217A8600C9867F /* ViewController.swift */,
-				2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */,
 				2FC844611D21957A003134A4 /* GameKitManager.swift */,
 				2F61D3211D217A8600C9867F /* Main.storyboard */,
 				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
-				E660BEE61D21E384002D9CB5 /* ClockView.swift */,
 				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
 				2F61D3241D217A8600C9867F /* Assets.xcassets */,
 				2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */,
@@ -118,15 +114,7 @@
 				TargetAttributes = {
 					2F61D3191D217A8600C9867F = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = BGS5YDV688;
-						SystemCapabilities = {
-							com.apple.GameCenter = {
-								enabled = 1;
-							};
-							com.apple.Push = {
-								enabled = 0;
-							};
-						};
+						DevelopmentTeam = LX4D2WMKQ5;
 					};
 				};
 			};
@@ -168,11 +156,12 @@
 			files = (
 				2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */,
 				2F61D3201D217A8600C9867F /* ViewController.swift in Sources */,
-				2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */,
+<<<<<<< HEAD
 				2F61D3301D217BD700C9867F /* RoundHandler.swift in Sources */,
+=======
 				E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */,
-				E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */,
 				E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */,
+>>>>>>> feature/ui
 				2F61D31E1D217A8600C9867F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,7 +228,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -279,7 +267,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -294,7 +281,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CountWithFriends/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrewbihl.CountingGame2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewbihl.CountWithFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -308,7 +295,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CountWithFriends/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.andrewbihl.CountingGame2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewbihl.CountWithFriends;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
