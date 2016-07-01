@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ClockViewDelegate: class {
+    
+    func timeExpired(sender: ClockView)
+}
+
 class ClockView: UIView {
 
     private var shapeLayer = CAShapeLayer()
@@ -16,6 +21,8 @@ class ClockView: UIView {
     private var label = UILabel()
     private var circleCenter = CGPoint()
     private var circleRadius = CGFloat()
+    
+    var delegate: ClockViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,16 +41,16 @@ class ClockView: UIView {
         
         self.shapeLayer.path = circlePath.CGPath
         self.shapeLayer.fillColor = UIColor.clearColor().CGColor
-        self.shapeLayer.strokeColor = UIColor.redColor().CGColor
+        self.shapeLayer.strokeColor = UIColor.whiteColor().CGColor
         self.shapeLayer.lineWidth = 1.0
         
         self.layer.addSublayer(self.shapeLayer)
     }
     
     private func createLabel() {
-        self.label = UILabel(frame: CGRect(x: circleRadius - 7, y: circleRadius - 10, width: 40, height: 20))
-        self.label.font = UIFont(name: self.label.font.fontName, size: 12)
-        self.label.textColor = UIColor.redColor()
+        self.label = UILabel(frame: CGRect(x: circleRadius - 12, y: circleRadius - 10, width: 40, height: 20))
+        self.label.font = UIFont(name: self.label.font.fontName, size: 20)
+        self.label.textColor = UIColor.whiteColor()
         
         self.addSubview(self.label)
     }
@@ -78,6 +85,7 @@ class ClockView: UIView {
         self.timerValue -= 1
         if self.timerValue < 0 {
             self.countDownTimer.invalidate()
+            delegate?.timeExpired(self)
         } else {
             self.setLabelText(self.timeFormatted(self.timerValue))
         }
