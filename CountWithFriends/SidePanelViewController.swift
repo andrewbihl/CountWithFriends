@@ -18,7 +18,7 @@ class SidePanelViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     // var animals: Array<Animal>!
-    var placeHolderText = ["Friends", "Random Opponent", "Profile"]
+    var placeHolderText = ["Friends", "Username", "Solo", "Random Opponent", "Profile"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
