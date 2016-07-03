@@ -1,0 +1,16 @@
+This is a description of how data is stored in GameCenter's database.
+
+
+
+Each GKTurnBasedMatch has a property called matchData. matchData is an NSData object, created using NSKeyedArchiver. NSKeyedArchiver is used to convert a basic data structures into NSData to be stored and later decoded with NSKeyedUnarchiver.
+
+matchData{
+
+    "playerScores" -> [Int]
+
+    "roundOperations"->[
+        "player0Operations" -> [String]
+        "player0Result" -> Int
+        "player0TimeRemaining" -> Int
+    ]
+}

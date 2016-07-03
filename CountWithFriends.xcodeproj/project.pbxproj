@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F2DF8651D29BE23004292C3 /* DataREADME.text in Sources */ = {isa = PBXBuildFile; fileRef = 2F2DF8641D29BE23004292C3 /* DataREADME.text */; };
 		2F4ABDD21D26D5C30029A717 /* OperationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4ABDD11D26D5C30029A717 /* OperationTableViewCell.swift */; };
 		2F4ABDD41D26D7140029A717 /* RoundHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4ABDD31D26D7140029A717 /* RoundHandler.swift */; };
 		2F61D31E1D217A8600C9867F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F61D31D1D217A8600C9867F /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F2DF8641D29BE23004292C3 /* DataREADME.text */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = DataREADME.text; sourceTree = "<group>"; };
 		2F4ABDD11D26D5C30029A717 /* OperationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperationTableViewCell.swift; sourceTree = "<group>"; };
 		2F4ABDD31D26D7140029A717 /* RoundHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHandler.swift; sourceTree = "<group>"; };
 		2F61D31A1D217A8600C9867F /* CountWithFriends.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CountWithFriends.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,6 +105,7 @@
 				2F61D3241D217A8600C9867F /* Assets.xcassets */,
 				2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */,
 				2F61D3291D217A8600C9867F /* Info.plist */,
+				2F2DF8641D29BE23004292C3 /* DataREADME.text */,
 			);
 			path = CountWithFriends;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */,
 				A86CB5F41D24938F00EF1A43 /* SidePanelViewController.swift in Sources */,
 				2F4ABDD21D26D5C30029A717 /* OperationTableViewCell.swift in Sources */,
+				2F2DF8651D29BE23004292C3 /* DataREADME.text in Sources */,
 				2F61D3201D217A8600C9867F /* ViewController.swift in Sources */,
 				E660BEEB1D2429C3002D9CB5 /* Operation.swift in Sources */,
 				2F4ABDD41D26D7140029A717 /* RoundHandler.swift in Sources */,

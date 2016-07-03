@@ -14,8 +14,9 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var gameNumberButtons: [UIButton]!
     @IBOutlet var gameOperatorButtons: [UIButton]!
     @IBOutlet weak var tableView: UITableView!
-    
+    var myRoundHandler: RoundHandler?
     var operations: [Operation]? = []
+    var clockView: ClockView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,35 +26,34 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         tempImageView.frame = tableView.bounds
         tableView.backgroundView = tempImageView
         tableView.allowsSelection = false
-        
         tableView.superview!.layer.shadowColor = UIColor.blackColor().CGColor
         tableView.superview!.layer.shadowOpacity = 0.5
         tableView.superview!.layer.shadowOffset = CGSizeZero
         tableView.superview!.layer.shadowRadius = 3
-
-    
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         let viewSize = self.targetLabel.layer.frame.size.height
-        let view = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
-        view.delegate = self
-        view.frame = CGRect(x: 15, y: 27+55, width: viewSize, height: viewSize)
+        clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
+        clockView!.delegate = self
+        clockView!.frame = CGRect(x: 15, y: 27+55, width: viewSize, height: viewSize)
         
-        view.setTimer(60)
-        view.startClockTimer()
-        self.view.addSubview(view)
+        clockView!.setTimer(60)
+        //TODO: Start clock on user indication
+        //view.startClockTimer()
+        self.view.addSubview(clockView!)
     }
     
     func startNewRound(){
-        let roundHandler = RoundHandler()
-        roundHandler.startNewRound(6)
-        targetLabel.text = String(roundHandler.target!)
-        for i in 0..<roundHandler.inputNumbers!.count{
-        let button = gameNumberButtons[i]
-        button.setTitle(String(roundHandler.inputNumbers![i]), forState: .Normal)
+//        let roundHandler = RoundHandler()
+//        roundHandler.startNewRound(6)
+        if myRoundHandler != nil{
+            for i in 0..<myRoundHandler!.inputNumbers!.count{
+                let button = gameNumberButtons[i]
+                button.setTitle(String(myRoundHandler!.inputNumbers![i]), forState: .Normal)
+            }
+            targetLabel.text = String(myRoundHandler!.target!)
         }
     }
     
@@ -85,6 +85,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tableView.reloadData()
     }
+    
     @IBAction func onClearTapped(sender: AnyObject) {
         for _ in 0..<operations!.count {
             let removedOperation = operations!.removeLast()
@@ -92,7 +93,6 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             removedOperation.secondButton?.enabled = true
         }
         tableView.reloadData()
-        
     }
     
     @IBAction func onUndoTapped(sender: AnyObject) {
@@ -109,7 +109,37 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     @IBAction func onFinishedGameTapped(sender: AnyObject) {
-        
+        clockView!.stopTimer()
+        let timeRemaining = Int(clockView!.label.text!)
+        let finalResult = operations?.last?.outputValue.integerValue
+        let scoreReturn = myRoundHandler?.getScoreIfRoundComplete(finalResult!, timeRemaining: timeRemaining!)
+        var player0ScoreSummand = 0
+        var player1ScoreSummand = 0
+        if scoreReturn?.currentPlayerDidWin != nil{
+            //update score because round is over. Show win or loss message/window
+            if scoreReturn!.currentPlayerDidWin!{
+                if myRoundHandler!.localPlayerIsPlayer0!{
+                    player0ScoreSummand += scoreReturn!.score!
+                }
+                else{
+                    player1ScoreSummand += scoreReturn!.score!
+                }
+            }
+            //if opponent won...
+            else{
+                if myRoundHandler!.localPlayerIsPlayer0!{
+                    player1ScoreSummand += scoreReturn!.score!
+                }
+                else{
+                    player0ScoreSummand += scoreReturn!.score!
+                }
+            }
+        }
+        var roundEquations = Array<String>()
+        for op in operations!{
+            roundEquations.append(op.asString())
+        }
+        myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
     }
     
     //TableView functions

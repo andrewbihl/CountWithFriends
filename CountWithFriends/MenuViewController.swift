@@ -11,13 +11,14 @@ import GameKit
 
 class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate {
     var matchHelper : GCTurnBasedMatchHelper?
+    var matchToBeEntered: GKTurnBasedMatch?
 
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func viewWillAppear(animated: Bool) {
-        matchHelper = GCTurnBasedMatchHelper()
+        matchHelper = GCTurnBasedMatchHelper.sharedInstance
         matchHelper!.delegate = self 
         matchHelper!.authenticateLocalUser()
     }
@@ -41,6 +42,33 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate {
                 print(matches!.count)
             }
         }
+        matchToBeEntered = match
+        self.performSegueWithIdentifier("startGameSegue", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "startGameSegue"{
+            //Create new RoundHandler, set it to be property on GameBoardVC
+            var localPlayerIsPlayer0 = false
+            var opponentID: String?
+            if matchToBeEntered?.currentParticipant == matchToBeEntered?.participants![0]{
+                localPlayerIsPlayer0 = true
+                opponentID = matchToBeEntered?.participants![1].player?.displayName
+            }
+            else{
+                opponentID = matchToBeEntered?.participants![0].player?.displayName
+            }
+            if opponentID == nil{
+                opponentID = "Opponent not yet found"
+            }
+            let newRoundHandler = RoundHandler()
+            newRoundHandler.startNewRound(6)
+            newRoundHandler.myMatchData = matchToBeEntered?.matchData
+            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
+            newRoundHandler.opponentDisplayName = opponentID
+            let dvc = segue.destinationViewController as! GameBoardViewController
+            dvc.myRoundHandler = newRoundHandler
+        }
     }
     
     @IBAction func onStartGameTapped(sender: AnyObject) {
@@ -50,7 +78,6 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate {
 //            }
 //        }
         matchHelper?.joinOrStartRandomGame()
-        performSegueWithIdentifier("startGameSegue", sender: sender)
     }
 
 }

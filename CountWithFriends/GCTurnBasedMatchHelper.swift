@@ -41,8 +41,8 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                 var matchDataDict = Dictionary<String,AnyObject>()
                 if match?.participants?[1].player == nil {
                     print("Created a new match")
+                    matchDataDict.updateValue(0, forKey: "player0Score")
                     matchDataDict.updateValue(0, forKey: "player1Score")
-                    matchDataDict.updateValue(0, forKey: "player2Score")
                     //Fill in data for local user as "player1"
                 }else{
                     print("Found a match!")
@@ -59,7 +59,6 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                             if error != nil{
                                 print("WHAT THE FUCKK")
                             }else{
-                                
                                 self.delegate?.didJoinOrCreateMatch(match!)
                             }
                         })
@@ -80,8 +79,33 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         }
     }
     
-    func saveRoundData(equations:[String], playerResultForRound: Int, finalRoundScore: Int?, player0DidWin: Bool?){
+    func saveRoundData(equations: [String], finalResult: Int, player0ScoreSummand: Int, player1ScoreSummand: Int, localPlayerIsPlayer0: Bool, currentMatchDataObject: Dictionary<String,AnyObject>, timeRemaining: Int){
+        var updatedDataObject = currentMatchDataObject
+        var playerScores = updatedDataObject["playerScores"] as! Array<Int>
+        playerScores[0] += player0ScoreSummand
+        playerScores[1] += player1ScoreSummand
+        updatedDataObject.updateValue(playerScores, forKey: "playerScores")
+        var updatedRoundOperations = updatedDataObject["roundOperations"] as! [Dictionary<String,AnyObject>]
+        if !localPlayerIsPlayer0{
+            //update entry for last round to include 2nd player's actions
+            var lastRoundOperationsDict = updatedRoundOperations.last!
+            lastRoundOperationsDict.updateValue(equations, forKey: "player1Operations")
+            lastRoundOperationsDict.updateValue(finalResult, forKey: "player1Result")
+            lastRoundOperationsDict.updateValue(timeRemaining, forKey: "player1TimeRemaining")
+            updatedRoundOperations.popLast()
+            updatedRoundOperations.append(lastRoundOperationsDict)
+        }
+        else{
+            var newRoundOperationsDict = Dictionary<String,AnyObject>()
+            newRoundOperationsDict.updateValue(equations, forKey: "player0Operations")
+            newRoundOperationsDict.updateValue(finalResult, forKey: "player0Result")
+            newRoundOperationsDict.updateValue(timeRemaining, forKey: "player0TimeRemaining")
+            updatedRoundOperations.append(newRoundOperationsDict)
+        }
+        updatedDataObject.updateValue(updatedRoundOperations, forKey: "roundOperations")
+        let newMatchData = NSKeyedArchiver.archivedDataWithRootObject(updatedDataObject)
         //Store information about round in GameCenter database
+        myMatch?.saveCurrentTurnWithMatchData(newMatchData, completionHandler: nil)
     }
     
     func player(player: GKPlayer, wantsToQuitMatch match: GKTurnBasedMatch) {
