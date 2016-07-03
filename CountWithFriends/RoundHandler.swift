@@ -9,13 +9,18 @@
 import UIKit
 import Foundation
 
+//Object created when a new round is begun in the user interface.
 class RoundHandler: NSObject {
     var target: Int?
     var inputNumbers: Array<Int>?
+    //nil only if other player hasn't played round yet.
+    var opponentScoreForCurrentRound: Int?
     
     func startNewRound(numberOfInputValues: Int)->(){
         inputNumbers = Array()
         target = nil
+        //TODO: Set sharedInstance.myMatch to the match being shown so that it can send and retrieve data to/from corrent match in GameCenter.
+        //GCTurnBasedMatchHelper.sharedInstance.myMatch =
         for _ in 1..<4{
             let newSmallNumber = Int(arc4random_uniform(9)+1)
             inputNumbers!.append(newSmallNumber)
@@ -31,13 +36,40 @@ class RoundHandler: NSObject {
         generateTarget()
     }
     
+    func getScoreIfRoundComplete(finalResult: Int)->(currentPlayerWon: Bool?, score: Int?){
+        if opponentScoreForCurrentRound == nil{
+            return (nil, nil)
+        }
+        else{
+            //TODO: Calculate score.
+            return (true, 1283152)
+        }
+    }
+    
+    func endRound(equations: [String], finalResult: Int, roundScore: Int?, player0DidWin: Bool?){
+        GCTurnBasedMatchHelper.sharedInstance.saveRoundData(equations, playerResultForRound: finalResult, finalRoundScore: roundScore, player0DidWin: nil)
+        //Save round information to database.
+    }
+    
+    func endGame(){
+        //End of game functions
+        GCTurnBasedMatchHelper.sharedInstance.myMatch = nil
+        
+    }
     
     func generateTarget(){
         var newTarget = arc4random_uniform(900)
         newTarget += 100
         target = Int(newTarget)
     }
-    //Use input values to generate a target value
+   
+//    
+//    func getScore(userResult : Int) -> (Int){
+//        return 9001
+//    }
+}
+
+//Use input values to generate a target value
 //    func generateTarget(){
 //        target = 0
 //        var values = Array<Int>()
@@ -88,14 +120,9 @@ class RoundHandler: NSObject {
 //                target! += num
 //                values.removeAtIndex(randomIndex)
 //            }
-//            
+//
 //        }
-//        
+//
 //    }
-    
-    
-    
-    func getScore(userResult : Int) -> (Int){
-        return 9001
-    }
-}
+
+

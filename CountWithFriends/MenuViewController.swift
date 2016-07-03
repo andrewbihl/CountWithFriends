@@ -50,8 +50,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate {
 //            }
 //        }
         matchHelper?.joinOrStartRandomGame()
-
-        //performSegueWithIdentifier("startGameSegue", sender: sender)
+        performSegueWithIdentifier("startGameSegue", sender: sender)
     }
 
 }

@@ -14,13 +14,12 @@ protocol GCTurnBasedMatchHelperDelegate {
     func didJoinOrCreateMatch(match:GKTurnBasedMatch)
 }
 
-class GCTurnBasedMatchHelper: NSObject {
+class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
     static let sharedInstance = GCTurnBasedMatchHelper()
     var menuViewController : UIViewController?
     var userAuthenticated = false
     var delegate : GCTurnBasedMatchHelperDelegate?
     var myMatch : GKTurnBasedMatch?
-    
     override init(){
         super.init()
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -39,23 +38,29 @@ class GCTurnBasedMatchHelper: NSObject {
             }
             else if match != nil{
                 self.myMatch = match!
+                var matchDataDict = Dictionary<String,AnyObject>()
                 if match?.participants?[1].player == nil {
                     print("Created a new match")
+                    matchDataDict.updateValue(0, forKey: "player1Score")
+                    matchDataDict.updateValue(0, forKey: "player2Score")
+                    //Fill in data for local user as "player1"
                 }else{
                     print("Found a match!")
+                    //Fill in data for local user as "player2"
                 }
-
-                let playerNameAsData = NSData(base64EncodedString: "TEST", options: .IgnoreUnknownCharacters)
+                
+                let updatedMatchData = NSKeyedArchiver.archivedDataWithRootObject(matchDataDict)
+                
                 match?.saveCurrentTurnWithMatchData(NSData(), completionHandler: { (error: NSError?) in
                     if error != nil{
                         print("Error in saving data: \(error)")
                     } else{
-                        match?.endTurnWithNextParticipants((match!.participants)!, turnTimeout: 3600, matchData: playerNameAsData!, completionHandler: { (error: NSError?) in
+                        match?.endTurnWithNextParticipants((match!.participants)!, turnTimeout: 3600, matchData: updatedMatchData, completionHandler: { (error: NSError?) in
                             if error != nil{
                                 print("WHAT THE FUCKK")
                             }else{
                                 
-                                self.delegate?.didJoinOrCreateMatch(self.myMatch!)
+                                self.delegate?.didJoinOrCreateMatch(match!)
                             }
                         })
                     }
@@ -73,6 +78,19 @@ class GCTurnBasedMatchHelper: NSObject {
             print("Authentication changed: user no longer authenticated")
             userAuthenticated = false
         }
+    }
+    
+    func saveRoundData(equations:[String], playerResultForRound: Int, finalRoundScore: Int?, player0DidWin: Bool?){
+        //Store information about round in GameCenter database
+    }
+    
+    func player(player: GKPlayer, wantsToQuitMatch match: GKTurnBasedMatch) {
+        //What to do when other player quits. This ends the other player's turn, making the local player the active participant.
+    }
+    
+    func player(player: GKPlayer, matchEnded match: GKTurnBasedMatch) {
+        //What to do when the game has ended on the other player's turn.
+        //Display win/loss message, final scores, potential rematch message
     }
     
     func authenticateLocalUser(){
