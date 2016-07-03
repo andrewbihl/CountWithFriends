@@ -38,9 +38,9 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidAppear(animated)
         
         let viewSize = self.targetLabel.layer.frame.size.height
-        let view = ClockView(frame: CGRectMake(0, 0, viewSize, viewSize))
+        let view = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
         view.delegate = self
-        view.frame = CGRect(x: self.view.frame.size.width - (20 + viewSize), y: 27, width: viewSize, height: viewSize)
+        view.frame = CGRect(x: 15, y: 27+55, width: viewSize, height: viewSize)
         
         view.setTimer(60)
         view.startClockTimer()
