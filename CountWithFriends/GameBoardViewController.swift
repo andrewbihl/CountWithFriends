@@ -14,6 +14,9 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var gameNumberButtons: [UIButton]!
     @IBOutlet var gameOperatorButtons: [UIButton]!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var finishButton: UIButton!
+    
+    
     var myRoundHandler: RoundHandler?
     var operations: [Operation]? = []
     var clockView: ClockView?
@@ -30,6 +33,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.superview!.layer.shadowOpacity = 0.5
         tableView.superview!.layer.shadowOffset = CGSizeZero
         tableView.superview!.layer.shadowRadius = 3
+        finishButton.enabled = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -67,7 +71,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         let currentOp = operations![operations!.count-1]
         currentOp.addOperand((sender.titleLabel?.text)!, button: sender)
         currentOp.checkOperation()
-        
+        finishButton.enabled = shouldEnableFinished()
         tableView.reloadData()
 
     }
@@ -82,7 +86,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         let currentOp = operations![operations!.count-1]
         currentOp.operation = (sender.titleLabel?.text)!
         currentOp.checkOperation()
-        
+
         tableView.reloadData()
     }
     
@@ -92,6 +96,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             removedOperation.firstButton?.enabled = true
             removedOperation.secondButton?.enabled = true
         }
+        finishButton.enabled = false
         tableView.reloadData()
     }
     
@@ -104,10 +109,11 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
                 undoOperation.undoAction()
                 undoOperation.checkOperation()
             }
+            finishButton.enabled = shouldEnableFinished()
             tableView.reloadData()
         }
     }
-
+    
     @IBAction func onFinishedGameTapped(sender: AnyObject) {
         clockView!.stopTimer()
         let timeRemaining = Int(clockView!.label.text!)
@@ -140,6 +146,17 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             roundEquations.append(op.asString())
         }
         myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
+    }
+    
+    func shouldEnableFinished() -> Bool {
+        if operations?.count <= 4 {
+            return false
+        } else if let second = operations?.last?.secondButton {
+            if !second.enabled {
+                return true
+            }
+        }
+        return false
     }
     
     //TableView functions
@@ -186,6 +203,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         let currentOp = operations![operations!.count-1]
         currentOp.addOperand((button.titleLabel?.text)!, button: button)
         currentOp.checkOperation()
+        finishButton.enabled = shouldEnableFinished()
         tableView.reloadData()
     }
     

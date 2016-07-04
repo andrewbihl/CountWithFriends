@@ -17,6 +17,7 @@ class Operation: NSObject {
     var operation: NSString = ""
     var outputValue: NSString = ""
     var showOperation = false
+    var breaksRules = false
     
     func addOperand(operand: String, button: UIButton) {
         if firstOperand == "" && button.enabled {
@@ -54,6 +55,15 @@ class Operation: NSObject {
             self.operate()
         } else {
             showOperation = false
+        }
+    }
+    
+    func checkOutput() {
+        if outputValue.integerValue < 0 {
+            breaksRules = true
+            outputValue = ""
+        } else {
+            breaksRules = false
         }
     }
     
