@@ -32,7 +32,7 @@ class Operation: NSObject {
     }
     
     func asString()->String{
-        return "\(firstOperand)\(operation)\(secondOperand)\(outputValue)"
+        return "\(firstOperand)\(operation)\(secondOperand)=\(outputValue)"
     }
     
     func undoAction() {

@@ -114,7 +114,8 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    @IBAction func onFinishedGameTapped(sender: AnyObject) {
+    @IBAction func onFinishedGameTapped(sender: UIButton) {
+        sender.enabled = false
         clockView!.stopTimer()
         let timeRemaining = Int(clockView!.label.text!)
         let finalResult = operations?.last?.outputValue.integerValue
