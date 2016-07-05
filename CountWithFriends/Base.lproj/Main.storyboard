@@ -34,10 +34,32 @@
                                     <action selector="onStartGameTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u8O-HO-Mu1"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vET-Sb-UPb">
+                                <rect key="frame" x="14" y="20" width="566" height="420"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="matchCell" id="OFH-Uu-WaL">
+                                        <rect key="frame" x="0.0" y="28" width="566" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OFH-Uu-WaL" id="yFz-va-YtI">
+                                            <rect key="frame" x="0.0" y="0.0" width="566" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="gLe-nC-lli"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Zif-sg-UPY"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="qfO-pV-S6W" secondAttribute="bottom" constant="20" id="8cZ-xD-75e"/>
+                            <constraint firstItem="vET-Sb-UPb" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Dhh-2n-vzp"/>
+                            <constraint firstItem="vET-Sb-UPb" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="EJ3-b8-VsC"/>
+                            <constraint firstItem="qfO-pV-S6W" firstAttribute="top" secondItem="vET-Sb-UPb" secondAttribute="bottom" constant="90" id="FiO-ch-045"/>
+                            <constraint firstItem="vET-Sb-UPb" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="GYJ-6v-R8w"/>
                             <constraint firstItem="qfO-pV-S6W" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="144" id="Pdu-Jt-7md"/>
                             <constraint firstItem="qfO-pV-S6W" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fAh-Nm-iFw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qfO-pV-S6W" secondAttribute="trailing" constant="144" id="jFA-I6-O0k"/>
@@ -51,6 +73,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Tq3-1f-6Vg"/>
                     <connections>
+                        <outlet property="tableView" destination="vET-Sb-UPb" id="rsb-Yv-Lzx"/>
                         <segue destination="myh-pP-3aX" kind="show" identifier="startOldGameSegue" id="pwQ-vx-2rL"/>
                         <segue destination="4Ja-8D-CZh" kind="show" identifier="startGameSegue" id="ucs-YW-CJo"/>
                     </connections>

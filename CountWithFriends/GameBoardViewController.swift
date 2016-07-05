@@ -163,6 +163,9 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             roundEquations.append(op.asString())
         }
         myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
+        
+        //segue back
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     func shouldEnableFinished() -> Bool {
