@@ -8,13 +8,17 @@
 
 import UIKit
 
-class GameBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate, ClockViewDelegate {
+
+class GameBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate, ClockViewDelegate, OperationDelegate,UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet var gameNumberButtons: [UIButton]!
     @IBOutlet var gameOperatorButtons: [UIButton]!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var finishButton: UIButton!
+    @IBOutlet weak var errorLabel: UILabel!
+    @IBOutlet weak var topBarView: UIView!
+    @IBOutlet weak var historyButton: UIButton!
     
     
     var myRoundHandler: RoundHandler?
@@ -36,12 +40,16 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         finishButton.enabled = false
     }
     
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         let viewSize = self.targetLabel.layer.frame.size.height
         clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
         clockView!.delegate = self
-        clockView!.frame = CGRect(x: 15, y: 27+55, width: viewSize, height: viewSize)
+        clockView!.frame = CGRect(x: 15, y: topBarView.frame.height + 27, width: viewSize, height: viewSize)
         
         clockView!.setTimer(60)
         //TODO: Start clock on user indication
@@ -69,8 +77,12 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         let currentOp = operations![operations!.count-1]
+        if currentOp.delegate == nil {
+            currentOp.delegate = self
+        }
         currentOp.addOperand((sender.titleLabel?.text)!, button: sender)
         currentOp.checkOperation()
+
         finishButton.enabled = shouldEnableFinished()
         tableView.reloadData()
 
@@ -84,9 +96,12 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         let currentOp = operations![operations!.count-1]
+        if currentOp.delegate == nil {
+            currentOp.delegate = self
+        }
         currentOp.operation = (sender.titleLabel?.text)!
-        currentOp.checkOperation()
 
+        currentOp.checkOperation()
         tableView.reloadData()
     }
     
@@ -96,6 +111,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             removedOperation.firstButton?.enabled = true
             removedOperation.secondButton?.enabled = true
         }
+        errorLabel.hidden = true
         finishButton.enabled = false
         tableView.reloadData()
     }
@@ -161,12 +177,18 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     //TableView functions
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return tableView.frame.size.height/5
+    }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return operations!.count;
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if tableView.restorationIdentifier! == "1" {
+            return UITableViewCell()
+        }
         let cell = tableView.dequeueReusableCellWithIdentifier("CellID", forIndexPath: indexPath) as! OperationTableViewCell
         let currentOp = operations![indexPath.row]
         cell.delegate = self
@@ -175,6 +197,17 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.operationLabel.text = currentOp.operation as String
         cell.secondOperandLabel.text = currentOp.secondOperand as String
         cell.outputValueButton.setTitle(currentOp.outputValue as String, forState: .Normal)
+        
+        if(currentOp.brokeRules) {
+            cell.firstOperandLabel.textColor = UIColor.redColor()
+            cell.operationLabel.textColor = UIColor.redColor()
+            cell.secondOperandLabel.textColor = UIColor.redColor()
+        } else {
+            cell.firstOperandLabel.textColor = UIColor.blackColor()
+            cell.operationLabel.textColor = UIColor.blackColor()
+            cell.secondOperandLabel.textColor = UIColor.blackColor()
+        }
+        
         cell.equalLabel.hidden = !currentOp.showOperation
         cell.outputValueButton.hidden = !currentOp.showOperation
         
@@ -185,6 +218,16 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         return cell
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "popoverSegue" {
+            let popoverViewController = segue.destinationViewController as! roundHistoryTableViewController
+            popoverViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
+            popoverViewController.popoverPresentationController!.delegate = self
+            popoverViewController.popoverPresentationController?.sourceView = historyButton
+            popoverViewController.popoverPresentationController?.sourceRect = historyButton.bounds
+        }
     }
     
     // Custom delegate methods for custom table cell
@@ -202,10 +245,18 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     
         let currentOp = operations![operations!.count-1]
+        if currentOp.delegate == nil {
+            currentOp.delegate = self
+        }
         currentOp.addOperand((button.titleLabel?.text)!, button: button)
         currentOp.checkOperation()
         finishButton.enabled = shouldEnableFinished()
         tableView.reloadData()
+    }
+    
+    func didBreakRules(operation: Operation, rule: String, broken: Bool) {
+        errorLabel.text = rule
+        errorLabel.hidden = broken
     }
     
     func timeExpired(sender: ClockView) {
