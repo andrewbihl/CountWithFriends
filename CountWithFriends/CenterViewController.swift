@@ -10,7 +10,6 @@ import UIKit
 
 protocol CenterViewControllerDelegate {
      func toggleRightPanel()
-//     func collapseSidePanels()
 }
 
 class CenterViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {

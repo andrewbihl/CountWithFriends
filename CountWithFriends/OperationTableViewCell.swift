@@ -34,7 +34,6 @@ class OperationTableViewCell: UITableViewCell {
         outputValueButton.layer.borderWidth = 1
         outputValueButton.layer.cornerRadius = 5
         //outputValueButton.titleEdgeInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
-        
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

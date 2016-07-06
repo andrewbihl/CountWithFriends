@@ -17,15 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        
-        let layout = UICollectionViewFlowLayout()
-        let menuCollectionView = CenterViewController(collectionViewLayout: layout)
-        
-        let containerViewController = ContainerViewController()
-        
-        window?.rootViewController = UINavigationController(rootViewController: menuCollectionView)
-        window!.makeKeyAndVisible()
+        //_ = GCTurnBasedMatchHelper()
+//        window = UIWindow(frame: UIScreen.mainScreen().bounds)
+//        let containerViewController = ContainerViewController()
+//        window!.rootViewController = containerViewController
+//        window!.makeKeyAndVisible()
+          
         return true
     }
 

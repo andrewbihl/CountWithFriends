@@ -9,35 +9,153 @@
 import UIKit
 import Foundation
 
+//Object created when a new round is begun in the user interface.
 class RoundHandler: NSObject {
     var target: Int?
     var inputNumbers: Array<Int>?
-    
+    var myMatchData: NSData?
+    var myMatchDataDict: Dictionary<String,AnyObject>?
+    var localPlayerIsPlayer0: Bool?
+    var opponentDisplayName: String?
+
     func startNewRound(numberOfInputValues: Int)->(){
-        inputNumbers = Array()
-        target = nil
+        if localPlayerIsPlayer0!{
+            var currentRoundInputs = Dictionary<String,AnyObject>()
+
+            //localPlayerIsPlayer0 --> it's a new round. Generate new numbers.
+            let generatedInputs = generateNewInputValues(numberOfInputValues)
+            target = generatedInputs.target
+            inputNumbers = generatedInputs.inputNumbers
+            currentRoundInputs.updateValue(target!, forKey: "target")
+            currentRoundInputs.updateValue(inputNumbers!, forKey: "inputNumbers")
+            
+            //Set up matchData for new game
+            if myMatchData?.length == 0{
+                myMatchDataDict = Dictionary<String, AnyObject>()
+                print("MatchData is nil")
+                myMatchDataDict?.updateValue([currentRoundInputs], forKey: "roundInputs")
+            }
+               
+            //Decode current matchData into Dictionary object
+            else{
+                myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
+                var existingRoundInputs = myMatchDataDict!["roundInputs"] as! Array<Dictionary<String,AnyObject>>
+                existingRoundInputs.append(currentRoundInputs)
+                myMatchDataDict?.updateValue(existingRoundInputs, forKey: "roundInputs")
+            }
+
+        }
+            
+        else{
+            myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
+            let roundInputs = myMatchDataDict!["roundInputs"] as! Array<Dictionary<String,AnyObject>>
+            let lastRoundInputs = roundInputs.last
+            target = lastRoundInputs!["target"] as! Int
+            inputNumbers = lastRoundInputs!["inputNumbers"] as! [Int]
+        }
+    }
+    
+    func generateNewInputValues(numberOfInputValues: Int)->(target: Int, inputNumbers: [Int]){
+        var targetResult : Int
+        var inputNumbersResult = Array<Int>()
         for _ in 1..<4{
             let newSmallNumber = Int(arc4random_uniform(9)+1)
-            inputNumbers!.append(newSmallNumber)
+            inputNumbersResult.append(newSmallNumber)
         }
-        while inputNumbers?.count < numberOfInputValues{
+        while inputNumbersResult.count < numberOfInputValues{
             //get number divisible by 5 between 10 and 95
             let newLargeNumber = Int(arc4random_uniform(18) + 1) * 5 + 5
             //No repeated large numbers
-            if !(inputNumbers?.contains(newLargeNumber))!{
-                inputNumbers!.append(newLargeNumber)
+            if !(inputNumbersResult.contains(newLargeNumber)){
+                inputNumbersResult.append(newLargeNumber)
             }
         }
-        generateTarget()
-    }
-    
-    
-    func generateTarget(){
         var newTarget = arc4random_uniform(900)
         newTarget += 100
-        target = Int(newTarget)
+        targetResult = Int(newTarget)
+        return (targetResult, inputNumbersResult)
     }
-    //Use input values to generate a target value
+    
+    func getPreviousRoundOperations()->[Dictionary<String,AnyObject>]{
+        let roundOperationsDict = myMatchDataDict!["roundOperations"] as! [Dictionary<String,AnyObject>]
+        return roundOperationsDict
+    }
+    
+    func getScoreIfRoundComplete(finalResult: Int, timeRemaining: Int)->(currentPlayerDidWin: Bool?, score: Int?){
+        guard let lastRoundOperations = myMatchDataDict!["roundOperations"]?.lastObject as? Dictionary<String,AnyObject> else{
+            return (nil, nil)
+        }
+        //Check if on new round (current round data not yet stored)
+        if lastRoundOperations.keys.contains("player1Operations"){
+            return (nil, nil)
+        }
+        else{
+            //TODO: Calculate score.
+            let opponentResult = lastRoundOperations["player0Result"] as! Int
+            let opponentTimeRemaining = lastRoundOperations["player0TimeRemaining"] as! Int
+            var localPlayerWon = true
+            let localPlayerDifference = target! - finalResult
+            let opponentDifference = target! - opponentResult
+            //if tie occured
+            if localPlayerDifference < opponentDifference{
+                localPlayerWon = true
+            }
+            else if localPlayerDifference > opponentDifference{
+                localPlayerWon = false
+            }
+            else{
+                if timeRemaining < opponentTimeRemaining{
+                    return (true, opponentTimeRemaining - timeRemaining)
+                }
+                else if timeRemaining > opponentTimeRemaining{
+                    return (false, timeRemaining - opponentTimeRemaining)
+                }
+                else{
+                    //True tie
+                    return (false, 0)
+                }
+            }
+            var resultDifference = (target! - finalResult)-(target! - opponentResult)
+            //localPlayer lost or Tied
+            resultDifference = abs(resultDifference)
+            var calculatedRoundScore = 100 + (5 * resultDifference)
+            if localPlayerWon{
+                calculatedRoundScore = calculatedRoundScore + opponentTimeRemaining - timeRemaining
+            }
+            else{
+                calculatedRoundScore = calculatedRoundScore + timeRemaining - opponentTimeRemaining
+            }
+            //Double score on bullseye
+            if finalResult == target! || opponentResult == target!{
+                calculatedRoundScore *= 2
+            }
+            return (localPlayerWon, calculatedRoundScore)
+        }
+    }
+    
+    func saveRoundData(equations: [String], finalResult: Int, player0ScoreSummand: Int, player1ScoreSummand: Int, timeRemaining: Int){
+        //Save round information to database.
+        GCTurnBasedMatchHelper.sharedInstance.saveRoundData(equations, finalResult: finalResult, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, localPlayerIsPlayer0: localPlayerIsPlayer0!, currentMatchDataObject: myMatchDataDict!, timeRemaining: timeRemaining)
+    }
+    
+    func endRound(){
+        //GCTurnBasedMatchHelper.sharedInstance.endRound(localPlayerIsPlayer0!)
+        GCTurnBasedMatchHelper.sharedInstance.myMatch = nil
+    }
+    
+    func endGame(){
+        //End of game functions
+        GCTurnBasedMatchHelper.sharedInstance.myMatch = nil
+        
+    }
+   
+//    
+//    func getScore(userResult : Int) -> (Int){
+//        return 9001
+//    }
+}
+
+//Use input values to generate a target value
 //    func generateTarget(){
 //        target = 0
 //        var values = Array<Int>()
@@ -88,14 +206,9 @@ class RoundHandler: NSObject {
 //                target! += num
 //                values.removeAtIndex(randomIndex)
 //            }
-//            
+//
 //        }
-//        
+//
 //    }
-    
-    
-    
-    func getScore(userResult : Int) -> (Int){
-        return 9001
-    }
-}
+
+
