@@ -1,39 +1,50 @@
 //
-//  roundHistoryTableViewController.swift
+//  RoundHistoryTableViewController.swift
 //  CountWithFriends
 //
-//  Created by Paul Lefebvre on 7/5/16.
+//  Created by Paul Lefebvre on 7/6/16.
 //  Copyright © 2016 Andrew Bihl. All rights reserved.
 //
 
 import UIKit
 
-class roundHistoryTableViewController: UITableViewController {
-
+class RoundHistoryTableViewController: UITableViewController {
+    
+    var previousOperations = [Dictionary<String,AnyObject>]()
+    var roundHandler: RoundHandler?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let previous = roundHandler?.getPreviousRoundOperations() {
+            print(previous)
+        }
     }
-    
+
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
         return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
         return 5
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "ROUND \(section + 1)"
+        return "ROUND \(section+1)"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCellID", forIndexPath: indexPath)
+
         cell.textLabel?.text = "TEST"
 
         return cell
     }
+ 
 
     /*
     // Override to support conditional editing of the table view.

@@ -21,6 +21,7 @@
 		A86CB5F41D24938F00EF1A43 /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */; };
 		A86CB5F61D249C6500EF1A43 /* Status.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A86CB5F51D249C6500EF1A43 /* Status.storyboard */; };
 		A86CB5F81D24A94F00EF1A43 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */; };
+		E6118E531D2D4DB800EACB2B /* RoundHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */; };
 		E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A61D217F0E00C515B9 /* MenuViewController.swift */; };
 		E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */; };
 		E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660BEE61D21E384002D9CB5 /* ClockView.swift */; };
@@ -44,6 +45,7 @@
 		A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
 		A86CB5F51D249C6500EF1A43 /* Status.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Status.storyboard; sourceTree = "<group>"; };
 		A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
+		E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewController.swift; sourceTree = "<group>"; };
 		E631B4A61D217F0E00C515B9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
 		E660BEE61D21E384002D9CB5 /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 		2F61D31C1D217A8600C9867F /* CountWithFriends */ = {
 			isa = PBXGroup;
 			children = (
+				E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */,
 				2F61D31D1D217A8600C9867F /* AppDelegate.swift */,
 				2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */,
 				2F61D3211D217A8600C9867F /* Main.storyboard */,
@@ -190,6 +193,7 @@
 				2F2DF8651D29BE23004292C3 /* DataREADME.text in Sources */,
 				E660BEEB1D2429C3002D9CB5 /* Operation.swift in Sources */,
 				2F4ABDD41D26D7140029A717 /* RoundHandler.swift in Sources */,
+				E6118E531D2D4DB800EACB2B /* RoundHistoryTableViewController.swift in Sources */,
 				2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */,
 				A86CB5F81D24A94F00EF1A43 /* CenterViewController.swift in Sources */,
 				E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */,
