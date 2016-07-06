@@ -19,9 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
+        let layout = UICollectionViewFlowLayout()
+        let menuCollectionView = CenterViewController(collectionViewLayout: layout)
+        
         let containerViewController = ContainerViewController()
         
-        window!.rootViewController = containerViewController
+        window?.rootViewController = UINavigationController(rootViewController: menuCollectionView)
         window!.makeKeyAndVisible()
         return true
     }

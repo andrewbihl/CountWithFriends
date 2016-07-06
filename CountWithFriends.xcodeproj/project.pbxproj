@@ -15,13 +15,17 @@
 		2F61D3251D217A8600C9867F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3241D217A8600C9867F /* Assets.xcassets */; };
 		2F61D3281D217A8600C9867F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */; };
 		2FA7C6DE1D241B620024EA2B /* GameMatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */; };
-		2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC844611D21957A003134A4 /* GameKitManager.swift */; };
 		2FD0DF311D22EA7100466ED3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD0DF301D22EA7100466ED3 /* GameKit.framework */; };
 		2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */; };
+		A804F1291D299AA000835D9E /* MenuCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A804F1281D299AA000835D9E /* MenuCollectionViewController.swift */; };
+		A80FC6C31D2D56280030BF05 /* GameMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */; };
+		A80FC6C61D2D654D0030BF05 /* PlayerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80FC6C41D2D654D0030BF05 /* PlayerCollectionViewController.swift */; };
+		A80FC6C71D2D654D0030BF05 /* OpponentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80FC6C51D2D654D0030BF05 /* OpponentCollectionViewController.swift */; };
 		A86CB5F01D24914400EF1A43 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */; };
 		A86CB5F41D24938F00EF1A43 /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */; };
 		A86CB5F61D249C6500EF1A43 /* Status.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A86CB5F51D249C6500EF1A43 /* Status.storyboard */; };
 		A86CB5F81D24A94F00EF1A43 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */; };
+		A8CDC6C41D29C22C00B467E1 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CDC6C31D29C22C00B467E1 /* CategoryCell.swift */; };
 		E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A61D217F0E00C515B9 /* MenuViewController.swift */; };
 		E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */; };
 		E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E660BEE61D21E384002D9CB5 /* ClockView.swift */; };
@@ -39,13 +43,17 @@
 		2F61D3271D217A8600C9867F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F61D3291D217A8600C9867F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchingViewController.swift; sourceTree = "<group>"; };
-		2FC844611D21957A003134A4 /* GameKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitManager.swift; sourceTree = "<group>"; };
 		2FD0DF301D22EA7100466ED3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCTurnBasedMatchHelper.swift; sourceTree = "<group>"; };
+		A804F1281D299AA000835D9E /* MenuCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewController.swift; sourceTree = "<group>"; };
+		A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameMenu.storyboard; sourceTree = "<group>"; };
+		A80FC6C41D2D654D0030BF05 /* PlayerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewController.swift; sourceTree = "<group>"; };
+		A80FC6C51D2D654D0030BF05 /* OpponentCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpponentCollectionViewController.swift; sourceTree = "<group>"; };
 		A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
 		A86CB5F51D249C6500EF1A43 /* Status.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Status.storyboard; sourceTree = "<group>"; };
 		A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
+		A8CDC6C31D29C22C00B467E1 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		E631B4A61D217F0E00C515B9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardViewController.swift; sourceTree = "<group>"; };
 		E660BEE61D21E384002D9CB5 /* ClockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
@@ -85,26 +93,54 @@
 			isa = PBXGroup;
 			children = (
 				2F61D31D1D217A8600C9867F /* AppDelegate.swift */,
-				2F61D31F1D217A8600C9867F /* ViewController.swift */,
-				2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */,
-				2FC844611D21957A003134A4 /* GameKitManager.swift */,
-				2F61D3211D217A8600C9867F /* Main.storyboard */,
-				A86CB5F51D249C6500EF1A43 /* Status.storyboard */,
-				A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */,
-				A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */,
-				2F4ABDD31D26D7140029A717 /* RoundHandler.swift */,
-				A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */,
-				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
-				E660BEEA1D2429C3002D9CB5 /* Operation.swift */,
-				E660BEE61D21E384002D9CB5 /* ClockView.swift */,
-				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
+				A80FC6C41D2D654D0030BF05 /* PlayerCollectionViewController.swift */,
+				A80FC6C51D2D654D0030BF05 /* OpponentCollectionViewController.swift */,
+				A80FC6BF1D2D52440030BF05 /* Model */,
+				A80FC6C11D2D52780030BF05 /* Controller */,
+				A8CDC6C31D29C22C00B467E1 /* CategoryCell.swift */,
 				2F4ABDD11D26D5C30029A717 /* OperationTableViewCell.swift */,
-				2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */,
+				A80FC6C01D2D52610030BF05 /* View */,
 				2F61D3241D217A8600C9867F /* Assets.xcassets */,
 				2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */,
 				2F61D3291D217A8600C9867F /* Info.plist */,
 			);
 			path = CountWithFriends;
+			sourceTree = "<group>";
+		};
+		A80FC6BF1D2D52440030BF05 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E660BEEA1D2429C3002D9CB5 /* Operation.swift */,
+				2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */,
+				2F4ABDD31D26D7140029A717 /* RoundHandler.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A80FC6C01D2D52610030BF05 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E660BEE61D21E384002D9CB5 /* ClockView.swift */,
+				A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */,
+				A86CB5F51D249C6500EF1A43 /* Status.storyboard */,
+				2F61D3211D217A8600C9867F /* Main.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		A80FC6C11D2D52780030BF05 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2F61D31F1D217A8600C9867F /* ViewController.swift */,
+				A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */,
+				A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */,
+				A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */,
+				A804F1281D299AA000835D9E /* MenuCollectionViewController.swift */,
+				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
+				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
+				2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,6 +214,7 @@
 				2F61D3281D217A8600C9867F /* LaunchScreen.storyboard in Resources */,
 				2F61D3251D217A8600C9867F /* Assets.xcassets in Resources */,
 				2F61D3231D217A8600C9867F /* Main.storyboard in Resources */,
+				A80FC6C31D2D56280030BF05 /* GameMenu.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +225,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FC844621D21957A003134A4 /* GameKitManager.swift in Sources */,
 				A86CB5F41D24938F00EF1A43 /* SidePanelViewController.swift in Sources */,
 				2F4ABDD21D26D5C30029A717 /* OperationTableViewCell.swift in Sources */,
 				2F61D3201D217A8600C9867F /* ViewController.swift in Sources */,
@@ -196,8 +232,12 @@
 				2F4ABDD41D26D7140029A717 /* RoundHandler.swift in Sources */,
 				2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */,
 				A86CB5F81D24A94F00EF1A43 /* CenterViewController.swift in Sources */,
+				A80FC6C61D2D654D0030BF05 /* PlayerCollectionViewController.swift in Sources */,
 				E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */,
+				A80FC6C71D2D654D0030BF05 /* OpponentCollectionViewController.swift in Sources */,
+				A804F1291D299AA000835D9E /* MenuCollectionViewController.swift in Sources */,
 				2FA7C6DE1D241B620024EA2B /* GameMatchingViewController.swift in Sources */,
+				A8CDC6C41D29C22C00B467E1 /* CategoryCell.swift in Sources */,
 				E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */,
 				E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */,
 				A86CB5F01D24914400EF1A43 /* ContainerViewController.swift in Sources */,
