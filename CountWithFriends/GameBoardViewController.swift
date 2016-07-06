@@ -172,7 +172,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         if operations?.count <= 4 {
             return false
         } else if let second = operations?.last?.secondButton {
-            if !second.enabled {
+            if !second.enabled && !operations!.last!.brokeRules {
                 return true
             }
         }
@@ -225,11 +225,12 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "popoverSegue" {
-            let popoverViewController = segue.destinationViewController as! roundHistoryTableViewController
+            let popoverViewController = segue.destinationViewController as! RoundHistoryTableViewController
             popoverViewController.modalPresentationStyle = UIModalPresentationStyle.Popover
             popoverViewController.popoverPresentationController!.delegate = self
             popoverViewController.popoverPresentationController?.sourceView = historyButton
             popoverViewController.popoverPresentationController?.sourceRect = historyButton.bounds
+            popoverViewController.roundHandler = self.myRoundHandler
         }
     }
     
