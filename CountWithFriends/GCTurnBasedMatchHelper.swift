@@ -33,6 +33,7 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
             if error != nil{
                 print("There was a problem resuming the match: \n\(error)")
             }else{
+                self.myMatch = match!
                 self.delegate?.didJoinOrCreateMatch(match!)
             }
         }
@@ -138,6 +139,7 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                 print("Data saved for round")
                 self.endRound(localPlayerIsPlayer0)
             }
+            self.myMatch = nil
         })
     }
     
@@ -181,7 +183,7 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                     var opponentName : String?
                     print(match.participants)
                     for participant in match.participants!{
-                        if participant != GKLocalPlayer.localPlayer(){
+                        if participant.playerID != GKLocalPlayer.localPlayer().playerID{
                             opponentName = participant.player?.displayName
                         }
                     }

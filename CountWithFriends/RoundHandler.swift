@@ -19,6 +19,7 @@ class RoundHandler: NSObject {
     var opponentDisplayName: String?
 
     func startNewRound(numberOfInputValues: Int)->(){
+        print("localPlayerIsPlayer0: \(localPlayerIsPlayer0!)")
         if localPlayerIsPlayer0!{
             var currentRoundInputs = Dictionary<String,AnyObject>()
 
@@ -76,8 +77,8 @@ class RoundHandler: NSObject {
         return (targetResult, inputNumbersResult)
     }
     
-    func getPreviousRoundOperations()->[Dictionary<String,AnyObject>]{
-        let roundOperationsDict = myMatchDataDict!["roundOperations"] as! [Dictionary<String,AnyObject>]
+    func getPreviousRoundOperations()->[Dictionary<String,AnyObject>]?{
+        let roundOperationsDict = myMatchDataDict!["roundOperations"] as? [Dictionary<String,AnyObject>]
         return roundOperationsDict
     }
     
@@ -135,7 +136,15 @@ class RoundHandler: NSObject {
     
     func saveRoundData(equations: [String], finalResult: Int, player0ScoreSummand: Int, player1ScoreSummand: Int, timeRemaining: Int){
         //Save round information to database.
-        GCTurnBasedMatchHelper.sharedInstance.saveRoundData(equations, finalResult: finalResult, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, localPlayerIsPlayer0: localPlayerIsPlayer0!, currentMatchDataObject: myMatchDataDict!, timeRemaining: timeRemaining)
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            GCTurnBasedMatchHelper.sharedInstance.saveRoundData(equations, finalResult: finalResult, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, localPlayerIsPlayer0: self.localPlayerIsPlayer0!, currentMatchDataObject: self.myMatchDataDict!, timeRemaining: timeRemaining)
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                print("This is run on the main queue, after the previous code in outer block")
+            })
+        })
     }
     
     func endRound(){

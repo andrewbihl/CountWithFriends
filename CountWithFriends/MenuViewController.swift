@@ -9,7 +9,7 @@
 import UIKit
 import GameKit
 
-class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITableViewDelegate, UITableViewDataSource {
+class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITableViewDelegate, UITableViewDataSource, GKTurnBasedEventListener {
     @IBOutlet weak var tableView: UITableView!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
@@ -17,12 +17,17 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        matchHelper = GCTurnBasedMatchHelper.sharedInstance
+        matchHelper!.delegate = self
+        matchHelper!.authenticateLocalUser()
     }
     
     override func viewWillAppear(animated: Bool) {
-        matchHelper = GCTurnBasedMatchHelper.sharedInstance
-        matchHelper!.delegate = self 
-        matchHelper!.authenticateLocalUser()
+        
+    }
+    
+    func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
+        print("It's YOUR TURN!!!!!!!!")
     }
     
     func attemptGameCenterLogin(loginView: UIViewController) {
