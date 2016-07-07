@@ -136,11 +136,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         if gameWinResult?.localPlayerScore != nil{
             var gameOverAlert: UIAlertController
             if gameWinResult!.localPlayerScore > gameWinResult!.opponentScore{
+                myRoundHandler?.setPlayerOutcomes(true)
                 print("I WON THE GAME WITH A SCORE OF \(gameWinResult!.localPlayerScore). Opponent had score of \(gameWinResult!.opponentScore)")
                 
-                gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult!.localPlayerScore) vs your opponent's score of \(gameWinResult!.opponentScore)", preferredStyle: .Alert)
+                gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult!.localPlayerScore!) vs your opponent's score of \(gameWinResult!.opponentScore!)", preferredStyle: .Alert)
                 
             }else{
+                myRoundHandler?.setPlayerOutcomes(false)
                 print("I LOST THE GAME WITH A SCORE OF \(gameWinResult!.localPlayerScore!). Opponent had score of \(gameWinResult!.opponentScore!)")
                 gameOverAlert = UIAlertController(title: "You Won the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult!.opponentScore!) vs your shitty score of \(gameWinResult!.localPlayerScore!)", preferredStyle: .Alert)
             }

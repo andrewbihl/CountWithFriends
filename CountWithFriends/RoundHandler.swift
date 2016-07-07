@@ -100,6 +100,14 @@ class RoundHandler: NSObject {
         }
     }
     
+    func setPlayerOutcomes(localPlayerDidWin: Bool){
+        if localPlayerDidWin{
+            GCTurnBasedMatchHelper.sharedInstance.setPlayerOutcomes(localPlayerIsPlayer0!)
+        } else{
+            GCTurnBasedMatchHelper.sharedInstance.setPlayerOutcomes(!localPlayerIsPlayer0!)
+        }
+    }
+    
     func getScoreIfRoundComplete(finalResult: Int, timeRemaining: Int)->(currentPlayerDidWin: Bool?, score: Int?){
         guard let lastRoundOperations = myMatchDataDict!["roundOperations"]?.lastObject as? Dictionary<String,AnyObject> else{
             return (nil, nil)

@@ -160,6 +160,16 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         }
     }
     
+    func setPlayerOutcomes(player0DidWin: Bool){
+        if player0DidWin{
+            myMatch?.participants![0].matchOutcome = .Won
+            myMatch?.participants![1].matchOutcome = .Lost
+        }else{
+            myMatch?.participants![1].matchOutcome = .Won
+            myMatch?.participants![0].matchOutcome = .Lost
+        }
+    }
+    
     func endGame(){
         myMatch?.endMatchInTurnWithMatchData((myMatch?.matchData)!, completionHandler: nil)
     }
