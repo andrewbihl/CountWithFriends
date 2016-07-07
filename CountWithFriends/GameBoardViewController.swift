@@ -53,7 +53,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         clockView!.setTimer(60)
         //TODO: Start clock on user indication
-        //view.startClockTimer()
+        clockView!.startClockTimer()
         self.view.addSubview(clockView!)
     }
     
@@ -159,8 +159,12 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBAction func onFinishedGameTapped(sender: UIButton) {
         sender.enabled = false
         clockView!.stopTimer()
+        self.finishedRound()
+    }
+    
+    func finishedRound() {
         let timeRemaining = Int(clockView!.label.text!)
-        let finalResult = operations?.last?.outputValue.integerValue
+        let finalResult = (operations?.last?.outputValue.integerValue != nil) ? operations?.last?.outputValue.integerValue : 0
         let scoreReturn = myRoundHandler?.getScoreIfRoundComplete(finalResult!, timeRemaining: timeRemaining!)
         var player0ScoreSummand = 0
         var player1ScoreSummand = 0
@@ -176,7 +180,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
                     player1ScoreSummand += scoreReturn!.score!
                 }
             }
-            //if opponent won...
+                //if opponent won...
             else{
                 if myRoundHandler!.localPlayerIsPlayer0!{
                     player1ScoreSummand += scoreReturn!.score!
@@ -185,7 +189,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
                     player0ScoreSummand += scoreReturn!.score!
                 }
             }
-
+            
         }
         var roundEquations = Array<String>()
         for op in operations!{
@@ -297,7 +301,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func timeExpired(sender: ClockView) {
-        print("You Failed")
+        self.finishedRound()
     }
     
 }
