@@ -159,6 +159,10 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
             }
         }
     }
+    
+    func endGame(){
+        myMatch?.endMatchInTurnWithMatchData((myMatch?.matchData)!, completionHandler: nil)
+    }
         
     func player(player: GKPlayer, wantsToQuitMatch match: GKTurnBasedMatch) {
         //What to do when other player quits. This ends the other player's turn, making the local player the active participant.

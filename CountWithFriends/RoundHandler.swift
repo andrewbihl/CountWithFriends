@@ -82,6 +82,24 @@ class RoundHandler: NSObject {
         return roundOperationsDict
     }
     
+    //Return player's score and opponents score, or nil for both if final round was not finished.
+    //Only called by 2nd player at end of a round
+    func getGameFinalScores()->(localPlayerScore: Int?, opponentScore: Int?){
+        //Check if just played Round 3
+        if (myMatchDataDict!["roundInputs"]!.count >= 3){
+            print("END OF GAME!")
+            let playerScores = myMatchDataDict!["playerScores"] as! [Int]
+            if localPlayerIsPlayer0!{
+                return (localPlayerScore: playerScores[0], opponentScore: playerScores[1])
+            }else{
+                return (localPlayerScore: playerScores[1], opponentScore: playerScores[0])
+            }
+        }
+        else{
+            return (localPlayerScore: nil, opponentScore: nil)
+        }
+    }
+    
     func getScoreIfRoundComplete(finalResult: Int, timeRemaining: Int)->(currentPlayerDidWin: Bool?, score: Int?){
         guard let lastRoundOperations = myMatchDataDict!["roundOperations"]?.lastObject as? Dictionary<String,AnyObject> else{
             return (nil, nil)
@@ -149,11 +167,11 @@ class RoundHandler: NSObject {
     
     func endRound(){
         //GCTurnBasedMatchHelper.sharedInstance.endRound(localPlayerIsPlayer0!)
-        GCTurnBasedMatchHelper.sharedInstance.myMatch = nil
     }
     
     func endGame(){
         //End of game functions
+        GCTurnBasedMatchHelper.sharedInstance.endGame()
         GCTurnBasedMatchHelper.sharedInstance.myMatch = nil
         
     }
