@@ -50,13 +50,15 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
                 newOpponentName = participant.player!.displayName!
             }
         }
+        newOpponentName = newOpponentName.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
         //should be yourMatches array in actual menu view controller
         //existingMatches.append((matchID: newMatchID, opponentDisplayName: newOpponentName))
         //TODO: UPDATE OPPONENT'S NAME FOR CASE of change from "Waiting for other player to join" -> Name
         for i in 0..<theirTurnMatches.count{
-            let existingMatch = theirTurnMatches[i]
+            var existingMatch = theirTurnMatches[i]
             if existingMatch.matchID == match.matchID{
                 theirTurnMatches.removeAtIndex(i)
+                existingMatch.opponentDisplayName = newOpponentName
                 yourTurnMatches.append(existingMatch)
                 self.tableView.reloadData()
                 return
