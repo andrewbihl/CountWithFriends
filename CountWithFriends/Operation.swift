@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol OperationDelegate: class {
+    
+    func didBreakRules(operation: Operation, rule: String, broken: Bool)
+}
+
 class Operation: NSObject {
     
     var firstOperand: NSString = ""
@@ -17,6 +22,8 @@ class Operation: NSObject {
     var operation: NSString = ""
     var outputValue: NSString = ""
     var showOperation = false
+    var brokeRules = false
+    var delegate: OperationDelegate?
     
     func addOperand(operand: String, button: UIButton) {
         if firstOperand == "" && button.enabled {
@@ -28,6 +35,10 @@ class Operation: NSObject {
             secondButton = button
             secondButton?.enabled = false
         }
+    }
+    
+    func asString()->String{
+        return "\(firstOperand)\(operation)\(secondOperand)=\(outputValue)"
     }
     
     func undoAction() {
@@ -53,14 +64,31 @@ class Operation: NSObject {
         }
     }
     
+    func checkOutput() {
+        if outputValue.integerValue < 0 {
+            showOperation = false
+            brokeRules = true
+            delegate?.didBreakRules(self, rule: "No negative values", broken: false)
+        } else if outputValue.floatValue % 1 != 0{
+            showOperation = false
+            brokeRules = true
+            delegate?.didBreakRules(self, rule: "No decimal values", broken: false)
+        } else {
+            brokeRules = false
+            delegate?.didBreakRules(self, rule: "",broken: true)
+            outputValue = "\(outputValue.intValue)"
+        }
+    }
+    
     func operate() {
         switch operation {
         case "+": outputValue = "\(firstOperand.intValue + secondOperand.intValue)"
         case "-": outputValue = "\(firstOperand.intValue - secondOperand.intValue)"
         case "x": outputValue = "\(firstOperand.intValue * secondOperand.intValue)"
-        case "/": outputValue = "\(firstOperand.intValue / secondOperand.intValue)"
+        case "/": outputValue = "\(firstOperand.floatValue / secondOperand.floatValue)"
         default: break
         }
+        checkOutput()
     }
 
 }

@@ -21,6 +21,7 @@ class OperationTableViewCell: UITableViewCell {
     @IBOutlet weak var outputValueButton: UIButton!
     @IBOutlet weak var removeRowButton: UIButton!
     @IBOutlet weak var equalLabel: UILabel!
+    @IBOutlet weak var operationDisplayConstraint: NSLayoutConstraint!
     
     var delegate: OperationTableViewCellDelegate?
     
@@ -34,7 +35,7 @@ class OperationTableViewCell: UITableViewCell {
         outputValueButton.layer.borderWidth = 1
         outputValueButton.layer.cornerRadius = 5
         //outputValueButton.titleEdgeInsets = UIEdgeInsets(top: 0.5, left: 0.5, bottom: 0.5, right: 0.5)
-        
+        operationDisplayConstraint.constant = UIScreen.mainScreen().bounds.width * 0.16
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

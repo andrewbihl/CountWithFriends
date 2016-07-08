@@ -18,10 +18,10 @@ class ClockView: UIView {
     private var shapeLayer = CAShapeLayer()
     private var countDownTimer = NSTimer()
     private var timerValue = 900
-    private var label = UILabel()
+    var label = UILabel()
     private var circleCenter = CGPoint()
     private var circleRadius = CGFloat()
-    
+    private var hasStopped = false
     var delegate: ClockViewDelegate?
     
     override init(frame: CGRect) {
@@ -82,6 +82,9 @@ class ClockView: UIView {
     }
     
     @objc private func countdown(dt: NSTimer) {
+        if hasStopped {
+            self.countDownTimer.invalidate()
+        }
         self.timerValue -= 1
         if self.timerValue < 0 {
             self.countDownTimer.invalidate()
@@ -95,6 +98,10 @@ class ClockView: UIView {
     func setTimer(value: Int) {
         self.timerValue = value
         self.updateLabel(value)
+    }
+    
+    func stopTimer() {
+        hasStopped = true
     }
     
     func startClockTimer() {

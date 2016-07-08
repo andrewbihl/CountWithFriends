@@ -28,29 +28,19 @@ class ContainerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         centerViewController = UIStoryboard.centerViewController()
         centerViewController.delegate = self
-        
         // wrap the centerViewController in a navigation controller, so we can push views to it
         // and display bar button items in the navigation bar
         centerNavigationController = UINavigationController(rootViewController: centerViewController)
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
-        
         centerNavigationController.didMoveToParentViewController(self)
-
     }
-
 }
-
-
-
 // MARK: CenterViewController delegate
 
 extension ContainerViewController: CenterViewControllerDelegate {
-    
-    
     func toggleRightPanel() {
         let notAlreadyExpanded = (currentState != .RightPanelExpanded)
         
@@ -59,8 +49,6 @@ extension ContainerViewController: CenterViewControllerDelegate {
         }
         animateRightPanel(notAlreadyExpanded)
     }
-    
-    
     
     func addChildSidePanelController(sidePanelController: SidePanelViewController) {
         view.insertSubview(sidePanelController.view, atIndex: 0)
@@ -72,8 +60,6 @@ extension ContainerViewController: CenterViewControllerDelegate {
     func addRightPanelViewController() {
         if (rightViewController == nil) {
             rightViewController = UIStoryboard.rightViewController()
-//            leftViewController!.animals = Animal.allCats()
-//            rightViewController?.placeHolderText = 
             
             addChildSidePanelController(rightViewController!)
         }
@@ -88,7 +74,6 @@ extension ContainerViewController: CenterViewControllerDelegate {
         } else {
             animateCenterPanelXPosition(0) { _ in
                 self.currentState = .BothCollapsed
-                
                 self.rightViewController!.view.removeFromSuperview()
                 self.rightViewController = nil;
             }
@@ -96,14 +81,12 @@ extension ContainerViewController: CenterViewControllerDelegate {
         
     }
     
-    
     func animateCenterPanelXPosition(targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
             self.centerNavigationController.view.frame.origin.x = targetPosition
             }, completion: completion)
     }
 
-    
     func showShadowForCenterViewController(shouldShowShadow: Bool) {
         if (shouldShowShadow) {
             centerNavigationController.view.layer.shadowOpacity = 0.8
@@ -114,15 +97,8 @@ extension ContainerViewController: CenterViewControllerDelegate {
 
 }
 
-
-
-
 private extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Status", bundle: NSBundle.mainBundle()) }
-    
-    class func leftViewController() -> SidePanelViewController? {
-        return mainStoryboard().instantiateViewControllerWithIdentifier("LeftViewController") as? SidePanelViewController
-    }
     
     class func rightViewController() -> SidePanelViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("RightViewController") as? SidePanelViewController
@@ -131,5 +107,4 @@ private extension UIStoryboard {
     class func centerViewController() -> CenterViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("CenterViewController") as? CenterViewController
     }
-    
 }
