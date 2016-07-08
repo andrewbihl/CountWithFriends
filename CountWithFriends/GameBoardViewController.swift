@@ -20,14 +20,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var historyButton: UIButton!
     
-    
     var myRoundHandler: RoundHandler?
     var operations: [Operation]? = []
     var clockView: ClockView?
+    var gameIsFinished = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        startNewRound()
         tableView.separatorColor = UIColor(red:0.74, green:0.84, blue:0.95, alpha:1.00)
         let tempImageView = UIImageView.init(image: UIImage.init(named: "Portrait"))
         tempImageView.frame = tableView.bounds
@@ -40,12 +39,14 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         finishButton.enabled = false
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.None
-    }
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        if !gameIsFinished{
+            startNewRound()
+        } else{
+            myRoundHandler?.generateMyMatchDataDict()
+            gameDidFinish()
+        }
         let viewSize = self.targetLabel.layer.frame.size.height
         clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
         clockView!.delegate = self
@@ -69,93 +70,42 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    @IBAction func onOperandTapped(sender: UIButton) {
-        if operations?.isEmpty == true {
-            operations!.append(Operation())
-        }else if operations![operations!.count-1].showOperation && operations!.count <= 4 {
-            operations!.append(Operation())
-        }
-        
-        let currentOp = operations![operations!.count-1]
-        if currentOp.delegate == nil {
-            currentOp.delegate = self
-        }
-        currentOp.addOperand((sender.titleLabel?.text)!, button: sender)
-        currentOp.checkOperation()
-
-        finishButton.enabled = shouldEnableFinished()
-        tableView.reloadData()
-
-    }
-    
-    @IBAction func onOperatorTapped(sender: UIButton) {
-        if operations?.isEmpty == true{
-            operations!.append(Operation())
-        } else if operations![operations!.count-1].showOperation && operations!.count <= 4 {
-            operations!.append(Operation())
-        }
-        
-        let currentOp = operations![operations!.count-1]
-        if currentOp.delegate == nil {
-            currentOp.delegate = self
-        }
-        currentOp.operation = (sender.titleLabel?.text)!
-
-        currentOp.checkOperation()
-        tableView.reloadData()
-    }
-    
-    @IBAction func onClearTapped(sender: AnyObject) {
-        for _ in 0..<operations!.count {
-            let removedOperation = operations!.removeLast()
-            removedOperation.firstButton?.enabled = true
-            removedOperation.secondButton?.enabled = true
-        }
-        errorLabel.hidden = true
-        finishButton.enabled = false
-        tableView.reloadData()
-    }
-    
-    @IBAction func onUndoTapped(sender: AnyObject) {
-        if operations!.isEmpty == false {
-            let undoOperation = operations!.last! as Operation
-            if undoOperation.firstOperand == "" {
-                operations!.removeLast()
-            } else {
-                undoOperation.undoAction()
-                undoOperation.checkOperation()
-            }
-            finishButton.enabled = shouldEnableFinished()
-            tableView.reloadData()
-        }
-    }
     
     func gameDidFinish()->Bool{
         //Get winner if game is over.
         let gameWinResult = myRoundHandler?.getGameFinalScores()
         if gameWinResult?.localPlayerScore != nil{
-            var gameOverAlert: UIAlertController
             if gameWinResult!.localPlayerScore > gameWinResult!.opponentScore{
                 myRoundHandler?.setPlayerOutcomes(true)
-                print("I WON THE GAME WITH A SCORE OF \(gameWinResult!.localPlayerScore). Opponent had score of \(gameWinResult!.opponentScore)")
-                
-                gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult!.localPlayerScore!) vs your opponent's score of \(gameWinResult!.opponentScore!)", preferredStyle: .Alert)
-                
+                presentGameOverMessage(true, gameWinResult: gameWinResult!)
             }else{
                 myRoundHandler?.setPlayerOutcomes(false)
-                print("I LOST THE GAME WITH A SCORE OF \(gameWinResult!.localPlayerScore!). Opponent had score of \(gameWinResult!.opponentScore!)")
-                gameOverAlert = UIAlertController(title: "You Won the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult!.opponentScore!) vs your shitty score of \(gameWinResult!.localPlayerScore!)", preferredStyle: .Alert)
+                presentGameOverMessage(false, gameWinResult: gameWinResult!)
             }
-            let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
-                self.dismissViewControllerAnimated(true, completion: nil)
-            })
-            gameOverAlert.addAction(dismissAction)
-            self.presentViewController(gameOverAlert, animated: true, completion: nil)
-            
             //-----------DISPLAY ANY RELEVANT CONTROLLERS/VIEW HERE------
             return true
         }
-        return false
+        else{
+            return false
+        }
+    }
+    
+    func presentGameOverMessage(localPlayerDidWin: Bool, gameWinResult:(localPlayerScore: Int?, opponentScore: Int?)){
+        var gameOverAlert: UIAlertController
+        if localPlayerDidWin{
+            print("I WON THE GAME WITH A SCORE OF \(gameWinResult.localPlayerScore). Opponent had score of \(gameWinResult.opponentScore)")
+            
+            gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult.localPlayerScore!) vs your opponent's score of \(gameWinResult.opponentScore!)", preferredStyle: .Alert)
+        }
+        else{
+            print("I LOST THE GAME WITH A SCORE OF \(gameWinResult.localPlayerScore!). Opponent had score of \(gameWinResult.opponentScore!)")
+            gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your shitty score of \(gameWinResult.localPlayerScore!)", preferredStyle: .Alert)
+        }
+        let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        gameOverAlert.addAction(dismissAction)
+        self.presentViewController(gameOverAlert, animated: true, completion: nil)
     }
     
     @IBAction func onFinishedGameTapped(sender: UIButton) {
@@ -197,14 +147,20 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         for op in operations!{
             roundEquations.append(op.asString())
         }
+        myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
         //if game is over
-        if gameDidFinish(){
+        //TODO: CHECK ONLY FOR END OF GAME IF ALSO END OF ROUND (move up into if statement)
+        if !myRoundHandler!.localPlayerIsPlayer0! && gameDidFinish(){
             myRoundHandler?.endGame()
         }
+        
         else{
-            myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
             dismissViewControllerAnimated(true, completion: nil)
         }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.None
     }
     
     func shouldEnableFinished() -> Bool {
@@ -216,6 +172,68 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
         return false
+    }
+    
+    //Math UI functions
+    @IBAction func onOperandTapped(sender: UIButton) {
+        if operations?.isEmpty == true {
+            operations!.append(Operation())
+        }else if operations![operations!.count-1].showOperation && operations!.count <= 4 {
+            operations!.append(Operation())
+        }
+        
+        let currentOp = operations![operations!.count-1]
+        if currentOp.delegate == nil {
+            currentOp.delegate = self
+        }
+        currentOp.addOperand((sender.titleLabel?.text)!, button: sender)
+        currentOp.checkOperation()
+        
+        finishButton.enabled = shouldEnableFinished()
+        tableView.reloadData()
+        
+    }
+    
+    @IBAction func onOperatorTapped(sender: UIButton) {
+        if operations?.isEmpty == true{
+            operations!.append(Operation())
+        } else if operations![operations!.count-1].showOperation && operations!.count <= 4 {
+            operations!.append(Operation())
+        }
+        
+        let currentOp = operations![operations!.count-1]
+        if currentOp.delegate == nil {
+            currentOp.delegate = self
+        }
+        currentOp.operation = (sender.titleLabel?.text)!
+        
+        currentOp.checkOperation()
+        tableView.reloadData()
+    }
+    
+    @IBAction func onClearTapped(sender: AnyObject) {
+        for _ in 0..<operations!.count {
+            let removedOperation = operations!.removeLast()
+            removedOperation.firstButton?.enabled = true
+            removedOperation.secondButton?.enabled = true
+        }
+        errorLabel.hidden = true
+        finishButton.enabled = false
+        tableView.reloadData()
+    }
+    
+    @IBAction func onUndoTapped(sender: AnyObject) {
+        if operations!.isEmpty == false {
+            let undoOperation = operations!.last! as Operation
+            if undoOperation.firstOperand == "" {
+                operations!.removeLast()
+            } else {
+                undoOperation.undoAction()
+                undoOperation.checkOperation()
+            }
+            finishButton.enabled = shouldEnableFinished()
+            tableView.reloadData()
+        }
     }
     
     //TableView functions
