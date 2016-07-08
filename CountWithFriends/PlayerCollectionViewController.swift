@@ -12,6 +12,9 @@ private let reuseIdentifier = "Cell"
 
 class PlayerCollectionViewController: UICollectionViewController {
 
+    
+    var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,13 +40,14 @@ class PlayerCollectionViewController: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 10
+        return yourTurnMatches.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
     
         cell.backgroundColor = UIColor.purpleColor()
+        cell.text = yourTurnMatches[indexPath.item].opponentDisplayName
     
         return cell
     }

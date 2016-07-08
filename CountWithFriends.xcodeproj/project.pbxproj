@@ -21,6 +21,7 @@
 		A80FC6C31D2D56280030BF05 /* GameMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */; };
 		A80FC6C61D2D654D0030BF05 /* PlayerCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80FC6C41D2D654D0030BF05 /* PlayerCollectionViewController.swift */; };
 		A80FC6C71D2D654D0030BF05 /* OpponentCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80FC6C51D2D654D0030BF05 /* OpponentCollectionViewController.swift */; };
+		A80FC6C91D302E340030BF05 /* PlayerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80FC6C81D302E340030BF05 /* PlayerCollectionViewCell.swift */; };
 		A86CB5F01D24914400EF1A43 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */; };
 		A86CB5F41D24938F00EF1A43 /* SidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */; };
 		A86CB5F61D249C6500EF1A43 /* Status.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A86CB5F51D249C6500EF1A43 /* Status.storyboard */; };
@@ -50,6 +51,7 @@
 		A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GameMenu.storyboard; sourceTree = "<group>"; };
 		A80FC6C41D2D654D0030BF05 /* PlayerCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewController.swift; sourceTree = "<group>"; };
 		A80FC6C51D2D654D0030BF05 /* OpponentCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpponentCollectionViewController.swift; sourceTree = "<group>"; };
+		A80FC6C81D302E340030BF05 /* PlayerCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCell.swift; sourceTree = "<group>"; };
 		A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidePanelViewController.swift; sourceTree = "<group>"; };
 		A86CB5F51D249C6500EF1A43 /* Status.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Status.storyboard; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 			children = (
 				E660BEE61D21E384002D9CB5 /* ClockView.swift */,
 				A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */,
+				A80FC6C81D302E340030BF05 /* PlayerCollectionViewCell.swift */,
 				A86CB5F51D249C6500EF1A43 /* Status.storyboard */,
 				2F61D3211D217A8600C9867F /* Main.storyboard */,
 			);
@@ -246,6 +249,7 @@
 				E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */,
 				A86CB5F01D24914400EF1A43 /* ContainerViewController.swift in Sources */,
 				2F61D31E1D217A8600C9867F /* AppDelegate.swift in Sources */,
+				A80FC6C91D302E340030BF05 /* PlayerCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
