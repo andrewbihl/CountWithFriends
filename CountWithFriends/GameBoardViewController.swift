@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import GameKit
 
 class GameBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate, ClockViewDelegate, OperationDelegate,UIPopoverPresentationControllerDelegate {
 
@@ -46,13 +46,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        tableView.rowHeight = tableView.frame.size.height/5
         let viewSize = self.targetLabel.layer.frame.size.height
         clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
         clockView!.delegate = self
         clockView!.frame = CGRect(x: 15, y: topBarView.frame.height + 27, width: viewSize, height: viewSize)
         
         clockView!.setTimer(60)
-        //TODO: Start clock on user indication
         clockView!.startClockTimer()
         self.view.addSubview(clockView!)
     }
