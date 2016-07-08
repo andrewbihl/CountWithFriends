@@ -9,11 +9,13 @@
 import UIKit
 import GameKit
 
-class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITableViewDelegate, UITableViewDataSource, GKTurnBasedEventListener {
+class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITableViewDelegate, UITableViewDataSource, GKLocalPlayerListener {
     @IBOutlet weak var tableView: UITableView!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
-    var existingMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    var theirTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    var currentlyReloadingGames = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,11 +25,45 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
     }
     
     override func viewWillAppear(animated: Bool) {
-        
+        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
     
     func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
-        print("It's YOUR TURN!!!!!!!!")
+        if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID{
+            print("Match knows that it is YOUR TURN.")
+        } else{
+            print("The match thinks it is still the other guys turn.")
+        }
+       // let newMatchID = match.matchID!
+        //Sometimes the event gets sent twice. We don't want to re-update on repeated events.
+//        if currentlyReloadingGames{
+//            return
+//        }
+//        currentlyReloadingGames = true
+        var newOpponentName = ""
+        for participant in match.participants!{
+            if participant.playerID != player.playerID{
+                newOpponentName = participant.player!.displayName!
+            }
+        }
+        newOpponentName = newOpponentName.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
+        //should be yourMatches array in actual menu view controller
+        //existingMatches.append((matchID: newMatchID, opponentDisplayName: newOpponentName))
+        //TODO: UPDATE OPPONENT'S NAME FOR CASE of change from "Waiting for other player to join" -> Name
+        for i in 0..<theirTurnMatches.count{
+            var existingMatch = theirTurnMatches[i]
+            if existingMatch.matchID == match.matchID{
+                theirTurnMatches.removeAtIndex(i)
+                existingMatch.opponentDisplayName = newOpponentName
+                yourTurnMatches.append(existingMatch)
+                self.tableView.reloadData()
+                return
+            }
+        }
     }
     
     func attemptGameCenterLogin(loginView: UIViewController) {
@@ -39,13 +75,16 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         self.performSegueWithIdentifier("startGameSegue", sender: nil)
     }
     
-    func didLoadExistingMatches(existingMatches: Array<(matchID: String, opponentDisplayName: String)>) {
-        self.existingMatches = existingMatches
+    func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
+        self.yourTurnMatches = yourTurnMatches
+        self.theirTurnMatches = theirTurnMatches
         self.tableView.reloadData()
+        currentlyReloadingGames = false
     }
     
     func didLoginToGameCenter() {
         matchHelper?.loadExistingMatches()
+        GKLocalPlayer.localPlayer().registerListener(self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -67,9 +106,17 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
             newRoundHandler.myMatchData = matchToBeEntered?.matchData
             newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
             newRoundHandler.opponentDisplayName = opponentID
-            newRoundHandler.startNewRound(6)
+            
+            let outcome = matchToBeEntered?.participants![0].matchOutcome
+            
             let dvc = segue.destinationViewController as! GameBoardViewController
             dvc.myRoundHandler = newRoundHandler
+            if outcome != GKTurnBasedMatchOutcome.None{
+                dvc.gameIsFinished = true
+            }
+            else{
+                newRoundHandler.startNewRound(6)
+            }
         }
     }
     
@@ -85,22 +132,50 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         }
     }
     
+    @IBAction func onDeleteGame(sender: AnyObject) {
+        deleteUsersMatches()
+    }
+    
     @IBAction func onStartGameTapped(sender: AnyObject) {
-//        deleteUsersMatches()
         matchHelper?.joinOrStartRandomGame()
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        matchHelper?.resumeGame(existingMatches[indexPath.row].matchID)
+        if indexPath.section == 0{
+            matchHelper?.resumeGame(yourTurnMatches[indexPath.row].matchID)
+        }
+        else{
+            print("Dude it's not your turn.")
+        }
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            return "Your Turn"
+        } else{
+            return "Their Turn"
+        }
+    }
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return existingMatches.count
+        if section == 0{
+            return yourTurnMatches.count
+        } else{
+            return theirTurnMatches.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("matchCell")
-        cell?.textLabel?.text = existingMatches[indexPath.row].opponentDisplayName
+        if indexPath.section == 0{
+            cell?.textLabel?.text = yourTurnMatches[indexPath.row].opponentDisplayName
+        }
+        else{
+            cell?.textLabel?.text = theirTurnMatches[indexPath.row].opponentDisplayName
+        }
         return cell!
     }
     
