@@ -19,7 +19,6 @@ class RoundHandler: NSObject {
     var opponentDisplayName: String?
 
     func startNewRound(numberOfInputValues: Int)->(){
-        print("localPlayerIsPlayer0: \(localPlayerIsPlayer0!)")
         if localPlayerIsPlayer0!{
             var currentRoundInputs = Dictionary<String,AnyObject>()
 
@@ -39,7 +38,7 @@ class RoundHandler: NSObject {
                
             //Decode current matchData into Dictionary object
             else{
-                myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
+                generateMyMatchDataDict()
                 var existingRoundInputs = myMatchDataDict!["roundInputs"] as! Array<Dictionary<String,AnyObject>>
                 existingRoundInputs.append(currentRoundInputs)
                 myMatchDataDict?.updateValue(existingRoundInputs, forKey: "roundInputs")
@@ -48,12 +47,16 @@ class RoundHandler: NSObject {
         }
             
         else{
-            myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
+            generateMyMatchDataDict()
             let roundInputs = myMatchDataDict!["roundInputs"] as! Array<Dictionary<String,AnyObject>>
             let lastRoundInputs = roundInputs.last
             target = lastRoundInputs!["target"] as! Int
             inputNumbers = lastRoundInputs!["inputNumbers"] as! [Int]
         }
+    }
+
+    func generateMyMatchDataDict(){
+        myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
     }
     
     func generateNewInputValues(numberOfInputValues: Int)->(target: Int, inputNumbers: [Int]){
