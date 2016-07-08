@@ -8,7 +8,7 @@
         <!--Center View Controller-->
         <scene sceneID="Jfb-l9-WPN">
             <objects>
-                <viewController storyboardIdentifier="CenterViewController" title="Center View Controller" id="oAE-9a-7el" customClass="CenterViewController" customModule="CountWithFriends" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Center View Controller" id="oAE-9a-7el" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mQK-6Y-ErG"/>
                         <viewControllerLayoutGuide type="bottom" id="aCh-Tl-O4l"/>
@@ -78,7 +78,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ma-FQ-Quv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1295" y="325"/>
+            <point key="canvasLocation" x="1424" y="273"/>
         </scene>
         <!--Main-->
         <scene sceneID="h7T-Z6-7Y5">
@@ -86,7 +86,7 @@
                 <viewControllerPlaceholder storyboardName="Main" id="Kd5-DE-2Md" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-cr-GiE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79" y="-95"/>
+            <point key="canvasLocation" x="1050" y="-135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="em9-7h-JyI">

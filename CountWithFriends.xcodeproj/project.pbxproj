@@ -94,8 +94,8 @@
 		2F61D31C1D217A8600C9867F /* CountWithFriends */ = {
 			isa = PBXGroup;
 			children = (
-				E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */,
 				2F61D31D1D217A8600C9867F /* AppDelegate.swift */,
+				E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */,
 				A80FC6C41D2D654D0030BF05 /* PlayerCollectionViewController.swift */,
 				A80FC6C51D2D654D0030BF05 /* OpponentCollectionViewController.swift */,
 				A80FC6BF1D2D52440030BF05 /* Model */,
@@ -134,7 +134,6 @@
 		A80FC6C11D2D52780030BF05 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2F61D31F1D217A8600C9867F /* ViewController.swift */,
 				A86CB5F31D24938F00EF1A43 /* SidePanelViewController.swift */,
 				A86CB5EF1D24914300EF1A43 /* ContainerViewController.swift */,
 				A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */,
@@ -142,9 +141,6 @@
 				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
 				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
 				2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */,
-				2F61D3241D217A8600C9867F /* Assets.xcassets */,
-				2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */,
-				2F61D3291D217A8600C9867F /* Info.plist */,
 				2F2DF8641D29BE23004292C3 /* DataREADME.text */,
 			);
 			name = Controller;

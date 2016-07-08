@@ -33,6 +33,7 @@ class ContainerViewController: UIViewController {
         // wrap the centerViewController in a navigation controller, so we can push views to it
         // and display bar button items in the navigation bar
         centerNavigationController = UINavigationController(rootViewController: centerViewController)
+        centerViewController.navigationController?.navigationBar.hidden = true
         view.addSubview(centerNavigationController.view)
         addChildViewController(centerNavigationController)
         centerNavigationController.didMoveToParentViewController(self)
@@ -98,7 +99,7 @@ extension ContainerViewController: CenterViewControllerDelegate {
 }
 
 private extension UIStoryboard {
-    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Status", bundle: NSBundle.mainBundle()) }
+    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "GameMenu", bundle: NSBundle.mainBundle()) }
     
     class func rightViewController() -> SidePanelViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("RightViewController") as? SidePanelViewController
