@@ -19,7 +19,6 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var historyButton: UIButton!
     @IBOutlet weak var oppScoreLabel: UILabel!
     @IBOutlet weak var locScoreLabel: UILabel!
@@ -72,7 +71,6 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         print("localPlayerIsPlayer0 = \(myRoundHandler?.localPlayerIsPlayer0)")
-        topBarView.backgroundColor = UIColor.sunsetOverlay()
         addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
     }
     
@@ -100,7 +98,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         let viewSize = self.targetLabel.layer.frame.size.height
         clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
         clockView!.delegate = self
-        clockView!.frame = CGRect(x: 15, y: topBarView.frame.height + 27, width: viewSize, height: viewSize)
+        clockView!.frame = CGRect(x: 15, y: 52 + 27, width: viewSize, height: viewSize)
         
         clockView!.setTimer(60)
         //TODO: Start clock on user indication
@@ -145,7 +143,6 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         CATransaction.begin()
         CATransaction.setAnimationDuration(120)
         gradient.colors = [newTopColor.CGColor,newBottomColor.CGColor]
-        topBarView.backgroundColor = UIColor.midnightOverlay()
         CATransaction.commit()
     }
     
