@@ -59,6 +59,20 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.addSubview(clockView!)
     }
     
+    override func viewDidLayoutSubviews() {
+        let buttonFontSize = floor(gameNumberButtons[0].frame.size.width * 0.3)
+        let targetFontSize = floor(targetLabel.frame.width * 0.25)
+        targetLabel.font = UIFont(name: targetLabel.font!.fontName, size: targetFontSize)
+        
+        for button in gameNumberButtons {
+            button.titleLabel!.font = UIFont(name: button.titleLabel!.font!.fontName, size: buttonFontSize)
+        }
+        
+        for button in gameOperatorButtons {
+            button.titleLabel!.font = UIFont(name: button.titleLabel!.font!.fontName, size: buttonFontSize)
+        }
+    }
+    
     func startNewRound(){
 //        let roundHandler = RoundHandler()
 //        roundHandler.startNewRound(6)
@@ -156,7 +170,8 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         else{
-            dismissViewControllerAnimated(true, completion: nil)
+            //dismissViewControllerAnimated(true, completion: nil)
+            performSegueWithIdentifier("unwindToMenu", sender: self)
         }
     }
     

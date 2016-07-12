@@ -102,21 +102,27 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
             if opponentID == nil{
                 opponentID = "Opponent not yet found"
             }
-            let newRoundHandler = RoundHandler()
-            newRoundHandler.myMatchData = matchToBeEntered?.matchData
-            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
-            newRoundHandler.opponentDisplayName = opponentID
+            let dvc = segue.destinationViewController as! RoundMessageViewController
+            dvc.localPlayerIsPlayer0 = localPlayerIsPlayer0
+            dvc.opponentID = opponentID
+            dvc.matchToBeEntered = matchToBeEntered
+            //Moved Code to RoundMessageViewController
             
-            let outcome = matchToBeEntered?.participants![0].matchOutcome
-            
-            let dvc = segue.destinationViewController as! GameBoardViewController
-            dvc.myRoundHandler = newRoundHandler
-            if outcome != GKTurnBasedMatchOutcome.None{
-                dvc.gameIsFinished = true
-            }
-            else{
-                newRoundHandler.startNewRound(6)
-            }
+//            let newRoundHandler = RoundHandler()
+//            newRoundHandler.myMatchData = matchToBeEntered?.matchData
+//            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
+//            newRoundHandler.opponentDisplayName = opponentID
+//            
+//            let outcome = matchToBeEntered?.participants![0].matchOutcome
+//            
+//            let dvc = segue.destinationViewController as! RoundMessageViewController
+//            dvc.myRoundHandler = newRoundHandler
+//            if outcome != GKTurnBasedMatchOutcome.None{
+//                dvc.gameIsFinished = true
+//            }
+//            else{
+//                newRoundHandler.startNewRound(6)
+//            }
         }
     }
     
@@ -178,5 +184,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         }
         return cell!
     }
+    
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
     
 }
