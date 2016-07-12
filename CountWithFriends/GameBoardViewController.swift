@@ -72,6 +72,8 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         
         print("localPlayerIsPlayer0 = \(myRoundHandler?.localPlayerIsPlayer0)")
         addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
+        targetLabel.shadowOffset = CGSizeMake(0, 1)
+        targetLabel.shadowColor = UIColor.blackColor()
     }
     
     override func viewDidAppear(animated: Bool) {
