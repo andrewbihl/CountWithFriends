@@ -734,6 +734,7 @@
                     </view>
                     <connections>
                         <outlet property="beginMatchButton" destination="kOR-Yz-3Is" id="nzB-Yn-mwE"/>
+                        <outlet property="infoView" destination="mUA-lR-roH" id="7BC-ta-Csy"/>
                         <outlet property="player0Label" destination="3EX-lU-kTM" id="0wA-rg-UUX"/>
                         <outlet property="player0ScoreLabel" destination="qbU-Wq-1CC" id="fwt-3a-5CR"/>
                         <outlet property="player1Label" destination="Drb-Pz-EkL" id="m2E-ie-dIk"/>
@@ -758,18 +759,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="sox-6p-e3E">
-                                <rect key="frame" x="5" y="396" width="365" height="143"/>
+                                <rect key="frame" x="5" y="396" width="365" height="139"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="laS-yE-uli">
-                                        <rect key="frame" x="0.0" y="0.0" width="365" height="70"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="laS-yE-uli">
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="69"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="bBw-WL-QD4">
-                                                <rect key="frame" x="0.0" y="0.0" width="215" height="70"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="209" height="69"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jp7-5V-VEK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jp7-5V-VEK" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="69" height="69"/>
+                                                        <color key="backgroundColor" red="0.76078431372549016" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="tintColor" red="0.054901960784313725" green="0.4392156862745098" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="5"/>
@@ -779,10 +781,11 @@
                                                             <action selector="onOperandTapped:" destination="4Ja-8D-CZh" eventType="touchUpInside" id="Nbe-6f-ZPz"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enm-2z-FoR">
-                                                        <rect key="frame" x="72" y="0.0" width="71" height="70"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enm-2z-FoR" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="71" y="0.0" width="69" height="69"/>
+                                                        <color key="backgroundColor" red="0.76078431372549016" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="tintColor" red="0.054901960784313725" green="0.4392156862745098" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="5"/>
@@ -792,10 +795,11 @@
                                                             <action selector="onOperandTapped:" destination="4Ja-8D-CZh" eventType="touchUpInside" id="zcD-0z-hG7"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NlT-aq-aDH">
-                                                        <rect key="frame" x="145" y="0.0" width="70" height="70"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NlT-aq-aDH" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="141" y="0.0" width="68" height="69"/>
+                                                        <color key="backgroundColor" red="0.76078431372549016" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="tintColor" red="0.054901960780000002" green="0.43921568630000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="5"/>
@@ -808,14 +812,15 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="QD3-DB-sWp">
-                                                <rect key="frame" x="219" y="0.0" width="147" height="70"/>
+                                                <rect key="frame" x="217" y="0.0" width="148" height="69"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-jB-TAC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="72" height="70"/>
-                                                        <color key="backgroundColor" red="0.95294117647058818" green="0.49803921568627452" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GuB-jB-TAC" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="73" height="69"/>
+                                                        <color key="backgroundColor" red="0.14117647058823529" green="1" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="+">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="titleShadowColor" red="0.16862745098039217" green="0.92941176470588238" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -826,9 +831,9 @@
                                                             <action selector="onOperatorTapped:" destination="4Ja-8D-CZh" eventType="touchUpInside" id="5Lv-7G-4jg"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuF-Sp-tBh">
-                                                        <rect key="frame" x="74" y="0.0" width="73" height="70"/>
-                                                        <color key="backgroundColor" red="0.95294117647058818" green="0.49803921568627452" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuF-Sp-tBh" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="75" y="0.0" width="73" height="69"/>
+                                                        <color key="backgroundColor" red="0.14117647058823529" green="1" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="-">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -849,16 +854,17 @@
                                             <constraint firstItem="jp7-5V-VEK" firstAttribute="width" secondItem="laS-yE-uli" secondAttribute="height" id="hrI-Dh-uFa"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="4vz-If-8Ts">
-                                        <rect key="frame" x="0.0" y="72" width="365" height="71"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4vz-If-8Ts">
+                                        <rect key="frame" x="0.0" y="71" width="365" height="69"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="PiX-1I-3yc">
-                                                <rect key="frame" x="0.0" y="0.0" width="215" height="71"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="209" height="69"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6f-Gd-gy8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="71"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V6f-Gd-gy8" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="69" height="69"/>
+                                                        <color key="backgroundColor" red="0.76078431372549016" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="tintColor" red="0.054901960780000002" green="0.43921568630000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="5"/>
@@ -868,10 +874,11 @@
                                                             <action selector="onOperandTapped:" destination="4Ja-8D-CZh" eventType="touchUpInside" id="yAi-uN-2IP"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bq9-xC-aXl">
-                                                        <rect key="frame" x="72" y="0.0" width="71" height="71"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bq9-xC-aXl" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="71" y="0.0" width="69" height="69"/>
+                                                        <color key="backgroundColor" red="0.76078431372549016" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="tintColor" red="0.054901960780000002" green="0.43921568630000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="5"/>
@@ -881,10 +888,11 @@
                                                             <action selector="onOperandTapped:" destination="4Ja-8D-CZh" eventType="touchUpInside" id="MgQ-WA-vce"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7V-Ok-GXe">
-                                                        <rect key="frame" x="145" y="0.0" width="70" height="71"/>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7V-Ok-GXe" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="141" y="0.0" width="68" height="69"/>
+                                                        <color key="backgroundColor" red="0.76078431372549016" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="tintColor" red="0.054901960780000002" green="0.43921568630000002" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                 <integer key="value" value="5"/>
@@ -897,11 +905,11 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="RD2-cb-p9S">
-                                                <rect key="frame" x="219" y="0.0" width="147" height="71"/>
+                                                <rect key="frame" x="217" y="0.0" width="148" height="69"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WlU-51-JYK">
-                                                        <rect key="frame" x="0.0" y="0.0" width="72" height="71"/>
-                                                        <color key="backgroundColor" red="0.95294117647058818" green="0.49803921568627452" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WlU-51-JYK" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="73" height="69"/>
+                                                        <color key="backgroundColor" red="0.14117647058823529" green="1" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                                         <state key="normal" title="x">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -915,9 +923,9 @@
                                                             <action selector="onOperatorTapped:" destination="4Ja-8D-CZh" eventType="touchUpInside" id="Tl3-bH-3JR"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-17-2Et">
-                                                        <rect key="frame" x="74" y="0.0" width="73" height="71"/>
-                                                        <color key="backgroundColor" red="0.95294117647058818" green="0.49803921568627452" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-17-2Et" customClass="GameButton" customModule="CountWithFriends" customModuleProvider="target">
+                                                        <rect key="frame" x="75" y="0.0" width="73" height="69"/>
+                                                        <color key="backgroundColor" red="0.14117647058823529" green="1" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <state key="normal" title="/">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -940,7 +948,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PSY-BY-Kar">
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PSY-BY-Kar">
                                 <rect key="frame" x="50" y="553" width="275" height="36"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HqP-D7-Yqx">
@@ -973,7 +981,7 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-OH-VWo">
+                            <view alpha="0.90000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A7g-OH-VWo">
                                 <rect key="frame" x="5" y="168" width="365" height="220"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="0" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IsO-Qo-P0f">
@@ -1115,10 +1123,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f3L-vu-1EO">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NiH-w9-wz9">
-                                        <rect key="frame" x="75" y="19" width="225" height="41"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Loc" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YN2-za-DiD">
                                         <rect key="frame" x="22" y="31" width="28" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1133,12 +1137,6 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="NiH-w9-wz9" firstAttribute="width" secondItem="f3L-vu-1EO" secondAttribute="width" multiplier="0.6" id="Fl1-to-qzQ"/>
-                                    <constraint firstItem="NiH-w9-wz9" firstAttribute="top" secondItem="f3L-vu-1EO" secondAttribute="top" constant="19" id="PGG-yp-pTL"/>
-                                    <constraint firstAttribute="bottom" secondItem="NiH-w9-wz9" secondAttribute="bottom" id="Pzq-AB-cYM"/>
-                                    <constraint firstItem="NiH-w9-wz9" firstAttribute="centerX" secondItem="f3L-vu-1EO" secondAttribute="centerX" id="sHh-hd-xXr"/>
-                                </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IB4-Vq-LUU">
                                 <rect key="frame" x="320" y="67" width="50" height="30"/>
@@ -1164,7 +1162,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.035294117649999998" green="0.062745098040000002" blue="0.30664787310000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="f3L-vu-1EO" firstAttribute="leading" secondItem="iaH-oU-gQU" secondAttribute="leading" id="04N-el-MPk"/>
                             <constraint firstItem="OW5-3a-3dV" firstAttribute="centerX" secondItem="iaH-oU-gQU" secondAttribute="centerX" id="1YV-rM-TOJ"/>
@@ -1214,6 +1212,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="clearButton" destination="Aaa-aw-F4N" id="uJf-ex-dbw"/>
                         <outlet property="errorLabel" destination="1c0-5Q-xMs" id="ljf-b9-NYm"/>
                         <outlet property="finishButton" destination="MNH-Jv-Kap" id="Iep-PN-mpM"/>
                         <outlet property="historyButton" destination="IB4-Vq-LUU" id="8yx-vb-nEY"/>
@@ -1222,6 +1221,7 @@
                         <outlet property="tableView" destination="IsO-Qo-P0f" id="YiS-eM-Jz3"/>
                         <outlet property="targetLabel" destination="OW5-3a-3dV" id="7ze-Gx-fNV"/>
                         <outlet property="topBarView" destination="f3L-vu-1EO" id="gBH-HM-LAq"/>
+                        <outlet property="undoButton" destination="HqP-D7-Yqx" id="4Bd-zU-Kf5"/>
                         <outletCollection property="gameOperatorButtons" destination="GuB-jB-TAC" collectionClass="NSMutableArray" id="NTp-KQ-bF2"/>
                         <outletCollection property="gameOperatorButtons" destination="NuF-Sp-tBh" collectionClass="NSMutableArray" id="hBk-rr-D8w"/>
                         <outletCollection property="gameNumberButtons" destination="jp7-5V-VEK" collectionClass="NSMutableArray" id="7HR-A6-uZe"/>

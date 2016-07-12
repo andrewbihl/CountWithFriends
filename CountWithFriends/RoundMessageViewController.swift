@@ -16,12 +16,13 @@ class RoundMessageViewController: UIViewController {
     @IBOutlet weak var player1Label: UILabel!
     @IBOutlet weak var player1ScoreLabel: UILabel!
     @IBOutlet weak var beginMatchButton: UIButton!
-    
+    @IBOutlet weak var infoView: UIView!
     
     var matchToBeEntered: GKTurnBasedMatch?
     var gameIsFinished = false
     var opponentID: String?
     var localPlayerIsPlayer0 = false
+    let gradient = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +37,33 @@ class RoundMessageViewController: UIViewController {
         }
         player1ScoreLabel.text = "Score: 0"
         
+        self.infoView.backgroundColor = UIColor.sunsetOverlay()
+        self.beginMatchButton.backgroundColor = UIColor.sunsetOverlay()
+        self.beginMatchButton.setTitleColor(UIColor.sunsetOverlayLightText(), forState: .Normal)
         
-
+        addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        //animateNewGradiant(UIColor.midnightLight(), newBottomColor: UIColor.midnightDark())
+    }
+    
+    private func addGradiant(topColor: UIColor, bottomColor: UIColor) {
+        let colorArray:[CGColor] = [topColor.CGColor, bottomColor.CGColor]
+        let locations:[Int] = [0,1]
+        gradient.colors = colorArray
+        gradient.frame = self.view.frame
+        gradient.locations = locations
+        
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
+    }
+    
+    func animateNewGradiant(newTopColor: UIColor, newBottomColor: UIColor) {
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(60)
+        gradient.colors = [newTopColor.CGColor,newBottomColor.CGColor]
+        CATransaction.commit()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
