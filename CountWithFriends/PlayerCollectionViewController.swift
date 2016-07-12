@@ -47,8 +47,8 @@ class PlayerCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
     
         cell.backgroundColor = UIColor.purpleColor()
-        cell.text = yourTurnMatches[indexPath.item].opponentDisplayName
-    
+//        cell.label.text = yourTurnMatches[indexPath.item].opponentDisplayName
+//    
         return cell
     }
 

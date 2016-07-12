@@ -13,25 +13,18 @@ protocol CenterViewControllerDelegate {
      func toggleRightPanel()
 }
 
-class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout, GCTurnBasedMatchHelperDelegate, UITableViewDelegate, UITableViewDataSource, GKTurnBasedEventListener {
+class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout, GCTurnBasedMatchHelperDelegate, UICollectionViewDelegate, UICollectionViewDataSource, GKTurnBasedEventListener {
     @IBOutlet weak var tableView: UITableView!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
-    var existingMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    var theirTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
     
     private let cellID = "cellID"
     
     var delegate: CenterViewControllerDelegate?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // collectionView?.registerClass(CategoryCell.self, forCellWithReuseIdentifier: cellID)
-        
-        // collectionView?.backgroundColor = UIColor.yellowColor()
-        
-        menuButton.setImage(defaultMenuImage(), forState: .Normal)
-        
-    }
+
     
     @IBOutlet var menuButton: UIButton!
     
@@ -92,6 +85,7 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         matchHelper = GCTurnBasedMatchHelper.sharedInstance
         matchHelper!.delegate = self
         matchHelper!.authenticateLocalUser()
+        menuButton.setImage(defaultMenuImage(), forState: .Normal)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -111,9 +105,10 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         self.performSegueWithIdentifier("startGameSegue", sender: nil)
     }
     
-    func didLoadExistingMatches(existingMatches: Array<(matchID: String, opponentDisplayName: String)>) {
-        self.existingMatches = existingMatches
-        self.tableView.reloadData()
+    func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
+        self.yourTurnMatches = yourTurnMatches
+        self.theirTurnMatches = theirTurnMatches
+        self.collectionView.
     }
     
     func didLoginToGameCenter() {
@@ -174,6 +169,10 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         let cell = tableView.dequeueReusableCellWithIdentifier("matchCell")
         cell?.textLabel?.text = existingMatches[indexPath.row].opponentDisplayName
         return cell!
+    }
+    
+    func didPassTurn() {
+        
     }
     
     

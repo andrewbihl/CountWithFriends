@@ -13,16 +13,19 @@ import Foundation
 class RoundHandler: NSObject {
     var target: Int?
     var inputNumbers: Array<Int>?
-    var myMatchData: NSData?
+    var myMatchData: NSData?{
+        didSet(newValue){
+            generateMyMatchDataDict()
+        }
+    }
     var myMatchDataDict: Dictionary<String,AnyObject>?
     var localPlayerIsPlayer0: Bool?
     var opponentDisplayName: String?
 
     func startNewRound(numberOfInputValues: Int)->(){
-        print("localPlayerIsPlayer0: \(localPlayerIsPlayer0!)")
+        generateMyMatchDataDict()
         if localPlayerIsPlayer0!{
             var currentRoundInputs = Dictionary<String,AnyObject>()
-
             //localPlayerIsPlayer0 --> it's a new round. Generate new numbers.
             let generatedInputs = generateNewInputValues(numberOfInputValues)
             target = generatedInputs.target
@@ -32,14 +35,10 @@ class RoundHandler: NSObject {
             
             //Set up matchData for new game
             if myMatchData?.length == 0{
-                myMatchDataDict = Dictionary<String, AnyObject>()
                 print("MatchData is nil")
                 myMatchDataDict?.updateValue([currentRoundInputs], forKey: "roundInputs")
             }
-               
-            //Decode current matchData into Dictionary object
             else{
-                myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
                 var existingRoundInputs = myMatchDataDict!["roundInputs"] as! Array<Dictionary<String,AnyObject>>
                 existingRoundInputs.append(currentRoundInputs)
                 myMatchDataDict?.updateValue(existingRoundInputs, forKey: "roundInputs")
@@ -48,11 +47,21 @@ class RoundHandler: NSObject {
         }
             
         else{
-            myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
+//            generateMyMatchDataDict()
             let roundInputs = myMatchDataDict!["roundInputs"] as! Array<Dictionary<String,AnyObject>>
             let lastRoundInputs = roundInputs.last
             target = lastRoundInputs!["target"] as! Int
             inputNumbers = lastRoundInputs!["inputNumbers"] as! [Int]
+        }
+    }
+
+    func generateMyMatchDataDict(){
+        myMatchDataDict = NSKeyedUnarchiver.unarchiveObjectWithData(myMatchData!) as? Dictionary<String,AnyObject>
+        if myMatchDataDict == nil{
+            myMatchDataDict = Dictionary<String,AnyObject>()
+        }
+        if myMatchDataDict!["playerScores"] == nil{
+            myMatchDataDict?.updateValue([0,0], forKey: "playerScores")
         }
     }
     
@@ -84,28 +93,33 @@ class RoundHandler: NSObject {
     
     //Return player's score and opponents score, or nil for both if final round was not finished.
     //Only called by 2nd player at end of a round
-    func getGameFinalScores()->(localPlayerScore: Int?, opponentScore: Int?){
-        //Check if just played Round 3
-        if (myMatchDataDict!["roundInputs"]!.count >= 3){
-            print("END OF GAME!")
-            let playerScores = myMatchDataDict!["playerScores"] as! [Int]
-            if localPlayerIsPlayer0!{
-                return (localPlayerScore: playerScores[0], opponentScore: playerScores[1])
-            }else{
-                return (localPlayerScore: playerScores[1], opponentScore: playerScores[0])
-            }
-        }
-        else{
-            return (localPlayerScore: nil, opponentScore: nil)
-        }
-    }
+//    func getGameFinalScores()->(localPlayerScore: Int?, opponentScore: Int?){
+//        //Check if just played Round 3
+//        if (myMatchDataDict!["roundInputs"]!.count >= 3){
+//            print("END OF GAME!")
+//            let playerScores = myMatchDataDict!["playerScores"] as! [Int]
+//            if localPlayerIsPlayer0!{
+//                return (localPlayerScore: playerScores[0], opponentScore: playerScores[1])
+//            }else{
+//                return (localPlayerScore: playerScores[1], opponentScore: playerScores[0])
+//            }
+//        }
+//        else{
+//            return (localPlayerScore: nil, opponentScore: nil)
+//        }
+//    }
     
     func setPlayerOutcomes(localPlayerDidWin: Bool){
-        if localPlayerDidWin{
             GCTurnBasedMatchHelper.sharedInstance.setPlayerOutcomes(localPlayerIsPlayer0!)
-        } else{
-            GCTurnBasedMatchHelper.sharedInstance.setPlayerOutcomes(!localPlayerIsPlayer0!)
-        }
+    }
+    
+    func getPlayerScores()->[Int]?{
+        //playerScores value gets initialized on creation of game.
+        return myMatchDataDict!["playerScores"] as? [Int]
+    }
+    
+    func getRoundNumber()->Int{
+        return myMatchDataDict!["roundInputs"]!.count
     }
     
     func getScoreIfRoundComplete(finalResult: Int, timeRemaining: Int)->(currentPlayerDidWin: Bool?, score: Int?){
@@ -121,8 +135,8 @@ class RoundHandler: NSObject {
             let opponentResult = lastRoundOperations["player0Result"] as! Int
             let opponentTimeRemaining = lastRoundOperations["player0TimeRemaining"] as! Int
             var localPlayerWon = true
-            let localPlayerDifference = target! - finalResult
-            let opponentDifference = target! - opponentResult
+            let localPlayerDifference = abs(target! - finalResult)
+            let opponentDifference = abs(target! - opponentResult)
             //if tie occured
             if localPlayerDifference < opponentDifference{
                 localPlayerWon = true
@@ -165,25 +179,13 @@ class RoundHandler: NSObject {
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
-            GCTurnBasedMatchHelper.sharedInstance.saveRoundData(equations, finalResult: finalResult, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, localPlayerIsPlayer0: self.localPlayerIsPlayer0!, currentMatchDataObject: self.myMatchDataDict!, timeRemaining: timeRemaining)
+            GCTurnBasedMatchHelper.sharedInstance.saveRoundData(equations, finalResult: finalResult, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, localPlayerIsPlayer0: self.localPlayerIsPlayer0!, currentMatchDataObject: self.myMatchDataDict!, timeRemaining: timeRemaining, roundNumber: self.getRoundNumber())
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 print("This is run on the main queue, after the previous code in outer block")
             })
         })
     }
-    
-    func endRound(){
-        //GCTurnBasedMatchHelper.sharedInstance.endRound(localPlayerIsPlayer0!)
-    }
-    
-    func endGame(){
-        //End of game functions
-        GCTurnBasedMatchHelper.sharedInstance.endGame()
-        GCTurnBasedMatchHelper.sharedInstance.myMatch = nil
-        
-    }
-   
 //    
 //    func getScore(userResult : Int) -> (Int){
 //        return 9001
