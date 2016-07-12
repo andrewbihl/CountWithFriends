@@ -10,6 +10,7 @@ import UIKit
 import GameKit
 
 protocol GCTurnBasedMatchHelperDelegate {
+    func didPassTurn()
     func didLoginToGameCenter()
     func attemptGameCenterLogin(loginView: UIViewController)
     func didJoinOrCreateMatch(match:GKTurnBasedMatch)
@@ -21,7 +22,12 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
     var menuViewController : UIViewController?
     var userAuthenticated = false
     var delegate : GCTurnBasedMatchHelperDelegate?
-    var myMatch : GKTurnBasedMatch?
+    var localPlayerWon: Bool?
+    var myMatch : GKTurnBasedMatch?{
+        didSet(newMatch){
+            localPlayerWon = false
+        }
+    }
     override init(){
         super.init()
         let notificationCenter = NSNotificationCenter.defaultCenter()
@@ -52,31 +58,6 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
             }
             else if match != nil{
                 self.myMatch = match!
-                var matchDataDict = Dictionary<String,AnyObject>()
-                if match?.participants?[1].player == nil {
-                    print("Created a new match")
-                    matchDataDict.updateValue(0, forKey: "player0Score")
-                    matchDataDict.updateValue(0, forKey: "player1Score")
-                    //Fill in data for local user as "player1"
-                }else{
-                    print("Found a match!")
-                    //Fill in data for local user as "player2"
-                }
-                
-//                let updatedMatchData = NSKeyedArchiver.archivedDataWithRootObject(matchDataDict)
-//                match?.saveCurrentTurnWithMatchData(NSData(), completionHandler: { (error: NSError?) in
-//                    if error != nil{
-//                        print("Error in saving data: \(error)")
-//                    } else{
-//                        match?.endTurnWithNextParticipants((match!.participants)!, turnTimeout: 3600, matchData: updatedMatchData, completionHandler: { (error: NSError?) in
-//                            if error != nil{
-//                                print("WHAT THE FUCKK")
-//                            }else{
-//                                self.delegate?.didJoinOrCreateMatch(match!)
-//                            }
-//                        })
-//                    }
-//                })
                 self.delegate?.didJoinOrCreateMatch(match!)
             }
         }
@@ -92,7 +73,8 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         }
     }
     
-    func saveRoundData(equations: [String], finalResult: Int, player0ScoreSummand: Int, player1ScoreSummand: Int, localPlayerIsPlayer0: Bool, currentMatchDataObject: Dictionary<String,AnyObject>, timeRemaining: Int){
+    //Saves data to GameCenter database and ends game if last round
+    func saveRoundData(equations: [String], finalResult: Int, player0ScoreSummand: Int, player1ScoreSummand: Int, localPlayerIsPlayer0: Bool, currentMatchDataObject: Dictionary<String,AnyObject>, timeRemaining: Int, roundNumber: Int){
         var updatedDataObject = currentMatchDataObject
         var playerScores = updatedDataObject["playerScores"] as? Array<Int>
         if playerScores != nil{
@@ -129,27 +111,37 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         //Store information about round in GameCenter database
         myMatch?.saveCurrentTurnWithMatchData(newMatchData, completionHandler: { (error: NSError?) in
             if error != nil{
-                print(self.myMatch?.creationDate)
                 print("Failed to save data: \(error)")
-            }else{
-                print(updatedDataObject)
-                print("INPUTS: ")
-                print(updatedDataObject["roundInputs"])
-                print("OPERATIONS:")
-                print(updatedDataObject["roundOperations"])
-                print("Data saved for round")
-                self.endRound(localPlayerIsPlayer0)
             }
-            self.myMatch = nil
+            else{
+                if roundNumber >= 3 && !localPlayerIsPlayer0{
+                    self.endGame()
+                } else {
+                    self.endRound(localPlayerIsPlayer0)
+                }
+            }
         })
+//        myMatch?.saveCurrentTurnWithMatchData(newMatchData, completionHandler: { (error: NSError?) in
+//            if error != nil{
+//                print("Failed to save data: \(error)")
+//            }else{
+////                print(updatedDataObject)
+////                print("INPUTS: ")
+////                print(updatedDataObject["roundInputs"])
+////                print("OPERATIONS:")
+////                print(updatedDataObject["roundOperations"])
+//                print("Data saved for round")
+//            }
+//            self.myMatch = nil
+//        })
     }
     
     private func endRound(currentPlayerIsPlayer0: Bool){
         var otherParticipants = Array<GKTurnBasedParticipant>()
         if currentPlayerIsPlayer0{
-            otherParticipants.append((myMatch?.participants![1])!)
+            otherParticipants.append(myMatch!.participants![1])
         }else{
-            otherParticipants.append((myMatch?.participants![0])!)
+            otherParticipants.append(myMatch!.participants![0])
         }
         myMatch!.endTurnWithNextParticipants(otherParticipants, turnTimeout: 3600, matchData: (myMatch?.matchData)!) { (error: NSError?) in
             if error != nil{
@@ -157,25 +149,47 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
             }
             else{
                 print("Turn passed")
+                self.myMatch = nil
             }
         }
     }
     
-    func setPlayerOutcomes(player0DidWin: Bool){
-        if player0DidWin{
-            myMatch?.participants![0].matchOutcome = .Won
-            myMatch?.participants![1].matchOutcome = .Lost
-        }else{
-            myMatch?.participants![1].matchOutcome = .Won
-            myMatch?.participants![0].matchOutcome = .Lost
+    func endGame(){
+        //myMatch?.endMatchInTurnWithMatchData((myMatch?.matchData)!, completionHandler: nil)
+        //SET PLAYER OUTCOMES
+        if myMatch!.participants![0].playerID == GKLocalPlayer.localPlayer().playerID{
+            if localPlayerWon!{
+                myMatch?.participants![0].matchOutcome = .Won
+                myMatch?.participants![1].matchOutcome = .Lost
+            } else{
+                myMatch?.participants![1].matchOutcome = .Won
+                myMatch?.participants![0].matchOutcome = .Lost
+            }
         }
+        else{
+            if localPlayerWon!{
+                myMatch?.participants![1].matchOutcome = .Won
+                myMatch?.participants![0].matchOutcome = .Lost
+            } else{
+                myMatch?.participants![0].matchOutcome = .Won
+                myMatch?.participants![1].matchOutcome = .Lost
+            }
+        }
+        myMatch?.endMatchInTurnWithMatchData(myMatch!.matchData!, completionHandler: { (error: NSError?) in
+            if error != nil{
+                print("Failed to end match: \(error)")
+            } else{
+                self.myMatch = nil
+            }
+        })
     }
     
-    func endGame(){
-        myMatch?.endMatchInTurnWithMatchData((myMatch?.matchData)!, completionHandler: nil)
+    func setPlayerOutcomes(localPlayerdidWin: Bool){
+        localPlayerWon = localPlayerdidWin
     }
         
     func player(player: GKPlayer, wantsToQuitMatch match: GKTurnBasedMatch) {
+        print("Other player quit")
         //What to do when other player quits. This ends the other player's turn, making the local player the active participant.
     }
     

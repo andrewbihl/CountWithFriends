@@ -23,11 +23,6 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         matchHelper!.delegate = self
         matchHelper!.authenticateLocalUser()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
-    }
-    
     override func viewDidAppear(animated: Bool) {
         GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
@@ -66,6 +61,10 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         }
     }
     
+    func didPassTurn() {
+        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
+    }
+    
     func attemptGameCenterLogin(loginView: UIViewController) {
         self.presentViewController(loginView, animated: true, completion: nil)
     }
@@ -102,21 +101,27 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
             if opponentID == nil{
                 opponentID = "Opponent not yet found"
             }
-            let newRoundHandler = RoundHandler()
-            newRoundHandler.myMatchData = matchToBeEntered?.matchData
-            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
-            newRoundHandler.opponentDisplayName = opponentID
+            let dvc = segue.destinationViewController as! RoundMessageViewController
+            dvc.localPlayerIsPlayer0 = localPlayerIsPlayer0
+            dvc.opponentID = opponentID
+            dvc.matchToBeEntered = matchToBeEntered
+            //Moved Code to RoundMessageViewController
             
-            let outcome = matchToBeEntered?.participants![0].matchOutcome
-            
-            let dvc = segue.destinationViewController as! GameBoardViewController
-            dvc.myRoundHandler = newRoundHandler
-            if outcome != GKTurnBasedMatchOutcome.None{
-                dvc.gameIsFinished = true
-            }
-            else{
-                newRoundHandler.startNewRound(6)
-            }
+//            let newRoundHandler = RoundHandler()
+//            newRoundHandler.myMatchData = matchToBeEntered?.matchData
+//            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
+//            newRoundHandler.opponentDisplayName = opponentID
+//            
+//            let outcome = matchToBeEntered?.participants![0].matchOutcome
+//            
+//            let dvc = segue.destinationViewController as! RoundMessageViewController
+//            dvc.myRoundHandler = newRoundHandler
+//            if outcome != GKTurnBasedMatchOutcome.None{
+//                dvc.gameIsFinished = true
+//            }
+//            else{
+//                newRoundHandler.startNewRound(6)
+//            }
         }
     }
     
@@ -124,6 +129,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         GKTurnBasedMatch.loadMatchesWithCompletionHandler { (matches: [GKTurnBasedMatch]?, error: NSError?) in
             if matches == nil{
                 print("No existing matches")
+                self.matchHelper?.loadExistingMatches()
             }else{
                 for match in matches!{
                     match.removeWithCompletionHandler(nil)
@@ -178,5 +184,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         }
         return cell!
     }
+    
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) { }
     
 }

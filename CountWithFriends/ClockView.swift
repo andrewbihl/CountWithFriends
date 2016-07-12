@@ -102,6 +102,7 @@ class ClockView: UIView {
     
     func stopTimer() {
         hasStopped = true
+        self.layer.removeAnimationForKey("ani")
     }
     
     func startClockTimer() {
