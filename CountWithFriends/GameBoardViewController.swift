@@ -19,6 +19,8 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var historyButton: UIButton!
+    @IBOutlet weak var oppScoreLabel: UILabel!
+    @IBOutlet weak var locScoreLabel: UILabel!
     
     var myRoundHandler: RoundHandler?
     var operations: [Operation]? = []
@@ -37,16 +39,44 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.superview!.layer.shadowOffset = CGSizeZero
         tableView.superview!.layer.shadowRadius = 3
         finishButton.enabled = false
+        
+        if myRoundHandler != nil{
+            var playerScores = myRoundHandler!.getPlayerScores()
+            if playerScores == nil{
+                playerScores = [0,0]
+            }
+            if myRoundHandler!.localPlayerIsPlayer0!{
+                locScoreLabel.text = String(playerScores![0])
+                oppScoreLabel.text = String(playerScores![1])
+            }else{
+                locScoreLabel.text = String(playerScores![1])
+                oppScoreLabel.text = String(playerScores![0])
+            }
+        }
+        
+        print("localPlayerIsPlayer0 = \(myRoundHandler?.localPlayerIsPlayer0)")
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if !gameIsFinished{
             startNewRound()
-        } else{
-            myRoundHandler?.generateMyMatchDataDict()
-            gameDidFinish()
         }
+        else{
+            //On end of game, turn does not get passed back so it is switched manually.
+            let localPlayerIsPlayer0 = !myRoundHandler!.localPlayerIsPlayer0!
+            myRoundHandler?.generateMyMatchDataDict()
+            var playerScores = myRoundHandler?.getPlayerScores()
+            var localPlayerDidWin : Bool
+            if localPlayerIsPlayer0{
+                localPlayerDidWin = getAndSaveOutcome(playerScores![0], opponentScore: playerScores![1])
+                presentGameOverMessage(localPlayerDidWin, gameWinResult: (localPlayerScore: playerScores![0], opponentScore: playerScores![1]))
+            } else{
+                localPlayerDidWin = getAndSaveOutcome(playerScores![1], opponentScore: playerScores![0])
+                presentGameOverMessage(localPlayerDidWin, gameWinResult: (localPlayerScore: playerScores![1], opponentScore: playerScores![0]))
+            }
+        }
+        
         tableView.rowHeight = tableView.frame.size.height/5
         let viewSize = self.targetLabel.layer.frame.size.height
         clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
@@ -71,35 +101,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
-    func gameDidFinish()->Bool{
-        //Get winner if game is over.
-        let gameWinResult = myRoundHandler?.getGameFinalScores()
-        if gameWinResult?.localPlayerScore != nil{
-            if gameWinResult!.localPlayerScore > gameWinResult!.opponentScore{
-                myRoundHandler?.setPlayerOutcomes(true)
-                presentGameOverMessage(true, gameWinResult: gameWinResult!)
-            }else{
-                myRoundHandler?.setPlayerOutcomes(false)
-                presentGameOverMessage(false, gameWinResult: gameWinResult!)
-            }
-            //-----------DISPLAY ANY RELEVANT CONTROLLERS/VIEW HERE------
-            return true
-        }
-        else{
-            return false
-        }
-    }
-    
     func presentGameOverMessage(localPlayerDidWin: Bool, gameWinResult:(localPlayerScore: Int?, opponentScore: Int?)){
         var gameOverAlert: UIAlertController
+        print("localPlayerDidWin = \(localPlayerDidWin)...as sent to presentGameOverMessage")
         if localPlayerDidWin{
-            print("I WON THE GAME WITH A SCORE OF \(gameWinResult.localPlayerScore). Opponent had score of \(gameWinResult.opponentScore)")
-            
             gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult.localPlayerScore!) vs your opponent's score of \(gameWinResult.opponentScore!)", preferredStyle: .Alert)
         }
         else{
-            print("I LOST THE GAME WITH A SCORE OF \(gameWinResult.localPlayerScore!). Opponent had score of \(gameWinResult.opponentScore!)")
             gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your shitty score of \(gameWinResult.localPlayerScore!)", preferredStyle: .Alert)
         }
         let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
@@ -126,6 +134,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         if scoreReturn?.currentPlayerDidWin != nil{
             //update score because round is over. Show win or loss message/window
             if scoreReturn!.currentPlayerDidWin!{
+                print("YOU WON THE ROUND. \(scoreReturn!.score!) POINTS WERE ADDED TO YOUR SCORE.")
                 if myRoundHandler!.localPlayerIsPlayer0!{
                     player0ScoreSummand += scoreReturn!.score!
                 }
@@ -133,8 +142,9 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
                     player1ScoreSummand += scoreReturn!.score!
                 }
             }
-                //if opponent won...
+            //if opponent won...
             else{
+                print("YOU LOST THE ROUND. \(scoreReturn!.score!) POINTS WERE ADDED TO OPPONENT'S SCORE.")
                 if myRoundHandler!.localPlayerIsPlayer0!{
                     player1ScoreSummand += scoreReturn!.score!
                 }
@@ -142,22 +152,43 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
                     player0ScoreSummand += scoreReturn!.score!
                 }
             }
-            
         }
         var roundEquations = Array<String>()
         for op in operations!{
             roundEquations.append(op.asString())
         }
-        myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
-        //if game is over
-        //TODO: CHECK ONLY FOR END OF GAME IF ALSO END OF ROUND (move up into if statement)
-        if !myRoundHandler!.localPlayerIsPlayer0! && gameDidFinish(){
-            myRoundHandler?.endGame()
+        //IF GAME IS OVER
+        if !myRoundHandler!.localPlayerIsPlayer0! && myRoundHandler?.getRoundNumber() >= 3{
+            var playerScores = myRoundHandler?.getPlayerScores()
+            playerScores![0] += player0ScoreSummand
+            playerScores![1] += player1ScoreSummand
+            
+            var localPlayerDidWin : Bool
+            if myRoundHandler!.localPlayerIsPlayer0!{
+                localPlayerDidWin = getAndSaveOutcome(playerScores![0], opponentScore: playerScores![1])
+                presentGameOverMessage(localPlayerDidWin, gameWinResult: (localPlayerScore: playerScores![0], opponentScore: playerScores![1]))
+            } else{
+                localPlayerDidWin = getAndSaveOutcome(playerScores![1], opponentScore: playerScores![0])
+                presentGameOverMessage(localPlayerDidWin, gameWinResult: (localPlayerScore: playerScores![1], opponentScore: playerScores![0]))
+            }
         }
-        
         else{
             dismissViewControllerAnimated(true, completion: nil)
         }
+        myRoundHandler?.saveRoundData(roundEquations, finalResult: finalResult!, player0ScoreSummand: player0ScoreSummand, player1ScoreSummand: player1ScoreSummand, timeRemaining: timeRemaining!)
+        //        //let gameWinResult = myRoundHandler?.getGameFinalScores()
+        //        if !myRoundHandler!.localPlayerIsPlayer0! && gameWinResult?.localPlayerScore != nil{
+        //            if
+        //            myRoundHandler?.endGame()
+        //        }
+    }
+    
+    //return whether local player won
+    func getAndSaveOutcome(localPlayerScore: Int, opponentScore: Int)->Bool{
+        let result = localPlayerScore > opponentScore
+        myRoundHandler?.setPlayerOutcomes(result)
+        print("DID LOCAL PLAYER WIN? ANSWER: \(result)")
+        return result
     }
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {

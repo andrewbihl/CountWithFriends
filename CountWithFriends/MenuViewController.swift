@@ -23,11 +23,6 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         matchHelper!.delegate = self
         matchHelper!.authenticateLocalUser()
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
-    }
-    
     override func viewDidAppear(animated: Bool) {
         GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
@@ -64,6 +59,10 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
                 return
             }
         }
+    }
+    
+    func didPassTurn() {
+        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
     
     func attemptGameCenterLogin(loginView: UIViewController) {
@@ -124,6 +123,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         GKTurnBasedMatch.loadMatchesWithCompletionHandler { (matches: [GKTurnBasedMatch]?, error: NSError?) in
             if matches == nil{
                 print("No existing matches")
+                self.matchHelper?.loadExistingMatches()
             }else{
                 for match in matches!{
                     match.removeWithCompletionHandler(nil)
