@@ -10,7 +10,7 @@ import UIKit
 import GameKit
 
 class RoundMessageViewController: UIViewController {
-    @IBOutlet weak var roundLabel: UILabel!
+    //@IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var player0Label: UILabel!
     @IBOutlet weak var player0ScoreLabel: UILabel!
     @IBOutlet weak var player1Label: UILabel!
@@ -32,7 +32,7 @@ class RoundMessageViewController: UIViewController {
             player1Label.text = opponent
         } else {
             player1Label.text = "New Opponent"
-            roundLabel.text = "New Game"
+//            roundLabel.text = "New Game"
             beginMatchButton.setTitle("Start New Game", forState: .Normal)
         }
         player1ScoreLabel.text = "Score: 0"
