@@ -1,25 +1,31 @@
 //
-//  OpponentCollectionViewController.swift
-//  GameMenu
+//  TheirTurnGamesCollectionViewController.swift
+//  CountWithFriends
 //
-//  Created by joy on 7/5/16.
-//  Copyright © 2016 JanL. All rights reserved.
+//  Created by joy on 7/8/16.
+//  Copyright © 2016 Andrew Bihl. All rights reserved.
 //
 
 import UIKit
 
-private let reuseIdentifier = "OppoCell"
+private let reuseIdentifier = "Cell"
 
-class OpponentCollectionViewController: UICollectionViewController {
+class TheirTurnGamesCollectionViewController: UICollectionViewController {
 
+    var matches = Array<(matchID: String, opponentDisplayName: String)>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = UIColor.greenColor()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+
         // Register cell classes
+
         // Do any additional setup after loading the view.
     }
+
+
 
     // MARK: UICollectionViewDataSource
 
@@ -28,18 +34,20 @@ class OpponentCollectionViewController: UICollectionViewController {
         return 1
     }
 
+
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 10
+        return matches.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        cell.backgroundColor = UIColor.orangeColor()
+    
+        // Configure the cell
     
         return cell
     }
-    
+
     // MARK: UICollectionViewDelegate
 
     /*

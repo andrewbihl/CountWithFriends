@@ -6,51 +6,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Player Collection View Controller-->
-        <scene sceneID="Zsm-rr-gjt">
-            <objects>
-                <collectionViewController id="ksA-4E-8KS" customClass="PlayerCollectionViewController" customModule="CountWithFriends" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="gex-j2-qmQ">
-                        <rect key="frame" x="0.0" y="0.0" width="574" height="120"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vN5-mk-v44">
-                            <size key="itemSize" width="115" height="120"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="KtC-5Y-BFM" customClass="PlayerCollectionViewCell" customModule="CountWithFriends" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="115" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="115" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbC-QV-iLt">
-                                            <rect key="frame" x="13" y="20" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <connections>
-                                    <outlet property="playerLabel" destination="EbC-QV-iLt" id="ZvD-5e-zbC"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="ksA-4E-8KS" id="xUO-xL-t5W"/>
-                            <outlet property="delegate" destination="ksA-4E-8KS" id="PCZ-ve-6Fr"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lu4-Sz-TTS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="835" y="958"/>
-        </scene>
         <!--Main-->
         <scene sceneID="xNE-Ph-6SJ">
             <objects>
@@ -95,46 +50,6 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="750-fE-lSI">
-                                <rect key="frame" x="13" y="230" width="574" height="156"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuG-2O-EVr">
-                                        <rect key="frame" x="0.0" y="0.0" width="574" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="es4-tR-l84">
-                                        <rect key="frame" x="0.0" y="36" width="574" height="120"/>
-                                        <connections>
-                                            <segue destination="ksA-4E-8KS" kind="embed" id="oj2-Zj-rCa"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="156" id="JS2-ZJ-tro"/>
-                                </constraints>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bbf-8A-DsV">
-                                <rect key="frame" x="13" y="404" width="574" height="156"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Opponent's Turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mcg-4R-ts3">
-                                        <rect key="frame" x="0.0" y="0.0" width="574" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsM-nG-OCO">
-                                        <rect key="frame" x="0.0" y="36" width="574" height="120"/>
-                                        <connections>
-                                            <segue destination="Q5l-4r-dx9" kind="embed" id="lks-NX-Tfp"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="156" id="ntd-br-knQ"/>
-                                </constraints>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ow7-CL-XQM">
                                 <rect key="frame" x="530" y="0.0" width="70" height="60"/>
                                 <constraints>
@@ -145,26 +60,92 @@
                                     <action selector="onProfilePressed:" destination="1xA-Jq-foR" eventType="touchUpInside" id="JIU-Ni-yjZ"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cgS-rr-hTj" customClass="TheirTurnCollectionView" customModule="CountWithFriends" customModuleProvider="target">
+                                <rect key="frame" x="20" y="418" width="560" height="140"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FXr-X9-s1J">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="j3V-ze-AP2" customClass="GameCollectionViewCell" customModule="CountWithFriends" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="20" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZDr-NY-C7p">
+                                                    <rect key="frame" x="4" y="14" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="label" destination="ZDr-NY-C7p" id="Dla-bf-MjR"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="1xA-Jq-foR" id="KTa-qB-sC1"/>
+                                    <outlet property="delegate" destination="1xA-Jq-foR" id="o0L-of-rDp"/>
+                                </connections>
+                            </collectionView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RbL-hS-QyE" customClass="YourTurnCollectionView" customModule="CountWithFriends" customModuleProvider="target">
+                                <rect key="frame" x="20" y="211" width="553" height="146"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.68627450980000004" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sER-ET-uHb">
+                                    <size key="itemSize" width="100" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="tvg-sh-qFi" customClass="GameCollectionViewCell" customModule="CountWithFriends" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="23" width="100" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ce2-z5-v7k">
+                                                    <rect key="frame" x="8" y="14" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="label" destination="Ce2-z5-v7k" id="FSz-ka-nbj"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="1xA-Jq-foR" id="bdc-ho-XBb"/>
+                                    <outlet property="delegate" destination="1xA-Jq-foR" id="bKc-Mb-uwx"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bbf-8A-DsV" firstAttribute="top" secondItem="750-fE-lSI" secondAttribute="bottom" constant="18" id="2p3-Sd-lyM"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="750-fE-lSI" secondAttribute="trailing" constant="-7" id="3Zf-3U-Y4b"/>
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" constant="8" id="6at-5i-t1Y"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Hfx-CO-nre" secondAttribute="leading" constant="-7" id="K9R-hM-Ote"/>
                             <constraint firstItem="Ow7-CL-XQM" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" constant="-20" id="OYY-2c-G92"/>
-                            <constraint firstItem="750-fE-lSI" firstAttribute="leading" secondItem="NiN-zz-YBb" secondAttribute="leadingMargin" constant="-7" id="UIh-gC-eFk"/>
-                            <constraint firstItem="bbf-8A-DsV" firstAttribute="leading" secondItem="NiN-zz-YBb" secondAttribute="leadingMargin" constant="-7" id="Vff-JK-q95"/>
-                            <constraint firstItem="bbf-8A-DsV" firstAttribute="top" secondItem="NiN-zz-YBb" secondAttribute="top" constant="404" id="XkT-Sh-10E"/>
-                            <constraint firstItem="ZAQ-Rm-aTh" firstAttribute="top" secondItem="bbf-8A-DsV" secondAttribute="bottom" constant="40" id="kVb-Z6-RhR"/>
-                            <constraint firstItem="750-fE-lSI" firstAttribute="trailing" secondItem="bbf-8A-DsV" secondAttribute="trailing" id="kce-A0-4hL"/>
+                            <constraint firstItem="RbL-hS-QyE" firstAttribute="leading" secondItem="Hfx-CO-nre" secondAttribute="trailing" constant="-195" id="RN3-1E-2vK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="RbL-hS-QyE" secondAttribute="trailing" constant="7" id="UDJ-ZH-XGE"/>
+                            <constraint firstItem="RbL-hS-QyE" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" constant="191" id="UWI-Xe-J2a"/>
+                            <constraint firstItem="ZAQ-Rm-aTh" firstAttribute="top" secondItem="RbL-hS-QyE" secondAttribute="bottom" constant="243" id="fBh-cI-ckg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ow7-CL-XQM" secondAttribute="trailing" constant="-20" id="qhA-jz-eUj"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="kVb-Z6-RhR"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="menuButton" destination="Ow7-CL-XQM" id="mbk-3H-Fbn"/>
@@ -174,40 +155,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzz-nL-3ng" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="540" y="399"/>
-        </scene>
-        <!--Opponent Collection View Controller-->
-        <scene sceneID="Cxc-fI-vLG">
-            <objects>
-                <collectionViewController id="Q5l-4r-dx9" customClass="OpponentCollectionViewController" customModule="CountWithFriends" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="OJJ-Ch-SDt">
-                        <rect key="frame" x="0.0" y="0.0" width="574" height="120"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d9T-DY-cPF">
-                            <size key="itemSize" width="118" height="120"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OppoCell" id="XAL-tH-Wer">
-                                <rect key="frame" x="0.0" y="0.0" width="118" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="118" height="120"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="Q5l-4r-dx9" id="9hG-OH-vud"/>
-                            <outlet property="delegate" destination="Q5l-4r-dx9" id="Xvt-KM-HmP"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I7T-Ve-nvF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="249" y="958"/>
         </scene>
         <!--Right View Controller-->
         <scene sceneID="jSj-Ns-0X7">
