@@ -1217,6 +1217,8 @@
                         <outlet property="errorLabel" destination="1c0-5Q-xMs" id="ljf-b9-NYm"/>
                         <outlet property="finishButton" destination="MNH-Jv-Kap" id="Iep-PN-mpM"/>
                         <outlet property="historyButton" destination="IB4-Vq-LUU" id="8yx-vb-nEY"/>
+                        <outlet property="locScoreLabel" destination="YN2-za-DiD" id="tuO-rn-5co"/>
+                        <outlet property="oppScoreLabel" destination="Fx2-tY-GU4" id="moz-0C-DVh"/>
                         <outlet property="tableView" destination="IsO-Qo-P0f" id="YiS-eM-Jz3"/>
                         <outlet property="targetLabel" destination="OW5-3a-3dV" id="7ze-Gx-fNV"/>
                         <outlet property="topBarView" destination="f3L-vu-1EO" id="gBH-HM-LAq"/>
