@@ -1,5 +1,5 @@
 //
-//  GameButton.swift
+//  OperatorButton.swift
 //  CountWithFriends
 //
 //  Created by Paul Lefebvre on 7/12/16.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GameButton: UIButton {
+class OperatorButton: UIButton {
     var gradient: CAGradientLayer?
-
+    
     override var bounds: CGRect {
         didSet {
             setGradient()
@@ -32,7 +32,7 @@ class GameButton: UIButton {
         gradient!.cornerRadius = 5
         gradient!.frame = self.bounds
         
-        gradient!.colors = [UIColor.onahau().CGColor,UIColor.celeste().CGColor]
+        gradient!.colors = [UIColor.caribbeanGrean().CGColor,UIColor.emeraldLight().CGColor]
         
         /* repeat the central location to have solid colors */
         gradient!.locations = [0,1.0]
@@ -43,5 +43,4 @@ class GameButton: UIButton {
         
         self.layer.insertSublayer(gradient!, atIndex: 0)
     }
-
 }

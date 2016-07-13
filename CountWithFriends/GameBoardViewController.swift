@@ -13,7 +13,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
 
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet var gameNumberButtons: [GameButton]!
-    @IBOutlet var gameOperatorButtons: [GameButton]!
+    @IBOutlet var gameOperatorButtons: [OperatorButton]!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
@@ -49,7 +49,6 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             addShadow(button, opacity: 0.5, radius: 0.5)
             button.titleLabel?.shadowOffset = CGSizeMake(0, 0.5);
             button.setTitleShadowColor(UIColor.blackColor(), forState: .Normal)
-            button.isOperand = true
         }
         
         addShadow(finishButton, opacity: 0.5, radius: 1)

@@ -29,6 +29,7 @@
 		E60DAB821D32CBDC0099868B /* RoundMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */; };
 		E60DAB841D353CF00099868B /* UIColor+HexConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB831D353CF00099868B /* UIColor+HexConvert.swift */; };
 		E60DAB861D356C920099868B /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB851D356C920099868B /* GameButton.swift */; };
+		E60DAB8A1D35C8CE0099868B /* OperatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB891D35C8CE0099868B /* OperatorButton.swift */; };
 		E6118E531D2D4DB800EACB2B /* RoundHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */; };
 		E6118E551D2EE79500EACB2B /* RoundHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E541D2EE79500EACB2B /* RoundHistoryTableViewCell.swift */; };
 		E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A61D217F0E00C515B9 /* MenuViewController.swift */; };
@@ -62,6 +63,7 @@
 		E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMessageViewController.swift; sourceTree = "<group>"; };
 		E60DAB831D353CF00099868B /* UIColor+HexConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexConvert.swift"; sourceTree = "<group>"; };
 		E60DAB851D356C920099868B /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
+		E60DAB891D35C8CE0099868B /* OperatorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorButton.swift; sourceTree = "<group>"; };
 		E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewController.swift; sourceTree = "<group>"; };
 		E6118E541D2EE79500EACB2B /* RoundHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		E631B4A61D217F0E00C515B9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */,
 				A804F1281D299AA000835D9E /* MenuCollectionViewController.swift */,
 				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
+				E60DAB891D35C8CE0099868B /* OperatorButton.swift */,
 				E60DAB851D356C920099868B /* GameButton.swift */,
 				E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */,
 				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
@@ -256,6 +259,7 @@
 				A804F1291D299AA000835D9E /* MenuCollectionViewController.swift in Sources */,
 				2FA7C6DE1D241B620024EA2B /* GameMatchingViewController.swift in Sources */,
 				A8CDC6C41D29C22C00B467E1 /* CategoryCell.swift in Sources */,
+				E60DAB8A1D35C8CE0099868B /* OperatorButton.swift in Sources */,
 				E60DAB841D353CF00099868B /* UIColor+HexConvert.swift in Sources */,
 				E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */,
 				E6118E551D2EE79500EACB2B /* RoundHistoryTableViewCell.swift in Sources */,
