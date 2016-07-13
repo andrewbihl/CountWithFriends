@@ -114,7 +114,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="theirTurnMatchesCollection" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cgS-rr-hTj" customClass="TheirTurnCollectionView" customModule="CountWithFriends" customModuleProvider="target">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cgS-rr-hTj" customClass="TheirTurnCollectionView" customModule="CountWithFriends" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="21" width="580" height="179"/>
                                         <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="FXr-X9-s1J">
@@ -170,7 +170,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" restorationIdentifier="yourTurnMatchesCollection" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RbL-hS-QyE" customClass="YourTurnCollectionView" customModule="CountWithFriends" customModuleProvider="target">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="RbL-hS-QyE" customClass="YourTurnCollectionView" customModule="CountWithFriends" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="21" width="580" height="179"/>
                                         <color key="backgroundColor" red="0.29803921570000003" green="0.68627450980000004" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sER-ET-uHb">
@@ -244,8 +244,8 @@
                     </view>
                     <connections>
                         <outlet property="menuButton" destination="Ow7-CL-XQM" id="mbk-3H-Fbn"/>
-                        <outlet property="theirTurnCollectionView" destination="cgS-rr-hTj" id="aYD-RU-l9C"/>
-                        <outlet property="yourTurnCollectionView" destination="RbL-hS-QyE" id="Krx-DU-ZhX"/>
+                        <outlet property="theirTurnCollectionView" destination="cgS-rr-hTj" id="1fF-n0-1K4"/>
+                        <outlet property="yourTurnCollectionView" destination="RbL-hS-QyE" id="lp3-RI-3tV"/>
                         <segue destination="R2P-7h-Udu" kind="show" id="7nR-7q-7b1"/>
                     </connections>
                 </viewController>

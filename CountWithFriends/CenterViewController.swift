@@ -15,6 +15,8 @@ protocol CenterViewControllerDelegate {
 
 class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UICollectionViewDataSource, UICollectionViewDelegate, GKLocalPlayerListener, UICollectionViewDelegateFlowLayout, GKTurnBasedEventListener {
     @IBOutlet var menuButton: UIButton!
+    @IBOutlet var yourTurnCollectionView: YourTurnCollectionView!
+    @IBOutlet var theirTurnCollectionView: TheirTurnCollectionView!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
     var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
@@ -23,9 +25,6 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     private let cellID = "Cell"
     
     var delegate: CenterViewControllerDelegate?
-    
-    @IBOutlet var yourTurnCollectionView: YourTurnCollectionView!
-    @IBOutlet var theirTurnCollectionView: TheirTurnCollectionView!
     
     
     override func viewDidLoad() {
@@ -56,7 +55,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("matchCell", forIndexPath: indexPath)
             as! GameCollectionViewCell
-        if collectionView.restorationIdentifier == "yourTurnMatchesCollection"{
+        if collectionView == yourTurnCollectionView{
             cell.label.text = yourTurnMatches[indexPath.item].opponentDisplayName
         }
         else{
@@ -67,7 +66,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView.restorationIdentifier == "yourTurnMatchesCollection"{
+        if collectionView == yourTurnCollectionView{
             return yourTurnMatches.count
         }
         else{
@@ -77,7 +76,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if collectionView.restorationIdentifier == "yourTurnMatchesCollection"{
+        if collectionView == yourTurnCollectionView{
             matchHelper?.resumeGame(yourTurnMatches[indexPath.item].matchID)
         }
         else{
@@ -113,16 +112,64 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     }
     
     func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
-        print("It's YOUR TURN!!!!!!!!")
+        if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID{
+            print("Match knows that it is YOUR TURN.")
+        } else{
+            print("The match thinks it is still the other guys turn.")
+        }
+        // let newMatchID = match.matchID!
+        //Sometimes the event gets sent twice. We don't want to re-update on repeated events.
+        //        if currentlyReloadingGames{
+        //            return
+        //        }
+        //        currentlyReloadingGames = true
+        var newOpponentName = ""
+        for participant in match.participants!{
+            if participant.playerID != player.playerID{
+                newOpponentName = participant.player!.displayName!
+            }
+        }
+        newOpponentName = newOpponentName.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
+        //should be yourMatches array in actual menu view controller
+        //existingMatches.append((matchID: newMatchID, opponentDisplayName: newOpponentName))
+        //TODO: UPDATE OPPONENT'S NAME FOR CASE of change from "Waiting for other player to join" -> Name
+        for i in 0..<theirTurnMatches.count{
+            var existingMatch = theirTurnMatches[i]
+            if existingMatch.matchID == match.matchID{
+                theirTurnMatches.removeAtIndex(i)
+                existingMatch.opponentDisplayName = newOpponentName
+                yourTurnMatches.append(existingMatch)
+                yourTurnCollectionView.reloadData()
+                theirTurnCollectionView.reloadData()
+                return
+            }
+        }
+        
     }
+    
     
     func attemptGameCenterLogin(loginView: UIViewController) {
         self.presentViewController(loginView, animated: true, completion: nil)
     }
     
-    func didJoinOrCreateMatch(match: GKTurnBasedMatch) {
-        matchToBeEntered = match
-        self.performSegueWithIdentifier("startGameSegue", sender: nil)
+    func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error : NSError?) {
+        if error != nil{
+            presentOfflineAlert("User Offline")
+        } else{
+            matchToBeEntered = match!
+            if matchToBeEntered?.matchData == nil {
+                presentOfflineAlert("Failed to Load Match")
+            }else{
+                self.performSegueWithIdentifier("startGameSegue", sender: nil)
+            }
+        }
+    }
+    
+    func presentOfflineAlert(title:String){
+        let offlineAlert = UIAlertController(title: title, message: "Sorry, this game cannot be played offline. Please check your internet connection and try again.", preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+        offlineAlert.addAction(okayAction)
+        self.presentViewController(offlineAlert, animated: true, completion: nil)
     }
     
     func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
