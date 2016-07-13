@@ -27,9 +27,9 @@ class OperationTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        removeRowButton.layer.borderColor = UIColor(red: 81/255, green: 159/255, blue: 243/255, alpha: 1).CGColor
-        removeRowButton.layer.borderWidth = 1
-        removeRowButton.layer.cornerRadius = 15
+
+        //removeRowButton.imageView?.image!.
+        
         
         outputValueButton.layer.borderColor = UIColor(red: 81/255, green: 159/255, blue: 243/255, alpha: 1).CGColor
         outputValueButton.layer.borderWidth = 1
