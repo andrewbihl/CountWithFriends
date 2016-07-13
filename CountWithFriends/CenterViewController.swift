@@ -16,11 +16,12 @@ protocol CenterViewControllerDelegate {
 class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UICollectionViewDataSource, UICollectionViewDelegate, GKLocalPlayerListener, UICollectionViewDelegateFlowLayout, GKTurnBasedEventListener {
     @IBOutlet var menuButton: UIButton!
     @IBOutlet var yourTurnCollectionView: YourTurnCollectionView!
-    @IBOutlet var theirTurnCollectionView: TheirTurnCollectionView!
+    @IBOutlet var theirTurnCollectionView: YourTurnCollectionView!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
     var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
     var theirTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    let gradient = CAGradientLayer()
     
     private let cellID = "Cell"
     
@@ -29,12 +30,25 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.sunsetOverlay()
+        addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
         matchHelper = GCTurnBasedMatchHelper.sharedInstance
         matchHelper!.delegate = self
         matchHelper!.authenticateLocalUser()
         menuButton.setImage(defaultMenuImage(), forState: .Normal)
         
 //        yourTurnMatches = [(matchID:"Friend", opponentDisplayName:"Opponent")]
+    }
+    
+    
+    private func addGradiant(topColor: UIColor, bottomColor: UIColor) {
+        let colorArray:[CGColor] = [topColor.CGColor, bottomColor.CGColor]
+        let locations:[Int] = [0,1]
+        gradient.colors = colorArray
+        gradient.frame = self.view.frame
+        gradient.locations = locations
+        
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
     }
     
     override func viewWillAppear(animated:
@@ -235,7 +249,9 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
         
     }
     
-    
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) {
+        matchHelper?.loadExistingMatches()
+    }
     
 }
 

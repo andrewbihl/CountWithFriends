@@ -11,42 +11,18 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class YourTurnCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource {
-    
+class YourTurnCollectionView: UICollectionView {
     
 //    var matches = Array<(matchID: String, opponentDisplayName: String)>()
     
     func viewDidLoad() {
-    
-        self.backgroundColor = UIColor.cyanColor()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        //self.backgroundColor = UIColor.redColor()
    
     }
-    
     // MARK: UICollectionViewDataSource
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        
-        return 10
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
-        
-        cell.backgroundColor = UIColor.greenColor()
-        
-        // Configure the cell
-        return cell
-    }
     
     
 }
