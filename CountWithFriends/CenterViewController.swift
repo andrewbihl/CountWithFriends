@@ -10,25 +10,40 @@ import GameKit
 import UIKit
 
 protocol CenterViewControllerDelegate {
-     func toggleRightPanel()
+    func toggleRightPanel()
 }
 
-class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout, GCTurnBasedMatchHelperDelegate, UICollectionViewDelegate, UICollectionViewDataSource, GKTurnBasedEventListener {
-    @IBOutlet weak var tableView: UITableView!
+class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UICollectionViewDataSource, UICollectionViewDelegate, GKLocalPlayerListener, UICollectionViewDelegateFlowLayout, GKTurnBasedEventListener {
+    @IBOutlet var menuButton: UIButton!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
     var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
     var theirTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
     
-    private let cellID = "cellID"
+    private let cellID = "Cell"
     
     var delegate: CenterViewControllerDelegate?
     
+    @IBOutlet var yourTurnCollectionView: YourTurnCollectionView!
+    @IBOutlet var theirTurnCollectionView: TheirTurnCollectionView!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        matchHelper = GCTurnBasedMatchHelper.sharedInstance
+        matchHelper!.delegate = self
+        matchHelper!.authenticateLocalUser()
+        menuButton.setImage(defaultMenuImage(), forState: .Normal)
+        
+//        yourTurnMatches = [(matchID:"Friend", opponentDisplayName:"Opponent")]
+    }
+    
+    override func viewWillAppear(animated:
+        Bool) {
+        super.viewWillAppear(animated)
+        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
+    }
 
-    
-    @IBOutlet var menuButton: UIButton!
-    
-    
     
     @IBAction func onProfilePressed(sender: AnyObject) {
         
@@ -36,25 +51,42 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     }
     
     
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+//      if collectionView == yourTurnCollectionView
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("matchCell", forIndexPath: indexPath)
+            as! GameCollectionViewCell
+        if collectionView.restorationIdentifier == "yourTurnMatchesCollection"{
+            cell.label.text = yourTurnMatches[indexPath.item].opponentDisplayName
+        }
+        else{
+            cell.label.text = theirTurnMatches[indexPath.item].opponentDisplayName
+        }
+        return cell
+    }
     
-    // override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
     
-    //        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellID, forIndexPath: indexPath) as! CategoryCell
-    //
-    //        return cell
-    //    }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView.restorationIdentifier == "yourTurnMatchesCollection"{
+            return yourTurnMatches.count
+        }
+        else{
+            return theirTurnMatches.count
+        }
+    }
     
     
-    //    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    //
-    //        return 2
-    //
-    //    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionView.restorationIdentifier == "yourTurnMatchesCollection"{
+            matchHelper?.resumeGame(yourTurnMatches[indexPath.item].matchID)
+        }
+        else{
+            matchHelper?.resumeGame(theirTurnMatches[indexPath.item].matchID)
+        }
+    }
+    
     
     //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-    //
-    //
-    //
     //        return CGSizeMake(view.frame.width - 40, 50)
     //    }
     
@@ -80,18 +112,6 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         return defaultMenuImage;
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        matchHelper = GCTurnBasedMatchHelper.sharedInstance
-        matchHelper!.delegate = self
-        matchHelper!.authenticateLocalUser()
-        menuButton.setImage(defaultMenuImage(), forState: .Normal)
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        
-    }
-    
     func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
         print("It's YOUR TURN!!!!!!!!")
     }
@@ -108,7 +128,9 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
     func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
         self.yourTurnMatches = yourTurnMatches
         self.theirTurnMatches = theirTurnMatches
-        self.collectionView.
+        yourTurnCollectionView.reloadData()
+        theirTurnCollectionView.reloadData()
+        // self.collectionView.
     }
     
     func didLoginToGameCenter() {
@@ -157,26 +179,10 @@ class CenterViewController: UIViewController, UICollectionViewDelegateFlowLayout
         matchHelper?.joinOrStartRandomGame()
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        matchHelper?.resumeGame(existingMatches[indexPath.row].matchID)
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return existingMatches.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("matchCell")
-        cell?.textLabel?.text = existingMatches[indexPath.row].opponentDisplayName
-        return cell!
-    }
     
     func didPassTurn() {
         
     }
-    
-    
-    
     
     
     
