@@ -26,7 +26,6 @@
 		A86CB5F81D24A94F00EF1A43 /* CenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */; };
 		A8C3257B1D33E5C3001FD9AE /* YourTurnCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3257A1D33E5C3001FD9AE /* YourTurnCollectionView.swift */; };
 		A8C3259B1D352BA9001FD9AE /* TheirTurnCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3259A1D352BA9001FD9AE /* TheirTurnCollectionView.swift */; };
-		A8CDC6C41D29C22C00B467E1 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8CDC6C31D29C22C00B467E1 /* CategoryCell.swift */; };
 		E60DAB821D32CBDC0099868B /* RoundMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */; };
 		E6118E531D2D4DB800EACB2B /* RoundHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */; };
 		E6118E551D2EE79500EACB2B /* RoundHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E541D2EE79500EACB2B /* RoundHistoryTableViewCell.swift */; };
@@ -58,7 +57,6 @@
 		A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CenterViewController.swift; sourceTree = "<group>"; };
 		A8C3257A1D33E5C3001FD9AE /* YourTurnCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourTurnCollectionView.swift; sourceTree = "<group>"; };
 		A8C3259A1D352BA9001FD9AE /* TheirTurnCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheirTurnCollectionView.swift; sourceTree = "<group>"; };
-		A8CDC6C31D29C22C00B467E1 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMessageViewController.swift; sourceTree = "<group>"; };
 		E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewController.swift; sourceTree = "<group>"; };
 		E6118E541D2EE79500EACB2B /* RoundHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -129,9 +127,9 @@
 			children = (
 				A80FC6D01D306CF20030BF05 /* GameCollectionViewCell.swift */,
 				E660BEE61D21E384002D9CB5 /* ClockView.swift */,
-				A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */,
 				A8C3257A1D33E5C3001FD9AE /* YourTurnCollectionView.swift */,
 				A8C3259A1D352BA9001FD9AE /* TheirTurnCollectionView.swift */,
+				A80FC6C21D2D56280030BF05 /* GameMenu.storyboard */,
 				A86CB5F51D249C6500EF1A43 /* Status.storyboard */,
 				2F61D3211D217A8600C9867F /* Main.storyboard */,
 			);

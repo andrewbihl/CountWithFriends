@@ -241,6 +241,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    func gameDidFinish()->Bool{
+        //Get winner if game is over.
+        return false
+
+    }
+
+    
     @IBAction func onOperatorTapped(sender: UIButton) {
         if operations?.isEmpty == true{
             operations!.append(Operation())
