@@ -199,13 +199,17 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
             if opponentID == nil{
                 opponentID = "Opponent not yet found"
             }
-            let newRoundHandler = RoundHandler()
-            newRoundHandler.myMatchData = matchToBeEntered?.matchData
-            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
-            newRoundHandler.opponentDisplayName = opponentID
-            newRoundHandler.startNewRound(6)
-            let dvc = segue.destinationViewController as! GameBoardViewController
-            dvc.myRoundHandler = newRoundHandler
+            let dvc = segue.destinationViewController as! RoundMessageViewController
+            dvc.localPlayerIsPlayer0 = localPlayerIsPlayer0
+            dvc.opponentID = opponentID
+            dvc.matchToBeEntered = matchToBeEntered
+//            let newRoundHandler = RoundHandler()
+//            newRoundHandler.myMatchData = matchToBeEntered?.matchData
+//            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0
+//            newRoundHandler.opponentDisplayName = opponentID
+//            newRoundHandler.startNewRound(6)
+//            let dvc = segue.destinationViewController as! RoundMessageViewController
+//            dvc.myRoundHandler = newRoundHandler
         }
     }
     
