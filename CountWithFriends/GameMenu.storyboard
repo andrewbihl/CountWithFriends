@@ -80,26 +80,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Hfx-CO-nre">
-                                <rect key="frame" x="8" y="86" width="188" height="117"/>
+                                <rect key="frame" x="8" y="86" width="188" height="76"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUM-JY-9bB">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="35"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                        <state key="normal" title="  Play Game" image="soloPlayer">
-                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onStartGameTapped:" destination="1xA-Jq-foR" eventType="touchUpInside" id="bvv-Ff-TyV"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZC-op-V7T">
-                                        <rect key="frame" x="0.0" y="41" width="188" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="35"/>
                                         <state key="normal" title="Challenge a Friend" image="challengeFriend">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-9S-TZe">
-                                        <rect key="frame" x="0.0" y="82" width="188" height="35"/>
+                                        <rect key="frame" x="0.0" y="41" width="188" height="35"/>
                                         <state key="normal" title="     Random Match" image="randomMatch">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -230,11 +220,11 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RjT-8f-ujz">
-                                <rect key="frame" x="213.5" y="131" width="173.5" height="28"/>
+                                <rect key="frame" x="213" y="137" width="173.5" height="28"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Current Games">
                                         <attributes>
-                                            <color key="NSColor" red="0.1019607843" green="0.4941176471" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="24" name="Helvetica-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -242,22 +232,34 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUM-JY-9bB">
+                                <rect key="frame" x="215.5" y="72" width="169" height="38"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
+                                <state key="normal" title="Start New Game!">
+                                    <color key="titleColor" red="0.1019607843" green="0.4941176471" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="onStartGameTapped:" destination="1xA-Jq-foR" eventType="touchUpInside" id="bvv-Ff-TyV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="d1l-1r-cz2" firstAttribute="leading" secondItem="Hfx-CO-nre" secondAttribute="leading" id="67S-Sw-bDJ"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="trailing" secondItem="d1l-1r-cz2" secondAttribute="trailing" id="7RJ-tg-Kee"/>
+                            <constraint firstItem="d1l-1r-cz2" firstAttribute="top" secondItem="RjT-8f-ujz" secondAttribute="bottom" constant="16" id="BV7-BG-j2U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d1l-1r-cz2" secondAttribute="trailing" constant="-8" id="D40-a4-e1b"/>
                             <constraint firstItem="ZAQ-Rm-aTh" firstAttribute="top" secondItem="tMu-CI-uU0" secondAttribute="bottom" constant="11" id="G6F-BZ-Uof"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Hfx-CO-nre" secondAttribute="leading" constant="-7" id="K9R-hM-Ote"/>
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="leading" secondItem="NiN-zz-YBb" secondAttribute="leading" constant="8" id="Ml4-fB-hYS"/>
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" constant="66" id="NAs-Ng-jxb"/>
-                            <constraint firstItem="d1l-1r-cz2" firstAttribute="top" secondItem="RjT-8f-ujz" secondAttribute="bottom" constant="22" id="NOM-KM-bi2"/>
                             <constraint firstItem="Ow7-CL-XQM" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" id="OYY-2c-G92"/>
+                            <constraint firstItem="RjT-8f-ujz" firstAttribute="top" secondItem="vUM-JY-9bB" secondAttribute="bottom" constant="27" id="dKe-TL-AgK"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="leading" secondItem="Hfx-CO-nre" secondAttribute="leading" id="dxD-yl-m11"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tMu-CI-uU0" secondAttribute="trailing" constant="-8" id="hZ0-A8-tOV"/>
                             <constraint firstItem="RjT-8f-ujz" firstAttribute="centerX" secondItem="NiN-zz-YBb" secondAttribute="centerX" id="kpc-cw-Kxb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ow7-CL-XQM" secondAttribute="trailing" constant="-8" id="qhA-jz-eUj"/>
+                            <constraint firstItem="vUM-JY-9bB" firstAttribute="centerX" secondItem="NiN-zz-YBb" secondAttribute="centerX" id="vhc-3R-Ijp"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="top" secondItem="d1l-1r-cz2" secondAttribute="bottom" constant="8" id="ywX-nU-Kth"/>
                         </constraints>
                         <variation key="default">
@@ -329,6 +331,5 @@
     <resources>
         <image name="challengeFriend" width="37" height="35"/>
         <image name="randomMatch" width="31" height="25"/>
-        <image name="soloPlayer" width="29" height="32"/>
     </resources>
 </document>
