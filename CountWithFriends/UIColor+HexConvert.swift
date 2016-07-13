@@ -115,12 +115,16 @@ extension UIColor {
         return UIColor(hexString:"183738", alpha: alpha)
     }
     
-    class func Onahau(alpha: Float = 1.0) -> UIColor{
+    class func onahau(alpha: Float = 1.0) -> UIColor{
         return UIColor(hexString:"#CDFEFF", alpha: alpha)
     }
     
-    class func Celeste(alpha: Float = 1.0) -> UIColor{
+    class func celeste(alpha: Float = 1.0) -> UIColor{
         return UIColor(hexString:"#B0FEFF", alpha: alpha)
+    }
+    
+    class func caribbeanGrean(alpha: Float = 1.0) -> UIColor{
+        return UIColor(hexString:"#2DFEA7", alpha: alpha)
     }
     
 }

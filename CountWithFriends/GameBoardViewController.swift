@@ -49,6 +49,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             addShadow(button, opacity: 0.5, radius: 0.5)
             button.titleLabel?.shadowOffset = CGSizeMake(0, 0.5);
             button.setTitleShadowColor(UIColor.blackColor(), forState: .Normal)
+            button.isOperand = true
         }
         
         addShadow(finishButton, opacity: 0.5, radius: 1)

@@ -10,7 +10,7 @@ import UIKit
 
 class GameButton: UIButton {
     var gradient: CAGradientLayer?
-    
+    var isOperand = false;
     override var bounds: CGRect {
         didSet {
             if gradient != nil {
@@ -21,10 +21,7 @@ class GameButton: UIButton {
             gradient!.cornerRadius = 5
             gradient!.frame = self.bounds
             
-            gradient!.colors = [
-                UIColor.Onahau().CGColor,
-                UIColor.Celeste().CGColor
-            ]
+            gradient!.colors = setColors()
             
             /* repeat the central location to have solid colors */
             gradient!.locations = [0,1.0]
@@ -35,6 +32,15 @@ class GameButton: UIButton {
             
             self.layer.insertSublayer(gradient!, atIndex: 0)
         }
+    }
+    
+    func setColors() -> [CGColor] {
+        if isOperand {
+            return [UIColor.caribbeanGrean().CGColor,UIColor.emeraldLight().CGColor]
+        } else {
+            return [UIColor.onahau().CGColor,UIColor.celeste().CGColor]
+        }
+        
     }
 
 }
