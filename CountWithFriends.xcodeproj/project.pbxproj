@@ -27,6 +27,9 @@
 		A8C3257B1D33E5C3001FD9AE /* YourTurnCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3257A1D33E5C3001FD9AE /* YourTurnCollectionView.swift */; };
 		A8C3259B1D352BA9001FD9AE /* TheirTurnCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8C3259A1D352BA9001FD9AE /* TheirTurnCollectionView.swift */; };
 		E60DAB821D32CBDC0099868B /* RoundMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */; };
+		E60DAB841D353CF00099868B /* UIColor+HexConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB831D353CF00099868B /* UIColor+HexConvert.swift */; };
+		E60DAB861D356C920099868B /* GameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB851D356C920099868B /* GameButton.swift */; };
+		E60DAB8A1D35C8CE0099868B /* OperatorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60DAB891D35C8CE0099868B /* OperatorButton.swift */; };
 		E6118E531D2D4DB800EACB2B /* RoundHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */; };
 		E6118E551D2EE79500EACB2B /* RoundHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6118E541D2EE79500EACB2B /* RoundHistoryTableViewCell.swift */; };
 		E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E631B4A61D217F0E00C515B9 /* MenuViewController.swift */; };
@@ -58,6 +61,9 @@
 		A8C3257A1D33E5C3001FD9AE /* YourTurnCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourTurnCollectionView.swift; sourceTree = "<group>"; };
 		A8C3259A1D352BA9001FD9AE /* TheirTurnCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TheirTurnCollectionView.swift; sourceTree = "<group>"; };
 		E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMessageViewController.swift; sourceTree = "<group>"; };
+		E60DAB831D353CF00099868B /* UIColor+HexConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexConvert.swift"; sourceTree = "<group>"; };
+		E60DAB851D356C920099868B /* GameButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameButton.swift; sourceTree = "<group>"; };
+		E60DAB891D35C8CE0099868B /* OperatorButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperatorButton.swift; sourceTree = "<group>"; };
 		E6118E521D2D4DB800EACB2B /* RoundHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewController.swift; sourceTree = "<group>"; };
 		E6118E541D2EE79500EACB2B /* RoundHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		E631B4A61D217F0E00C515B9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +109,7 @@
 				2F61D31D1D217A8600C9867F /* AppDelegate.swift */,
 				A80FC6BF1D2D52440030BF05 /* Model */,
 				A80FC6C11D2D52780030BF05 /* Controller */,
+				A8CDC6C31D29C22C00B467E1 /* CategoryCell.swift */,
 				2F4ABDD11D26D5C30029A717 /* OperationTableViewCell.swift */,
 				A80FC6C01D2D52610030BF05 /* View */,
 				2F61D3241D217A8600C9867F /* Assets.xcassets */,
@@ -118,6 +125,7 @@
 				E660BEEA1D2429C3002D9CB5 /* Operation.swift */,
 				2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */,
 				2F4ABDD31D26D7140029A717 /* RoundHandler.swift */,
+				E60DAB831D353CF00099868B /* UIColor+HexConvert.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -144,6 +152,8 @@
 				A86CB5F71D24A94F00EF1A43 /* CenterViewController.swift */,
 				A804F1281D299AA000835D9E /* MenuCollectionViewController.swift */,
 				E631B4A81D217F6700C515B9 /* GameBoardViewController.swift */,
+				E60DAB891D35C8CE0099868B /* OperatorButton.swift */,
+				E60DAB851D356C920099868B /* GameButton.swift */,
 				E60DAB811D32CBDC0099868B /* RoundMessageViewController.swift */,
 				E631B4A61D217F0E00C515B9 /* MenuViewController.swift */,
 				2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */,
@@ -243,10 +253,15 @@
 				E60DAB821D32CBDC0099868B /* RoundMessageViewController.swift in Sources */,
 				2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */,
 				A86CB5F81D24A94F00EF1A43 /* CenterViewController.swift in Sources */,
+				E60DAB861D356C920099868B /* GameButton.swift in Sources */,
+				A80FC6C61D2D654D0030BF05 /* PlayerCollectionViewController.swift in Sources */,
 				E631B4A91D217F6700C515B9 /* GameBoardViewController.swift in Sources */,
 				A8C3259B1D352BA9001FD9AE /* TheirTurnCollectionView.swift in Sources */,
 				A804F1291D299AA000835D9E /* MenuCollectionViewController.swift in Sources */,
 				2FA7C6DE1D241B620024EA2B /* GameMatchingViewController.swift in Sources */,
+				A8CDC6C41D29C22C00B467E1 /* CategoryCell.swift in Sources */,
+				E60DAB8A1D35C8CE0099868B /* OperatorButton.swift in Sources */,
+				E60DAB841D353CF00099868B /* UIColor+HexConvert.swift in Sources */,
 				E660BEE71D21E384002D9CB5 /* ClockView.swift in Sources */,
 				E6118E551D2EE79500EACB2B /* RoundHistoryTableViewCell.swift in Sources */,
 				E631B4A71D217F0E00C515B9 /* MenuViewController.swift in Sources */,

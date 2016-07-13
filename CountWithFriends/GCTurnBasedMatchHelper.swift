@@ -13,7 +13,7 @@ protocol GCTurnBasedMatchHelperDelegate {
     func didPassTurn()
     func didLoginToGameCenter()
     func attemptGameCenterLogin(loginView: UIViewController)
-    func didJoinOrCreateMatch(match:GKTurnBasedMatch)
+    func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error: NSError?)
     func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>)
 }
 
@@ -39,9 +39,10 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         GKTurnBasedMatch.loadMatchWithID(matchID) { (match: GKTurnBasedMatch?, error: NSError?) in
             if error != nil{
                 print("There was a problem resuming the match: \n\(error)")
+                self.delegate?.didJoinOrCreateMatch(nil, error: error)
             }else{
                 self.myMatch = match!
-                self.delegate?.didJoinOrCreateMatch(match!)
+                self.delegate?.didJoinOrCreateMatch(match!, error: nil)
             }
         }
     }
@@ -55,10 +56,11 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         GKTurnBasedMatch.findMatchForRequest(request) { (match: GKTurnBasedMatch?, error: NSError?) in
             if error != nil{
                 print("Error in searching for game match: \(error)")
+                self.delegate?.didJoinOrCreateMatch(nil, error: error)
             }
             else if match != nil{
                 self.myMatch = match!
-                self.delegate?.didJoinOrCreateMatch(match!)
+                self.delegate?.didJoinOrCreateMatch(match!, error: nil)
             }
         }
     }
