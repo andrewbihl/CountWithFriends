@@ -69,9 +69,17 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         self.presentViewController(loginView, animated: true, completion: nil)
     }
     
-    func didJoinOrCreateMatch(match: GKTurnBasedMatch) {
-        matchToBeEntered = match
-        self.performSegueWithIdentifier("startGameSegue", sender: nil)
+    func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error : NSError?) {
+        if error != nil{
+            presentOfflineAlert("User Offline")
+        } else{
+            matchToBeEntered = match!
+            if matchToBeEntered?.matchData == nil {
+                presentOfflineAlert("Failed to Load Match")
+            }else{
+                self.performSegueWithIdentifier("startGameSegue", sender: nil)
+            }
+        }
     }
     
     func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
@@ -153,6 +161,13 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         else{
             print("Dude it's not your turn.")
         }
+    }
+    
+    func presentOfflineAlert(title:String){
+        let offlineAlert = UIAlertController(title: title, message: "Sorry, this game cannot be played offline. Please check your internet connection and try again.", preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+        offlineAlert.addAction(okayAction)
+        self.presentViewController(offlineAlert, animated: true, completion: nil)
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
