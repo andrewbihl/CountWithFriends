@@ -80,7 +80,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
             matchHelper?.resumeGame(yourTurnMatches[indexPath.item].matchID)
         }
         else{
-            matchHelper?.resumeGame(theirTurnMatches[indexPath.item].matchID)
+//            matchHelper?.resumeGame(theirTurnMatches[indexPath.item].matchID)
         }
     }
     
