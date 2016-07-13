@@ -15,11 +15,11 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var gameNumberButtons: [GameButton]!
     @IBOutlet var gameOperatorButtons: [OperatorButton]!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var finishButton: UIButton!
-    @IBOutlet weak var undoButton: UIButton!
-    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var finishButton: OperatorButton!
+    @IBOutlet weak var undoButton: OperatorButton!
+    @IBOutlet weak var clearButton: OperatorButton!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var historyButton: UIButton!
+    @IBOutlet weak var historyButton: OperatorButton!
     @IBOutlet weak var oppScoreLabel: UILabel!
     @IBOutlet weak var locScoreLabel: UILabel!
     

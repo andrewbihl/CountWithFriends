@@ -32,7 +32,7 @@ class OperatorButton: UIButton {
         gradient!.cornerRadius = 5
         gradient!.frame = self.bounds
         
-        gradient!.colors = [UIColor.caribbeanGrean().CGColor,UIColor.emeraldLight().CGColor]
+        gradient!.colors = [UIColor.jungleGreen().CGColor,UIColor.darkSpringGreen().CGColor]
         
         /* repeat the central location to have solid colors */
         gradient!.locations = [0,1.0]
