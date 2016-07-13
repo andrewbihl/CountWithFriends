@@ -12,11 +12,10 @@ class SidePanelViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     
-    var placeHolderText = ["Friends", "Username", "Solo", "Random Opponent", "Profile"]
+    var placeHolderText = ["Email us at countoffapp@gmail.com", "with any feedback!"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         tableView.reloadData()
     }
     

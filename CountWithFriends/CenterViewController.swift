@@ -40,7 +40,6 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
 //        yourTurnMatches = [(matchID:"Friend", opponentDisplayName:"Opponent")]
     }
     
-    
     private func addGradiant(topColor: UIColor, bottomColor: UIColor) {
         let colorArray:[CGColor] = [topColor.CGColor, bottomColor.CGColor]
         let locations:[Int] = [0,1]
@@ -51,11 +50,11 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
         self.view.layer.insertSublayer(gradient, atIndex: 0)
     }
     
-    override func viewWillAppear(animated:
-        Bool) {
-        super.viewWillAppear(animated)
-        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
-    }
+//    override func viewWillAppear(animated:
+//        Bool) {
+//        super.viewWillAppear(animated)
+//        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
+//    }
 
     
     @IBAction func onProfilePressed(sender: AnyObject) {
@@ -240,13 +239,13 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     }
     
     @IBAction func onStartGameTapped(sender: AnyObject) {
-        //        deleteUsersMatches()
+        //deleteUsersMatches()
         matchHelper?.joinOrStartRandomGame()
     }
     
     
     func didPassTurn() {
-        
+        GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
     
     @IBAction func unwindSegue(segue: UIStoryboardSegue) {

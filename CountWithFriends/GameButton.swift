@@ -11,7 +11,6 @@ import UIKit
 class GameButton: UIButton {
     override var enabled: Bool{
         didSet(previousState){
-            print(previousState)
             if previousState != false{
                 if gradient != nil{
                     self.gradient?.removeFromSuperlayer()

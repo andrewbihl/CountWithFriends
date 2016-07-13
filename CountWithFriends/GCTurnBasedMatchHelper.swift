@@ -220,14 +220,14 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                         }
                     }
                     if opponentName == nil{
-                        opponentName = "Waiting for other player to join"
+                        opponentName = "Awaiting \nOpponent"
                     }
                     else{
                         //If display name is alias it will present with non-ASCII quotes. Remove these.
                         opponentName = opponentName!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
                     }
                     //If it is your turn...
-                    if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID && opponentName != "Waiting for other player to join"{
+                    if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID && opponentName != "Awaiting \nOpponent"{
                         yourTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
                     }
                     else{

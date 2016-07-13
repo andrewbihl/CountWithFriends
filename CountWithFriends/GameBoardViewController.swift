@@ -170,7 +170,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your shitty score of \(gameWinResult.localPlayerScore!)", preferredStyle: .Alert)
         }
         let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.performSegueWithIdentifier("unwindToMenu", sender: self)
         })
         gameOverAlert.addAction(dismissAction)
         self.presentViewController(gameOverAlert, animated: true, completion: nil)
