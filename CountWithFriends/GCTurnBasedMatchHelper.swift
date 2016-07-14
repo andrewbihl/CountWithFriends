@@ -212,7 +212,7 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                 var yourTurnMatches = Array<GameSnapshot>()
                 var theirTurnMatches = Array<GameSnapshot>()
                 for match in matches!{
-                    if match.participants![0].matchOutcome != .None{
+                    if match.participants![0].matchOutcome != .None || match.matchData?.length == 0{
                         match.removeWithCompletionHandler(nil)
                     }
                     else{
