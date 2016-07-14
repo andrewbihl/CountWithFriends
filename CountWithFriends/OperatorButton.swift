@@ -9,6 +9,19 @@
 import UIKit
 
 class OperatorButton: UIButton {
+    override var enabled: Bool{
+        didSet {
+            if self.enabled == false{
+                if gradient != nil{
+                    self.gradient?.removeFromSuperlayer()
+                }
+                
+                self.backgroundColor = UIColor.lightGrayColor()
+            } else{
+                setGradient()
+            }
+        }
+    }
     var gradient: CAGradientLayer?
     
     override var bounds: CGRect {

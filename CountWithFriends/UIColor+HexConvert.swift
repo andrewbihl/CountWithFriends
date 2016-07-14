@@ -116,23 +116,23 @@ extension UIColor {
     }
     
     class func onahau(alpha: Float = 1.0) -> UIColor{
-        return UIColor(hexString:"#CDFEFF", alpha: alpha)
+        return UIColor(hexString:"CDFEFF", alpha: alpha)
     }
     
     class func celeste(alpha: Float = 1.0) -> UIColor{
-        return UIColor(hexString:"#B0FEFF", alpha: alpha)
+        return UIColor(hexString:"B0FEFF", alpha: alpha)
     }
     
     class func caribbeanGrean(alpha: Float = 1.0) -> UIColor{
-        return UIColor(hexString:"#2DFEA7", alpha: alpha)
+        return UIColor(hexString:"2DFEA7", alpha: alpha)
     }
     
     class func jungleGreen(alpha: Float = 1.0) -> UIColor{
-        return UIColor(hexString:"#31B27C", alpha: alpha)
+        return UIColor(hexString:"31B27C", alpha: alpha)
     }
     
     class func darkSpringGreen(alpha: Float = 1.0) -> UIColor{
-        return UIColor(hexString:"#127345", alpha: alpha)
+        return UIColor(hexString:"127345", alpha: alpha)
     }
     
 }
