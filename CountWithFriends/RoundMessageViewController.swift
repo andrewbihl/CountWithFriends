@@ -13,11 +13,17 @@ class RoundMessageViewController: UIViewController {
     //@IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var player0Label: UILabel!
     @IBOutlet weak var player0ScoreLabel: UILabel!
+    @IBOutlet weak var player0Box: UIView!
     @IBOutlet weak var player1Label: UILabel!
+    @IBOutlet weak var player1Box: UIView!
     @IBOutlet weak var player1ScoreLabel: UILabel!
     @IBOutlet weak var beginMatchButton: UIButton!
     @IBOutlet weak var infoView: UIView!
     
+    @IBOutlet weak var navBar: UINavigationBar!
+    var localPlayerInfo: (name: String, score: Int)?
+    var opponentInfo: (name: String, score: Int)?
+    var roundNumber : Int?
     var matchToBeEntered: GKTurnBasedMatch?
     var gameIsFinished = false
     var opponentID: String?
@@ -26,21 +32,30 @@ class RoundMessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        player0Label.text = GKLocalPlayer.localPlayer().alias
-        player0ScoreLabel.text = "Score: 0"
-        if let opponent = matchToBeEntered?.participants![1].player?.displayName {
-            player1Label.text = opponent
-        } else {
-            player1Label.text = "New Opponent"
-//            roundLabel.text = "New Game"
-            beginMatchButton.setTitle("Start New Game", forState: .Normal)
+        if roundNumber == nil || roundNumber == 0{
+            self.navBar.topItem?.title = "New Game"
+			beginMatchButton.setTitle("Start New Game", forState: .Normal)
+        } else{
+            self.navBar.topItem?.title = "Round \(roundNumber!)"
         }
-        player1ScoreLabel.text = "Score: 0"
-        
+        if localPlayerInfo == nil{
+            localPlayerInfo = (name: "Me", score: 0)
+        }
+        player0Label.text = localPlayerInfo!.name
+        player0ScoreLabel.text = "Score: \(localPlayerInfo!.score)"
+
+        if opponentInfo == nil{
+            opponentInfo = (name: "New Opponent", score: 0)
+        }
+        player1Label.text = opponentInfo!.name
+        player1ScoreLabel.text = "Score: \(opponentInfo!.score)"   
+     
         self.infoView.backgroundColor = UIColor.sunsetOverlay()
         self.beginMatchButton.backgroundColor = UIColor.sunsetOverlay()
         self.beginMatchButton.setTitleColor(UIColor.sunsetOverlayLightText(), forState: .Normal)
         
+        player0Box.backgroundColor = UIColor.sunsetOverlay()
+        player1Box.backgroundColor = UIColor.sunsetOverlay()
         addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
     }
     
@@ -77,6 +92,8 @@ class RoundMessageViewController: UIViewController {
         
         let dvc = segue.destinationViewController as! GameBoardViewController
         dvc.myRoundHandler = newRoundHandler
+        dvc.localPlayer = localPlayerInfo!.name
+        dvc.opponentPlayer = opponentInfo!.name
         if outcome != GKTurnBasedMatchOutcome.None{
             dvc.gameIsFinished = true
         }

@@ -12,7 +12,7 @@ class SidePanelViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     
-    var placeHolderText = ["Email us at countoffapp@gmail.com", "with any feedback!"]
+    var placeHolderText = ["Got feedback?", "Email me at countoffapp@gmail.com!"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

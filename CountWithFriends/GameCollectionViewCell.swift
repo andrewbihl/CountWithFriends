@@ -10,11 +10,13 @@ import UIKit
 
 class GameCollectionViewCell: UICollectionViewCell {
     @IBOutlet var label: UILabel!
+    @IBOutlet weak var roundNumberLabel: UILabel!
     var programmaticLabel : UILabel?
     
     override func awakeFromNib() {
         label.numberOfLines = 2
         label.textColor = UIColor.whiteColor()
+        roundNumberLabel.textColor = UIColor.whiteColor()
         self.backgroundColor = UIColor.darkSpringGreen(0.7)
         addShadow(self, opacity: 0.5, radius: 0.5)
     }

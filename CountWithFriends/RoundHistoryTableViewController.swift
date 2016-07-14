@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GameKit
 
 class RoundHistoryTableViewController: UITableViewController {
     
@@ -17,9 +16,20 @@ class RoundHistoryTableViewController: UITableViewController {
     var player1Times: [Int] = []
     var roundTargets: [Int] = []
     var roundHandler: RoundHandler?
+    var localPlayer: String?
+    var opponentPlayer: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if localPlayer == nil{
+            localPlayer = "Me"
+        }
+        
+        if opponentPlayer == nil{
+            opponentPlayer = "New Opponent"
+        }
+        
         let targets = roundHandler?.myMatchDataDict!["roundInputs"] as? [Dictionary<String,AnyObject>]
         if let previous = roundHandler?.getPreviousRoundOperations() {
             if !previous.isEmpty {
@@ -58,9 +68,9 @@ class RoundHistoryTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCellID", forIndexPath: indexPath) as! RoundHistoryTableViewCell
         if(indexPath.section == 0 && indexPath.row == 0) {
-            cell.player0OperationLabel.text = GKLocalPlayer.localPlayer().alias
+            cell.player0OperationLabel.text = localPlayer
             cell.player0OperationLabel.font = UIFont.boldSystemFontOfSize(15.0)
-            cell.player1OperationLabel.text = roundHandler?.opponentDisplayName
+            cell.player1OperationLabel.text = opponentPlayer
             cell.player1OperationLabel.font = UIFont.boldSystemFontOfSize(15.0)
         } else if indexPath.section == 0 && indexPath.row == 6 {
             cell.player0OperationLabel.text = "\(player0Times[0]) seconds"

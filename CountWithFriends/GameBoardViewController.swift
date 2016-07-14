@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class GameBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate, ClockViewDelegate, OperationDelegate,UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var targetLabel: UILabel!
@@ -22,15 +21,34 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var historyButton: OperatorButton!
     @IBOutlet weak var oppScoreLabel: UILabel!
     @IBOutlet weak var locScoreLabel: UILabel!
+    @IBOutlet weak var currentRoundLabel: UILabel!
+    @IBOutlet weak var player0Label: UILabel!
+    @IBOutlet weak var player0Box: UIView!
+    @IBOutlet weak var player1Label: UILabel!
+    @IBOutlet weak var player1Box: UIView!
+    
     
     let gradient = CAGradientLayer()
     var myRoundHandler: RoundHandler?
     var operations: [Operation]? = []
     var clockView: ClockView?
     var gameIsFinished = false
+    var localPlayer: String?
+    var opponentPlayer: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if localPlayer == nil{
+            localPlayer = "Me"
+        }
+        player0Label.text = localPlayer
+        
+        if opponentPlayer == nil{
+            opponentPlayer = "New Opponent"
+        }
+        player1Label.text = opponentPlayer
+        
         tableView.separatorColor = UIColor(red:0.74, green:0.84, blue:0.95, alpha:1.00)
         let tempImageView = UIImageView.init(image: UIImage.init(named: "Portrait"))
         tempImageView.frame = tableView.bounds
@@ -74,6 +92,17 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
         targetLabel.shadowOffset = CGSizeMake(0, 1)
         targetLabel.shadowColor = UIColor.blackColor()
+        
+        if let round = myRoundHandler?.getPreviousRoundOperations()?.count {
+            if myRoundHandler!.localPlayerIsPlayer0! {
+               currentRoundLabel.text = "Round \(round + 1)"
+            } else {
+               currentRoundLabel.text = "Round \(round)"
+            }
+        } else {
+            currentRoundLabel.text = "Round 1"
+        }
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -164,10 +193,10 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         var gameOverAlert: UIAlertController
         print("localPlayerDidWin = \(localPlayerDidWin)...as sent to presentGameOverMessage")
         if localPlayerDidWin{
-            gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult.localPlayerScore!) vs your opponent's score of \(gameWinResult.opponentScore!)", preferredStyle: .Alert)
+            gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult.localPlayerScore!) vs your opponent's score of \(gameWinResult.opponentScore!).", preferredStyle: .Alert)
         }
         else{
-            gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your shitty score of \(gameWinResult.localPlayerScore!)", preferredStyle: .Alert)
+            gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "Bad Luck! Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your score of \(gameWinResult.localPlayerScore!).", preferredStyle: .Alert)
         }
         let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
             self.performSegueWithIdentifier("unwindToMenu", sender: self)
@@ -388,6 +417,8 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             popoverViewController.popoverPresentationController?.sourceView = historyButton
             popoverViewController.popoverPresentationController?.sourceRect = historyButton.bounds
             popoverViewController.roundHandler = self.myRoundHandler
+            popoverViewController.localPlayer = self.localPlayer
+            popoverViewController.opponentPlayer = self.opponentPlayer
         }
     }
     

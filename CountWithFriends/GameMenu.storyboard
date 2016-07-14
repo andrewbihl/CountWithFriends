@@ -79,17 +79,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Hfx-CO-nre">
-                                <rect key="frame" x="8" y="86" width="188" height="76"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Hfx-CO-nre">
+                                <rect key="frame" x="8" y="86" width="180" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZC-op-V7T">
-                                        <rect key="frame" x="0.0" y="0.0" width="188" height="35"/>
+                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZC-op-V7T">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="32"/>
                                         <state key="normal" title="Challenge a Friend" image="challengeFriend">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-9S-TZe">
-                                        <rect key="frame" x="0.0" y="41" width="188" height="35"/>
+                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-9S-TZe">
+                                        <rect key="frame" x="0.0" y="38" width="180" height="32"/>
                                         <state key="normal" title="     Random Match" image="randomMatch">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -115,7 +115,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="matchCell" id="j3V-ze-AP2" customClass="GameCollectionViewCell" customModule="CountWithFriends" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="22.5" width="135" height="135"/>
+                                                <rect key="frame" x="0.0" y="23" width="135" height="135"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
@@ -127,6 +127,12 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L68-yH-kug">
+                                                            <rect key="frame" x="8" y="73" width="54" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -134,9 +140,12 @@
                                                 <constraints>
                                                     <constraint firstItem="ZDr-NY-C7p" firstAttribute="top" secondItem="j3V-ze-AP2" secondAttribute="topMargin" constant="6" id="FWY-rE-HET"/>
                                                     <constraint firstItem="ZDr-NY-C7p" firstAttribute="leading" secondItem="j3V-ze-AP2" secondAttribute="leadingMargin" constant="-4" id="OzL-T1-Xnk"/>
+                                                    <constraint firstAttribute="bottomMargin" secondItem="L68-yH-kug" secondAttribute="bottom" constant="33" id="PbV-30-Mf4"/>
+                                                    <constraint firstItem="L68-yH-kug" firstAttribute="leading" secondItem="j3V-ze-AP2" secondAttribute="leadingMargin" id="WIw-8X-9CB"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="label" destination="ZDr-NY-C7p" id="Dla-bf-MjR"/>
+                                                    <outlet property="roundNumberLabel" destination="L68-yH-kug" id="qh2-gn-cds"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
@@ -170,7 +179,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="matchCell" id="tvg-sh-qFi" customClass="GameCollectionViewCell" customModule="CountWithFriends" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="22.5" width="135" height="135"/>
+                                                <rect key="frame" x="0.0" y="23" width="135" height="135"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
@@ -182,6 +191,12 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Round " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXs-Nv-kgH">
+                                                            <rect key="frame" x="8" y="73" width="54" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -189,9 +204,12 @@
                                                 <constraints>
                                                     <constraint firstItem="Ce2-z5-v7k" firstAttribute="top" secondItem="tvg-sh-qFi" secondAttribute="topMargin" constant="6" id="2ED-kA-luh"/>
                                                     <constraint firstItem="Ce2-z5-v7k" firstAttribute="leading" secondItem="tvg-sh-qFi" secondAttribute="leadingMargin" id="Zom-gY-5Ia"/>
+                                                    <constraint firstItem="MXs-Nv-kgH" firstAttribute="leading" secondItem="Ce2-z5-v7k" secondAttribute="leading" id="cDB-Wd-wVT"/>
+                                                    <constraint firstAttribute="bottomMargin" secondItem="MXs-Nv-kgH" secondAttribute="bottom" constant="33" id="piU-c2-mya"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="label" destination="Ce2-z5-v7k" id="FSz-ka-nbj"/>
+                                                    <outlet property="roundNumberLabel" destination="MXs-Nv-kgH" id="0Po-iQ-pEy"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
