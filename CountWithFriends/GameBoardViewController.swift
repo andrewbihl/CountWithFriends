@@ -33,9 +33,22 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     var operations: [Operation]? = []
     var clockView: ClockView?
     var gameIsFinished = false
+    var localPlayer: String?
+    var opponentPlayer: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if localPlayer == nil{
+            localPlayer = "Me"
+        }
+        player0Label.text = localPlayer
+        
+        if opponentPlayer == nil{
+            opponentPlayer = "New Opponent"
+        }
+        player1Label.text = opponentPlayer
+        
         tableView.separatorColor = UIColor(red:0.74, green:0.84, blue:0.95, alpha:1.00)
         let tempImageView = UIImageView.init(image: UIImage.init(named: "Portrait"))
         tempImageView.frame = tableView.bounds
@@ -81,18 +94,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         targetLabel.shadowColor = UIColor.blackColor()
         
         if let round = myRoundHandler?.getPreviousRoundOperations()?.count {
-            currentRoundLabel.text = "Round \(round + 1)"
+            if myRoundHandler!.localPlayerIsPlayer0! {
+               currentRoundLabel.text = "Round \(round + 1)"
+            } else {
+               currentRoundLabel.text = "Round \(round)"
+            }
         } else {
             currentRoundLabel.text = "Round 1"
-        }
-        player0Box.backgroundColor = UIColor.sunsetOverlay()
-        player1Box.backgroundColor = UIColor.sunsetOverlay()
-        
-        self.player0Label.text = "Me"
-        if let opponent = myRoundHandler?.opponentDisplayName {
-            player1Label.text = opponent
-        } else {
-            player1Label.text = "New Opponent"
         }
         
     }
@@ -409,6 +417,8 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             popoverViewController.popoverPresentationController?.sourceView = historyButton
             popoverViewController.popoverPresentationController?.sourceRect = historyButton.bounds
             popoverViewController.roundHandler = self.myRoundHandler
+            popoverViewController.localPlayer = self.localPlayer
+            popoverViewController.opponentPlayer = self.opponentPlayer
         }
     }
     

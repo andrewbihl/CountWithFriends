@@ -31,23 +31,18 @@ class RoundMessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if localPlayerInfo != nil{
-            player0Label.text = localPlayerInfo!.name
-            player0ScoreLabel.text = "Score: \(localPlayerInfo!.score)"
+        
+        if localPlayerInfo == nil{
+            localPlayerInfo = (name: "Me", score: 0)
         }
-        else{
-            player0Label.text = "Me"
-            player0ScoreLabel.text = "Score: 0"
+        player0Label.text = localPlayerInfo!.name
+        player0ScoreLabel.text = "Score: \(localPlayerInfo!.score)"
+
+        if opponentInfo == nil{
+            opponentInfo = (name: "New Opponent", score: 0)
         }
-        if opponentInfo != nil{
-            player1Label.text = opponentInfo!.name
-            player1ScoreLabel.text = "Score: \(opponentInfo!.score)"
-        }
-        else {
-            player1Label.text = "New Opponent"
-            player1ScoreLabel.text = "Score: 0"
-            beginMatchButton.setTitle("Start New Game", forState: .Normal)
-        }
+        player1Label.text = opponentInfo!.name
+        player1ScoreLabel.text = "Score: \(opponentInfo!.score)"
         
         self.infoView.backgroundColor = UIColor.sunsetOverlay()
         self.beginMatchButton.backgroundColor = UIColor.sunsetOverlay()
@@ -91,6 +86,8 @@ class RoundMessageViewController: UIViewController {
         
         let dvc = segue.destinationViewController as! GameBoardViewController
         dvc.myRoundHandler = newRoundHandler
+        dvc.localPlayer = localPlayerInfo!.name
+        dvc.opponentPlayer = opponentInfo!.name
         if outcome != GKTurnBasedMatchOutcome.None{
             dvc.gameIsFinished = true
         }
