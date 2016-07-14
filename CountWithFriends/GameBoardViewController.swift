@@ -12,16 +12,18 @@ import UIKit
 class GameBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate, ClockViewDelegate, OperationDelegate,UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var targetLabel: UILabel!
-    @IBOutlet var gameNumberButtons: [UIButton]!
-    @IBOutlet var gameOperatorButtons: [UIButton]!
+    @IBOutlet var gameNumberButtons: [GameButton]!
+    @IBOutlet var gameOperatorButtons: [OperatorButton]!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var finishButton: UIButton!
+    @IBOutlet weak var finishButton: OperatorButton!
+    @IBOutlet weak var undoButton: OperatorButton!
+    @IBOutlet weak var clearButton: OperatorButton!
     @IBOutlet weak var errorLabel: UILabel!
-    @IBOutlet weak var topBarView: UIView!
-    @IBOutlet weak var historyButton: UIButton!
+    @IBOutlet weak var historyButton: OperatorButton!
     @IBOutlet weak var oppScoreLabel: UILabel!
     @IBOutlet weak var locScoreLabel: UILabel!
     
+    let gradient = CAGradientLayer()
     var myRoundHandler: RoundHandler?
     var operations: [Operation]? = []
     var clockView: ClockView?
@@ -34,12 +36,26 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         tempImageView.frame = tableView.bounds
         tableView.backgroundView = tempImageView
         tableView.allowsSelection = false
-        tableView.superview!.layer.shadowColor = UIColor.blackColor().CGColor
-        tableView.superview!.layer.shadowOpacity = 0.5
-        tableView.superview!.layer.shadowOffset = CGSizeZero
-        tableView.superview!.layer.shadowRadius = 3
-        finishButton.enabled = false
+        addShadow(tableView.superview!, opacity: 0.5, radius: 3)
+
         
+        for button in gameNumberButtons {
+            addShadow(button, opacity: 0.5, radius: 0.5)
+            button.titleLabel?.shadowOffset = CGSizeMake(0, 0.5);
+            button.setTitleShadowColor(UIColor.blackColor(), forState: .Normal)
+        }
+        
+        for button in gameOperatorButtons {
+            addShadow(button, opacity: 0.5, radius: 0.5)
+            button.titleLabel?.shadowOffset = CGSizeMake(0, 0.5);
+            button.setTitleShadowColor(UIColor.blackColor(), forState: .Normal)
+        }
+        
+        addShadow(finishButton, opacity: 0.5, radius: 1)
+        addShadow(undoButton, opacity: 0.5, radius: 1)
+        addShadow(clearButton, opacity: 0.5, radius: 1)
+        
+        finishButton.enabled = false
         if myRoundHandler != nil{
             var playerScores = myRoundHandler!.getPlayerScores()
             if playerScores == nil{
@@ -55,6 +71,9 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         print("localPlayerIsPlayer0 = \(myRoundHandler?.localPlayerIsPlayer0)")
+        addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
+        targetLabel.shadowOffset = CGSizeMake(0, 1)
+        targetLabel.shadowColor = UIColor.blackColor()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -81,12 +100,14 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         let viewSize = self.targetLabel.layer.frame.size.height
         clockView = ClockView(frame: CGRectMake(0, 0, viewSize/1.5, viewSize/1.5))
         clockView!.delegate = self
-        clockView!.frame = CGRect(x: 15, y: topBarView.frame.height + 27, width: viewSize, height: viewSize)
+        clockView!.frame = CGRect(x: 15, y: 52 + 27, width: viewSize, height: viewSize)
         
         clockView!.setTimer(60)
         //TODO: Start clock on user indication
         clockView!.startClockTimer()
+        animateNewGradiant(UIColor.midnightLight(), newBottomColor: UIColor.midnightDark())
         self.view.addSubview(clockView!)
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -101,6 +122,30 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         for button in gameOperatorButtons {
             button.titleLabel!.font = UIFont(name: button.titleLabel!.font!.fontName, size: buttonFontSize)
         }
+    }
+    
+    private func addGradiant(topColor: UIColor, bottomColor: UIColor) {
+        let colorArray:[CGColor] = [topColor.CGColor, bottomColor.CGColor]
+        let locations:[Int] = [0,1]
+        gradient.colors = colorArray
+        gradient.frame = self.view.frame
+        gradient.locations = locations
+        
+        self.view.layer.insertSublayer(gradient, atIndex: 0)
+    }
+    
+    func addShadow(shadowView: UIView, opacity: Float, radius: CGFloat) {
+        shadowView.layer.shadowColor = UIColor.blackColor().CGColor
+        shadowView.layer.shadowOpacity = opacity
+        shadowView.layer.shadowOffset = CGSizeZero
+        shadowView.layer.shadowRadius = radius
+    }
+    
+    func animateNewGradiant(newTopColor: UIColor, newBottomColor: UIColor) {
+        CATransaction.begin()
+        CATransaction.setAnimationDuration(120)
+        gradient.colors = [newTopColor.CGColor,newBottomColor.CGColor]
+        CATransaction.commit()
     }
     
     func startNewRound(){
@@ -125,7 +170,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
             gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your shitty score of \(gameWinResult.localPlayerScore!)", preferredStyle: .Alert)
         }
         let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.performSegueWithIdentifier("unwindToMenu", sender: self)
         })
         gameOverAlert.addAction(dismissAction)
         self.presentViewController(gameOverAlert, animated: true, completion: nil)
@@ -214,7 +259,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         if operations?.count <= 4 {
             return false
         } else if let second = operations?.last?.secondButton {
-            if !second.enabled && !operations!.last!.brokeRules {
+            if !second.enabled && !operations!.last!.brokeRules && operations!.last!.operation != "" {
                 return true
             }
         }
@@ -241,6 +286,13 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    func gameDidFinish()->Bool{
+        //Get winner if game is over.
+        return false
+
+    }
+
+    
     @IBAction func onOperatorTapped(sender: UIButton) {
         if operations?.isEmpty == true{
             operations!.append(Operation())
@@ -255,6 +307,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         currentOp.operation = (sender.titleLabel?.text)!
         
         currentOp.checkOperation()
+        finishButton.enabled = shouldEnableFinished()
         tableView.reloadData()
     }
     
@@ -344,6 +397,7 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         let removedOperation = operations!.removeLast()
         removedOperation.firstButton?.enabled = true
         removedOperation.secondButton?.enabled = true
+        finishButton.enabled = shouldEnableFinished()
         tableView.reloadData()
     }
     

@@ -23,9 +23,13 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         matchHelper!.delegate = self
         matchHelper!.authenticateLocalUser()
     }
-    override func viewDidAppear(animated: Bool) {
+    
+    override func viewWillAppear(animated: 
+        Bool) {
+        super.viewWillAppear(animated)
         GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
+    
     
     func player(player: GKPlayer, receivedTurnEventForMatch match: GKTurnBasedMatch, didBecomeActive: Bool) {
         if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID{
@@ -59,19 +63,29 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
                 return
             }
         }
+
     }
     
     func didPassTurn() {
         GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
+
     }
     
     func attemptGameCenterLogin(loginView: UIViewController) {
         self.presentViewController(loginView, animated: true, completion: nil)
     }
     
-    func didJoinOrCreateMatch(match: GKTurnBasedMatch) {
-        matchToBeEntered = match
-        self.performSegueWithIdentifier("startGameSegue", sender: nil)
+    func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error : NSError?) {
+        if error != nil{
+            presentOfflineAlert("User Offline")
+        } else{
+            matchToBeEntered = match!
+            if matchToBeEntered?.matchData == nil {
+                presentOfflineAlert("Failed to Load Match")
+            }else{
+                self.performSegueWithIdentifier("startGameSegue", sender: nil)
+            }
+        }
     }
     
     func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
@@ -101,6 +115,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
             if opponentID == nil{
                 opponentID = "Opponent not yet found"
             }
+
             let dvc = segue.destinationViewController as! RoundMessageViewController
             dvc.localPlayerIsPlayer0 = localPlayerIsPlayer0
             dvc.opponentID = opponentID
@@ -122,6 +137,7 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
 //            else{
 //                newRoundHandler.startNewRound(6)
 //            }
+
         }
     }
     
@@ -153,6 +169,13 @@ class MenuViewController: UIViewController, GCTurnBasedMatchHelperDelegate, UITa
         else{
             print("Dude it's not your turn.")
         }
+    }
+    
+    func presentOfflineAlert(title:String){
+        let offlineAlert = UIAlertController(title: title, message: "Sorry, this game cannot be played offline. Please check your internet connection and try again.", preferredStyle: .Alert)
+        let okayAction = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
+        offlineAlert.addAction(okayAction)
+        self.presentViewController(offlineAlert, animated: true, completion: nil)
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

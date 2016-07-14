@@ -13,7 +13,7 @@ protocol GCTurnBasedMatchHelperDelegate {
     func didPassTurn()
     func didLoginToGameCenter()
     func attemptGameCenterLogin(loginView: UIViewController)
-    func didJoinOrCreateMatch(match:GKTurnBasedMatch)
+    func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error: NSError?)
     func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>)
 }
 
@@ -39,9 +39,10 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         GKTurnBasedMatch.loadMatchWithID(matchID) { (match: GKTurnBasedMatch?, error: NSError?) in
             if error != nil{
                 print("There was a problem resuming the match: \n\(error)")
+                self.delegate?.didJoinOrCreateMatch(nil, error: error)
             }else{
                 self.myMatch = match!
-                self.delegate?.didJoinOrCreateMatch(match!)
+                self.delegate?.didJoinOrCreateMatch(match!, error: nil)
             }
         }
     }
@@ -55,10 +56,11 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         GKTurnBasedMatch.findMatchForRequest(request) { (match: GKTurnBasedMatch?, error: NSError?) in
             if error != nil{
                 print("Error in searching for game match: \(error)")
+                self.delegate?.didJoinOrCreateMatch(nil, error: error)
             }
             else if match != nil{
                 self.myMatch = match!
-                self.delegate?.didJoinOrCreateMatch(match!)
+                self.delegate?.didJoinOrCreateMatch(match!, error: nil)
             }
         }
     }
@@ -150,6 +152,7 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
             else{
                 print("Turn passed")
                 self.myMatch = nil
+                self.delegate?.didPassTurn()
             }
         }
     }
@@ -210,26 +213,31 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                 var yourTurnMatches = Array<(matchID: String,opponentDisplayName: String)>()
                 var theirTurnMatches = Array<(matchID: String,opponentDisplayName: String)>()
                 for match in matches!{
-                    var opponentName : String?
-                    //print(match.participants)
-                    for participant in match.participants!{
-                        if participant.playerID != GKLocalPlayer.localPlayer().playerID{
-                            opponentName = participant.player?.displayName
+                    if match.participants![0].matchOutcome != .None{
+                        match.removeWithCompletionHandler(nil)
+                    }
+                    else{
+                        var opponentName : String?
+                        //print(match.participants)
+                        for participant in match.participants!{
+                            if participant.playerID != GKLocalPlayer.localPlayer().playerID{
+                                opponentName = participant.player?.displayName
+                            }
                         }
-                    }
-                    if opponentName == nil{
-                        opponentName = "Waiting for other player to join"
-                    }
-                    else{
-                        //If display name is alias it will present with non-ASCII quotes. Remove these.
-                        opponentName = opponentName!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
-                    }
-                    //If it is your turn...
-                    if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID && opponentName != "Waiting for other player to join"{
-                        yourTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
-                    }
-                    else{
-                        theirTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
+                        if opponentName == nil{
+                            opponentName = "Awaiting \nOpponent"
+                        }
+                        else{
+                            //If display name is alias it will present with non-ASCII quotes. Remove these.
+                            opponentName = opponentName!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
+                        }
+                        //If it is your turn...
+                        if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID && opponentName != "Awaiting \nOpponent"{
+                            yourTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
+                        }
+                        else{
+                            theirTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
+                        }
                     }
                 }
                 print(matches!.count)

@@ -11,8 +11,8 @@ import GameKit
 
 class RoundHistoryTableViewController: UITableViewController {
     
-    var player0Operations: [[String]] = []
-    var player1Operations: [[String]] = []
+    var player0Operations: [[String]?] = []
+    var player1Operations: [[String]?] = []
     var player0Times: [Int] = []
     var player1Times: [Int] = []
     var roundTargets: [Int] = []
@@ -25,9 +25,9 @@ class RoundHistoryTableViewController: UITableViewController {
             if !previous.isEmpty {
                 for dic in previous {
                     if dic.count % 2 == 0 {
-                        player0Operations.append(dic["player0Operations"]! as! [String])
+                        player0Operations.append(dic["player0Operations"]! as? [String])
                         player0Times.append(60 - (dic["player0TimeRemaining"]! as! Int))
-                        player1Operations.append(dic["player1Operations"]! as! [String])
+                        player1Operations.append(dic["player1Operations"]! as? [String])
                         player1Times.append(60 - (dic["player1TimeRemaining"]! as! Int))
                     }
                 }
@@ -41,12 +41,10 @@ class RoundHistoryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return player0Operations.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if section == 0 {
             return 7
         }
@@ -70,20 +68,43 @@ class RoundHistoryTableViewController: UITableViewController {
             cell.player1OperationLabel.text = "\(player1Times[0]) seconds"
             cell.player1OperationLabel.font = UIFont.boldSystemFontOfSize(14.0)
         } else if indexPath.section == 0 && indexPath.row >= 1 {
-            cell.player0OperationLabel.text = player0Operations[indexPath.section][indexPath.row - 1]
-            cell.player1OperationLabel.text = player1Operations[indexPath.section][indexPath.row - 1]
+            if let value = player0Operations[indexPath.section]?.count {
+                if value >= indexPath.row {
+                    cell.player0OperationLabel.text = player0Operations[indexPath.section]![indexPath.row - 1]
+                } else {
+                    cell.player0OperationLabel.text = "Incomplete"
+                }
+            }
+            if let value = player1Operations[indexPath.section]?.count {
+                if value >= indexPath.row {
+                    cell.player1OperationLabel.text = player1Operations[indexPath.section]![indexPath.row - 1]
+                } else {
+                    cell.player1OperationLabel.text = "Incomplete"
+                }
+            }
+            
         } else if indexPath.section != 0 && indexPath.row == 5 {
             cell.player0OperationLabel.text = "\(player0Times[indexPath.section]) seconds"
             cell.player0OperationLabel.font = UIFont.boldSystemFontOfSize(14.0)
             cell.player1OperationLabel.text = "\(player1Times[indexPath.section]) seconds"
             cell.player1OperationLabel.font = UIFont.boldSystemFontOfSize(14.0)
         } else {
-            cell.player0OperationLabel.text = player0Operations[indexPath.section][indexPath.row]
-            cell.player1OperationLabel.text = player1Operations[indexPath.section][indexPath.row]
+            if let value = player0Operations[indexPath.section]?.count {
+                if value >= indexPath.row + 1 {
+                    cell.player0OperationLabel.text = player0Operations[indexPath.section]![indexPath.row]
+                } else {
+                    cell.player0OperationLabel.text = "Incomplete"
+                }
+            }
+            if let value = player1Operations[indexPath.section]?.count {
+                if value >= indexPath.row + 1 {
+                    cell.player1OperationLabel.text = player1Operations[indexPath.section]![indexPath.row]
+                } else {
+                    cell.player1OperationLabel.text = "Incomplete"
+                }
+            }
         }
         
-        
-
         return cell
     }
  
