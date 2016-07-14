@@ -679,7 +679,62 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUA-lR-roH">
                                 <rect key="frame" x="15" y="208" width="570" height="331"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81K-rH-fEU">
+                                        <rect key="frame" x="8" y="143" width="554" height="46.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Remember: You don't have to hit the target number exactly... you just have to get closer than your opponent!">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="Avenir-Book"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y86-4f-hxp">
+                                        <rect key="frame" x="192" y="256" width="187" height="66.5"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Good Luck!">
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="20" name="Avenir-Medium"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBD-1a-Mbe">
+                                        <rect key="frame" x="0.0" y="8" width="570" height="70"/>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">Directions: Get as close as you can to the target number at the top, using each of the 6 numbers provided and the 4 basic operations.
+</string>
+                                                <attributes>
+                                                    <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <font key="NSFont" size="17" name="Avenir-Book"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="y86-4f-hxp" secondAttribute="bottom" constant="8" id="4gg-rv-SdE"/>
+                                    <constraint firstItem="y86-4f-hxp" firstAttribute="centerX" secondItem="mUA-lR-roH" secondAttribute="centerX" id="Nuq-0R-rMg"/>
+                                    <constraint firstItem="lBD-1a-Mbe" firstAttribute="leading" secondItem="mUA-lR-roH" secondAttribute="leading" id="RHU-fr-RgQ"/>
+                                    <constraint firstItem="81K-rH-fEU" firstAttribute="centerX" secondItem="mUA-lR-roH" secondAttribute="centerX" id="Zq9-Q8-34f"/>
+                                    <constraint firstAttribute="trailing" secondItem="lBD-1a-Mbe" secondAttribute="trailing" id="Zsp-O2-nXA"/>
+                                    <constraint firstItem="81K-rH-fEU" firstAttribute="leading" secondItem="mUA-lR-roH" secondAttribute="leading" constant="8" id="av6-BR-R3P"/>
+                                    <constraint firstItem="lBD-1a-Mbe" firstAttribute="top" secondItem="mUA-lR-roH" secondAttribute="top" constant="8" id="gTB-R0-ERg"/>
+                                    <constraint firstItem="lBD-1a-Mbe" firstAttribute="centerX" secondItem="mUA-lR-roH" secondAttribute="centerX" id="mdY-GO-H07"/>
+                                    <constraint firstItem="81K-rH-fEU" firstAttribute="centerY" secondItem="mUA-lR-roH" secondAttribute="centerY" id="oq9-tc-I2g"/>
+                                    <constraint firstAttribute="trailing" secondItem="81K-rH-fEU" secondAttribute="trailing" constant="8" id="pK6-C3-wbD"/>
+                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
@@ -719,6 +774,7 @@
                     <connections>
                         <outlet property="beginMatchButton" destination="kOR-Yz-3Is" id="nzB-Yn-mwE"/>
                         <outlet property="infoView" destination="mUA-lR-roH" id="7BC-ta-Csy"/>
+                        <outlet property="navBar" destination="l9f-QH-yip" id="qNa-Cz-LDs"/>
                         <outlet property="player0Box" destination="2rM-Tx-5bL" id="TB9-bu-Mb6"/>
                         <outlet property="player0Label" destination="3EX-lU-kTM" id="0wA-rg-UUX"/>
                         <outlet property="player0ScoreLabel" destination="qbU-Wq-1CC" id="fwt-3a-5CR"/>

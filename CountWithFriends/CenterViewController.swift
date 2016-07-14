@@ -42,6 +42,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     override func viewWillAppear(animated:
         Bool) {
         super.viewWillAppear(animated)
+        
         GCTurnBasedMatchHelper.sharedInstance.loadExistingMatches()
     }
     
@@ -109,7 +110,6 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
         delegate?.toggleRightPanel()
     }
     
-    
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 //      if collectionView == yourTurnCollectionView
         
@@ -135,7 +135,6 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
             return theirTurnMatches.count
         }
     }
-    
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionView == yourTurnCollectionView{
@@ -232,6 +231,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
                 dvc.localPlayerInfo = (name: matchToBeEnteredSnapshot!.yourName, score: matchToBeEnteredSnapshot!.yourScore)
                 dvc.opponentInfo = (name: matchToBeEnteredSnapshot!.opponentName, score: matchToBeEnteredSnapshot!.opponentScore)
             }
+            dvc.roundNumber = matchToBeEnteredSnapshot?.currentRound
             dvc.localPlayerIsPlayer0 = localPlayerIsPlayer0
             dvc.opponentID = opponentID
             dvc.matchToBeEntered = matchToBeEntered

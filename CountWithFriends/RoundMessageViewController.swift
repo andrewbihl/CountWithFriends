@@ -20,6 +20,7 @@ class RoundMessageViewController: UIViewController {
     @IBOutlet weak var beginMatchButton: UIButton!
     @IBOutlet weak var infoView: UIView!
     
+    @IBOutlet weak var navBar: UINavigationBar!
     var localPlayerInfo: (name: String, score: Int)?
     var opponentInfo: (name: String, score: Int)?
     var roundNumber : Int?
@@ -31,6 +32,11 @@ class RoundMessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if roundNumber == nil || roundNumber == 0{
+            self.navBar.topItem?.title = "New Game"
+        } else{
+            self.navBar.topItem?.title = "Round \(roundNumber!)"
+        }
         if localPlayerInfo != nil{
             player0Label.text = localPlayerInfo!.name
             player0ScoreLabel.text = "Score: \(localPlayerInfo!.score)"
