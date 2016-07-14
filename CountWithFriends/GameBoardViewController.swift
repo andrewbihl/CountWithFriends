@@ -164,10 +164,10 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         var gameOverAlert: UIAlertController
         print("localPlayerDidWin = \(localPlayerDidWin)...as sent to presentGameOverMessage")
         if localPlayerDidWin{
-            gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult.localPlayerScore!) vs your opponent's score of \(gameWinResult.opponentScore!)", preferredStyle: .Alert)
+            gameOverAlert = UIAlertController(title: "You Won the Game!", message: "Congratulations. You won with a score \(gameWinResult.localPlayerScore!) vs your opponent's score of \(gameWinResult.opponentScore!).", preferredStyle: .Alert)
         }
         else{
-            gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "You suck. Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your shitty score of \(gameWinResult.localPlayerScore!)", preferredStyle: .Alert)
+            gameOverAlert = UIAlertController(title: "You Lost the Game!", message: "Bad Luck! Your opponent beat you with a score \(gameWinResult.opponentScore!) vs your score of \(gameWinResult.localPlayerScore!).", preferredStyle: .Alert)
         }
         let dismissAction = UIAlertAction(title: "Okay", style: .Default, handler: { (action: UIAlertAction) in
             self.performSegueWithIdentifier("unwindToMenu", sender: self)
