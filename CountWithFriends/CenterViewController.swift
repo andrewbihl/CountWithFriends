@@ -19,8 +19,9 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     @IBOutlet var theirTurnCollectionView: YourTurnCollectionView!
     var matchHelper : GCTurnBasedMatchHelper?
     var matchToBeEntered: GKTurnBasedMatch?
-    var yourTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
-    var theirTurnMatches = Array<(matchID: String, opponentDisplayName: String)>()
+    var matchToBeEnteredSnapshot: GameSnapshot?
+    var yourTurnMatches = Array<GameSnapshot>()
+    var theirTurnMatches = Array<GameSnapshot>()
     var currentlyReloadingGames = false
     let gradient = CAGradientLayer()
     var delegate: CenterViewControllerDelegate?
@@ -70,7 +71,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
             var existingMatch = theirTurnMatches[i]
             if existingMatch.matchID == match.matchID{
                 theirTurnMatches.removeAtIndex(i)
-                existingMatch.opponentDisplayName = newOpponentName
+                existingMatch.opponentName = newOpponentName
                 yourTurnMatches.append(existingMatch)
                 self.yourTurnCollectionView.reloadData()
                 self.theirTurnCollectionView.reloadData()
@@ -115,10 +116,12 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("matchCell", forIndexPath: indexPath)
             as! GameCollectionViewCell
         if collectionView == yourTurnCollectionView{
-            cell.label.text = yourTurnMatches[indexPath.item].opponentDisplayName
+            cell.label.text = yourTurnMatches[indexPath.item].opponentName
+            cell.roundNumberLabel.text = "Round \(yourTurnMatches[indexPath.item].currentRound)"
         }
         else{
-            cell.label.text = theirTurnMatches[indexPath.item].opponentDisplayName
+            cell.label.text = theirTurnMatches[indexPath.item].opponentName
+            cell.roundNumberLabel.text = "Round \(theirTurnMatches[indexPath.item].currentRound)"
         }
         return cell
     }
@@ -136,6 +139,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         if collectionView == yourTurnCollectionView{
+            matchToBeEnteredSnapshot = yourTurnMatches[indexPath.item]
             matchHelper?.resumeGame(yourTurnMatches[indexPath.item].matchID)
         }
         else{
@@ -195,7 +199,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
         self.presentViewController(offlineAlert, animated: true, completion: nil)
     }
     
-    func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>) {
+    func didLoadExistingMatches(yourTurnMatches: Array<GameSnapshot>, theirTurnMatches: Array<GameSnapshot>) {
         self.yourTurnMatches = yourTurnMatches
         self.theirTurnMatches = theirTurnMatches
         yourTurnCollectionView.reloadData()
@@ -224,9 +228,14 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
                 opponentID = "Opponent not yet found"
             }
             let dvc = segue.destinationViewController as! RoundMessageViewController
+            if matchToBeEnteredSnapshot != nil{
+                dvc.localPlayerInfo = (name: matchToBeEnteredSnapshot!.yourName, score: matchToBeEnteredSnapshot!.yourScore)
+                dvc.opponentInfo = (name: matchToBeEnteredSnapshot!.opponentName, score: matchToBeEnteredSnapshot!.opponentScore)
+            }
             dvc.localPlayerIsPlayer0 = localPlayerIsPlayer0
             dvc.opponentID = opponentID
             dvc.matchToBeEntered = matchToBeEntered
+            
 //            let newRoundHandler = RoundHandler()
 //            newRoundHandler.myMatchData = matchToBeEntered?.matchData
 //            newRoundHandler.localPlayerIsPlayer0 = localPlayerIsPlayer0

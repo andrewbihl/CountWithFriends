@@ -14,6 +14,7 @@
 		2F61D3231D217A8600C9867F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3211D217A8600C9867F /* Main.storyboard */; };
 		2F61D3251D217A8600C9867F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3241D217A8600C9867F /* Assets.xcassets */; };
 		2F61D3281D217A8600C9867F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F61D3261D217A8600C9867F /* LaunchScreen.storyboard */; };
+		2F8B76731D373F9900A625AC /* GameSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F8B76721D373F9900A625AC /* GameSnapshot.swift */; };
 		2FA7C6DE1D241B620024EA2B /* GameMatchingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */; };
 		2FD0DF311D22EA7100466ED3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FD0DF301D22EA7100466ED3 /* GameKit.framework */; };
 		2FD0DF331D22F01600466ED3 /* GCTurnBasedMatchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */; };
@@ -48,6 +49,7 @@
 		2F61D3241D217A8600C9867F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2F61D3271D217A8600C9867F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F61D3291D217A8600C9867F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2F8B76721D373F9900A625AC /* GameSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSnapshot.swift; sourceTree = "<group>"; };
 		2FA7C6DD1D241B620024EA2B /* GameMatchingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameMatchingViewController.swift; sourceTree = "<group>"; };
 		2FD0DF301D22EA7100466ED3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCTurnBasedMatchHelper.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				E660BEEA1D2429C3002D9CB5 /* Operation.swift */,
 				2FD0DF321D22F01600466ED3 /* GCTurnBasedMatchHelper.swift */,
+				2F8B76721D373F9900A625AC /* GameSnapshot.swift */,
 				2F4ABDD31D26D7140029A717 /* RoundHandler.swift */,
 				E60DAB831D353CF00099868B /* UIColor+HexConvert.swift */,
 			);
@@ -266,6 +269,7 @@
 				A86CB5F01D24914400EF1A43 /* ContainerViewController.swift in Sources */,
 				A8C3257B1D33E5C3001FD9AE /* YourTurnCollectionView.swift in Sources */,
 				2F61D31E1D217A8600C9867F /* AppDelegate.swift in Sources */,
+				2F8B76731D373F9900A625AC /* GameSnapshot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@ protocol GCTurnBasedMatchHelperDelegate {
     func didLoginToGameCenter()
     func attemptGameCenterLogin(loginView: UIViewController)
     func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error: NSError?)
-    func didLoadExistingMatches(yourTurnMatches: Array<(matchID: String,opponentDisplayName: String)>, theirTurnMatches: Array<(matchID: String,opponentDisplayName: String)>)
+    func didLoadExistingMatches(yourTurnMatches: Array<GameSnapshot>, theirTurnMatches: Array<GameSnapshot>)
 }
 
 class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
@@ -32,7 +32,6 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
         super.init()
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(authenticationChanged), name: GKPlayerAuthenticationDidChangeNotificationName, object: nil)
-//        notificationCenter.addObserver(MenuViewController.self, selector: opponentPlayedTurn, name: , object: <#T##AnyObject?#>)
     }
 
     func resumeGame(matchID: String){
@@ -210,20 +209,46 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                 if matches == nil{
                     return
                 }
-                var yourTurnMatches = Array<(matchID: String,opponentDisplayName: String)>()
-                var theirTurnMatches = Array<(matchID: String,opponentDisplayName: String)>()
+                var yourTurnMatches = Array<GameSnapshot>()
+                var theirTurnMatches = Array<GameSnapshot>()
                 for match in matches!{
                     if match.participants![0].matchOutcome != .None{
                         match.removeWithCompletionHandler(nil)
                     }
                     else{
+                        let matchSnapshot = GameSnapshot()
+                        var playerScores = [0,0]
+                        if match.matchData?.length > 0 {
+                            let dataDict = NSKeyedUnarchiver.unarchiveObjectWithData(match.matchData!) as? Dictionary<String,AnyObject>
+                            let roundOperations = dataDict!["roundOperations"] as! Array<Dictionary<String,AnyObject>>
+                            //if at beginning of new round
+                            if roundOperations.last?["player1Operations"] != nil && match.currentParticipant?.playerID == match.participants![0].playerID {
+                                matchSnapshot.currentRound = roundOperations.count + 1
+                            } else{
+                                matchSnapshot.currentRound = roundOperations.count
+                            }
+                            playerScores = dataDict!["playerScores"] as! [Int]
+                        }
+                        matchSnapshot.matchID = match.matchID!
                         var opponentName : String?
-                        //print(match.participants)
-                        for participant in match.participants!{
+//                        print(match.participants)
+//                        for participant in match.participants!{
+//                            if participant.playerID != GKLocalPlayer.localPlayer().playerID{
+//                                opponentName = participant.player?.displayName
+//                            }
+//                        }
+                        for i in 0...1{
+                            let participant = match.participants![i]
                             if participant.playerID != GKLocalPlayer.localPlayer().playerID{
                                 opponentName = participant.player?.displayName
+                                matchSnapshot.opponentScore = playerScores[i]
+                            }
+                            else{
+                                matchSnapshot.yourName = participant.player!.displayName!
+                                matchSnapshot.yourScore = playerScores[i]
                             }
                         }
+                        
                         if opponentName == nil{
                             opponentName = "Awaiting \nOpponent"
                         }
@@ -231,12 +256,13 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
                             //If display name is alias it will present with non-ASCII quotes. Remove these.
                             opponentName = opponentName!.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "\u{200e}\u{200e}\u{201c}\u{201d}\u{202a}\u{202c}"))
                         }
+                        matchSnapshot.opponentName = opponentName!
                         //If it is your turn...
                         if match.currentParticipant?.playerID == GKLocalPlayer.localPlayer().playerID && opponentName != "Awaiting \nOpponent"{
-                            yourTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
+                            yourTurnMatches.append(matchSnapshot)
                         }
                         else{
-                            theirTurnMatches.append((matchID: match.matchID!, opponentDisplayName: opponentName!))
+                            theirTurnMatches.append(matchSnapshot)
                         }
                     }
                 }

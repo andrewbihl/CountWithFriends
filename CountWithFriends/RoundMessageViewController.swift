@@ -20,6 +20,9 @@ class RoundMessageViewController: UIViewController {
     @IBOutlet weak var beginMatchButton: UIButton!
     @IBOutlet weak var infoView: UIView!
     
+    var localPlayerInfo: (name: String, score: Int)?
+    var opponentInfo: (name: String, score: Int)?
+    var roundNumber : Int?
     var matchToBeEntered: GKTurnBasedMatch?
     var gameIsFinished = false
     var opponentID: String?
@@ -28,16 +31,23 @@ class RoundMessageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        player0Label.text = GKLocalPlayer.localPlayer().alias
-        player0ScoreLabel.text = "Score: 0"
-        if let opponent = matchToBeEntered?.participants![1].player?.displayName {
-            player1Label.text = opponent
-        } else {
+        if localPlayerInfo != nil{
+            player0Label.text = localPlayerInfo!.name
+            player0ScoreLabel.text = "Score: \(localPlayerInfo!.score)"
+        }
+        else{
+            player0Label.text = "Me"
+            player0ScoreLabel.text = "Score: 0"
+        }
+        if opponentInfo != nil{
+            player1Label.text = opponentInfo!.name
+            player1ScoreLabel.text = "Score: \(opponentInfo!.score)"
+        }
+        else {
             player1Label.text = "New Opponent"
-//            roundLabel.text = "New Game"
+            player1ScoreLabel.text = "Score: 0"
             beginMatchButton.setTitle("Start New Game", forState: .Normal)
         }
-        player1ScoreLabel.text = "Score: 0"
         
         self.infoView.backgroundColor = UIColor.sunsetOverlay()
         self.beginMatchButton.backgroundColor = UIColor.sunsetOverlay()
