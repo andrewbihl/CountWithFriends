@@ -13,7 +13,9 @@ class RoundMessageViewController: UIViewController {
     //@IBOutlet weak var roundLabel: UILabel!
     @IBOutlet weak var player0Label: UILabel!
     @IBOutlet weak var player0ScoreLabel: UILabel!
+    @IBOutlet weak var player0Box: UIView!
     @IBOutlet weak var player1Label: UILabel!
+    @IBOutlet weak var player1Box: UIView!
     @IBOutlet weak var player1ScoreLabel: UILabel!
     @IBOutlet weak var beginMatchButton: UIButton!
     @IBOutlet weak var infoView: UIView!
@@ -41,6 +43,8 @@ class RoundMessageViewController: UIViewController {
         self.beginMatchButton.backgroundColor = UIColor.sunsetOverlay()
         self.beginMatchButton.setTitleColor(UIColor.sunsetOverlayLightText(), forState: .Normal)
         
+        player0Box.backgroundColor = UIColor.sunsetOverlay()
+        player1Box.backgroundColor = UIColor.sunsetOverlay()
         addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
     }
     
