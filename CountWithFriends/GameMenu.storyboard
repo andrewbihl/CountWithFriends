@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -79,17 +80,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Hfx-CO-nre">
-                                <rect key="frame" x="8" y="86" width="201" height="106"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Hfx-CO-nre">
+                                <rect key="frame" x="8" y="86" width="188" height="76"/>
                                 <subviews>
-                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZC-op-V7T">
-                                        <rect key="frame" x="0.0" y="0.0" width="201" height="50"/>
+                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZC-op-V7T">
+                                        <rect key="frame" x="0.0" y="0.0" width="188" height="35"/>
                                         <state key="normal" title="Challenge a Friend" image="challengeFriend">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
-                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-9S-TZe">
-                                        <rect key="frame" x="0.0" y="56" width="201" height="50"/>
+                                    <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueH-9S-TZe">
+                                        <rect key="frame" x="0.0" y="41" width="188" height="35"/>
                                         <state key="normal" title="     Random Match" image="randomMatch">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
@@ -104,6 +105,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular" misplaced="YES">
+                                            <rect key="frame" x="251" y="0.0" width="79" height="0.0"/>
+                                        </variation>
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="151" y="0.0" width="79" height="0.0"/>
                                         </variation>
@@ -152,6 +156,9 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <variation key="heightClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="580" height="200"/>
+                                        </variation>
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="0.0" y="0.0" width="380" height="140"/>
                                         </variation>
@@ -187,6 +194,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular" misplaced="YES">
+                                            <rect key="frame" x="254" y="0.0" width="74" height="0.0"/>
+                                        </variation>
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="154" y="0.0" width="74" height="0.0"/>
                                         </variation>
@@ -235,6 +245,9 @@
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
+                                        <variation key="heightClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="580" height="200"/>
+                                        </variation>
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="0.0" y="0.0" width="380" height="140"/>
                                         </variation>
@@ -304,6 +317,24 @@
                                     <action selector="onStartGameTapped:" destination="1xA-Jq-foR" eventType="touchUpInside" id="bvv-Ff-TyV"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Group" translatesAutoresizingMaskIntoConstraints="NO" id="x29-HZ-o6B">
+                                <rect key="frame" x="180" y="20" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="eKM-nx-zQM"/>
+                                    <constraint firstAttribute="width" secondItem="x29-HZ-o6B" secondAttribute="height" multiplier="15:8" id="gWj-h0-ZXe"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="eKM-nx-zQM"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="57.5" y="20" width="285" height="152"/>
+                                    <mask key="constraints">
+                                        <include reference="eKM-nx-zQM"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -316,6 +347,7 @@
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="leading" secondItem="NiN-zz-YBb" secondAttribute="leading" constant="8" id="Ml4-fB-hYS"/>
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" constant="66" id="NAs-Ng-jxb"/>
                             <constraint firstItem="Ow7-CL-XQM" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" id="OYY-2c-G92"/>
+                            <constraint firstItem="x29-HZ-o6B" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" id="cep-Al-vfs"/>
                             <constraint firstItem="RjT-8f-ujz" firstAttribute="top" secondItem="vUM-JY-9bB" secondAttribute="bottom" constant="27" id="dKe-TL-AgK"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="leading" secondItem="Hfx-CO-nre" secondAttribute="leading" id="dxD-yl-m11"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tMu-CI-uU0" secondAttribute="trailing" constant="-8" id="hZ0-A8-tOV"/>
@@ -323,6 +355,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Ow7-CL-XQM" secondAttribute="trailing" constant="-8" id="qhA-jz-eUj"/>
                             <constraint firstItem="RjT-8f-ujz" firstAttribute="top" secondItem="vUM-JY-9bB" secondAttribute="bottom" constant="14" id="qnf-Pc-jNY"/>
                             <constraint firstItem="vUM-JY-9bB" firstAttribute="centerX" secondItem="NiN-zz-YBb" secondAttribute="centerX" id="vhc-3R-Ijp"/>
+                            <constraint firstItem="x29-HZ-o6B" firstAttribute="centerX" secondItem="NiN-zz-YBb" secondAttribute="centerX" id="yss-pl-O75"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="top" secondItem="d1l-1r-cz2" secondAttribute="bottom" constant="8" id="ywX-nU-Kth"/>
                         </constraints>
                         <variation key="default">
@@ -399,6 +432,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Group" width="285" height="103"/>
         <image name="challengeFriend" width="37" height="35"/>
         <image name="randomMatch" width="31" height="25"/>
     </resources>
