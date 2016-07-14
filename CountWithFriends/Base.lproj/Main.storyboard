@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="R9x-nT-NJ6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="R9x-nT-NJ6">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1186,13 +1186,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Fx2-tY-GU4" secondAttribute="bottom" id="4x8-S1-Ohb"/>
                                     <constraint firstItem="nly-7A-C0G" firstAttribute="centerX" secondItem="Gdb-Kt-qpa" secondAttribute="centerX" id="ASL-cl-ZIp"/>
                                     <constraint firstItem="nly-7A-C0G" firstAttribute="top" secondItem="Gdb-Kt-qpa" secondAttribute="top" id="Bpu-4w-gA4"/>
                                     <constraint firstItem="Fx2-tY-GU4" firstAttribute="leading" secondItem="Gdb-Kt-qpa" secondAttribute="leading" id="EBr-jt-ZLf"/>
                                     <constraint firstItem="Fx2-tY-GU4" firstAttribute="centerX" secondItem="Gdb-Kt-qpa" secondAttribute="centerX" id="ERe-n8-U4T"/>
+                                    <constraint firstItem="Fx2-tY-GU4" firstAttribute="top" secondItem="nly-7A-C0G" secondAttribute="bottom" id="GM6-1m-zin"/>
                                     <constraint firstAttribute="width" secondItem="Gdb-Kt-qpa" secondAttribute="height" multiplier="41:14" id="LBc-Yn-oYh"/>
                                     <constraint firstAttribute="trailing" secondItem="nly-7A-C0G" secondAttribute="trailing" id="TBy-x2-FBk"/>
                                     <constraint firstItem="nly-7A-C0G" firstAttribute="leading" secondItem="Gdb-Kt-qpa" secondAttribute="leading" id="U92-1Y-mlI"/>
@@ -1203,6 +1203,11 @@
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4x8-S1-Ohb"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ief-8H-eY9">
                                 <rect key="frame" x="15" y="20" width="124.5" height="42.5"/>
@@ -1220,7 +1225,6 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="YN2-za-DiD" secondAttribute="trailing" id="6YK-70-ld2"/>
                                     <constraint firstItem="GZJ-FB-HFZ" firstAttribute="leading" secondItem="Ief-8H-eY9" secondAttribute="leading" id="Ed5-Pu-kfr"/>
@@ -1231,12 +1235,18 @@
                                     <constraint firstItem="GZJ-FB-HFZ" firstAttribute="top" secondItem="Ief-8H-eY9" secondAttribute="top" id="fHp-4O-DGN"/>
                                     <constraint firstItem="YN2-za-DiD" firstAttribute="leading" secondItem="Ief-8H-eY9" secondAttribute="leading" id="gSW-ua-ERX"/>
                                     <constraint firstItem="GZJ-FB-HFZ" firstAttribute="centerX" secondItem="Ief-8H-eY9" secondAttribute="centerX" id="l3f-zy-irq"/>
+                                    <constraint firstItem="YN2-za-DiD" firstAttribute="top" secondItem="GZJ-FB-HFZ" secondAttribute="bottom" id="tj2-7h-SnF"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Tiu-fF-2Ly"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IB4-Vq-LUU" customClass="OperatorButton" customModule="CountWithFriends" customModuleProvider="target">
                                 <rect key="frame" x="310" y="98" width="50" height="30"/>
