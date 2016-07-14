@@ -152,6 +152,7 @@ class GCTurnBasedMatchHelper: NSObject, GKLocalPlayerListener{
             else{
                 print("Turn passed")
                 self.myMatch = nil
+                self.delegate?.didPassTurn()
             }
         }
     }
