@@ -41,12 +41,10 @@ class RoundHistoryTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return player0Operations.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if section == 0 {
             return 7
         }
@@ -92,14 +90,14 @@ class RoundHistoryTableViewController: UITableViewController {
             cell.player1OperationLabel.font = UIFont.boldSystemFontOfSize(14.0)
         } else {
             if let value = player0Operations[indexPath.section]?.count {
-                if value >= indexPath.row {
+                if value >= indexPath.row + 1 {
                     cell.player0OperationLabel.text = player0Operations[indexPath.section]![indexPath.row]
                 } else {
                     cell.player0OperationLabel.text = "Incomplete"
                 }
             }
             if let value = player1Operations[indexPath.section]?.count {
-                if value >= indexPath.row {
+                if value >= indexPath.row + 1 {
                     cell.player1OperationLabel.text = player1Operations[indexPath.section]![indexPath.row]
                 } else {
                     cell.player1OperationLabel.text = "Incomplete"
