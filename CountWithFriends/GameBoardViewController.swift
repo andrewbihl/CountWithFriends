@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class GameBoardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, OperationTableViewCellDelegate, ClockViewDelegate, OperationDelegate,UIPopoverPresentationControllerDelegate {
 
     @IBOutlet weak var targetLabel: UILabel!
@@ -22,6 +21,12 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var historyButton: OperatorButton!
     @IBOutlet weak var oppScoreLabel: UILabel!
     @IBOutlet weak var locScoreLabel: UILabel!
+    @IBOutlet weak var currentRoundLabel: UILabel!
+    @IBOutlet weak var player0Label: UILabel!
+    @IBOutlet weak var player0Box: UIView!
+    @IBOutlet weak var player1Label: UILabel!
+    @IBOutlet weak var player1Box: UIView!
+    
     
     let gradient = CAGradientLayer()
     var myRoundHandler: RoundHandler?
@@ -74,6 +79,22 @@ class GameBoardViewController: UIViewController, UITableViewDelegate, UITableVie
         addGradiant(UIColor.sunsetLight(), bottomColor: UIColor.sunsetDark())
         targetLabel.shadowOffset = CGSizeMake(0, 1)
         targetLabel.shadowColor = UIColor.blackColor()
+        
+        if let round = myRoundHandler?.getPreviousRoundOperations()?.count {
+            currentRoundLabel.text = "Round \(round + 1)"
+        } else {
+            currentRoundLabel.text = "Round 1"
+        }
+        player0Box.backgroundColor = UIColor.sunsetOverlay()
+        player1Box.backgroundColor = UIColor.sunsetOverlay()
+        
+        self.player0Label.text = "Me"
+        if let opponent = myRoundHandler?.opponentDisplayName {
+            player1Label.text = opponent
+        } else {
+            player1Label.text = "New Opponent"
+        }
+        
     }
     
     override func viewDidAppear(animated: Bool) {
