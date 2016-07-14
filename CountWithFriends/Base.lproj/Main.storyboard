@@ -657,7 +657,6 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.058823529409999999" green="0.078431372550000003" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="n4c-6u-KI5" firstAttribute="top" secondItem="mwc-CD-NKy" secondAttribute="top" constant="8" id="49i-DU-1Av"/>
                                     <constraint firstAttribute="trailing" secondItem="n4c-6u-KI5" secondAttribute="trailing" constant="8" id="6dC-SU-Uk2"/>
@@ -720,8 +719,10 @@
                     <connections>
                         <outlet property="beginMatchButton" destination="kOR-Yz-3Is" id="nzB-Yn-mwE"/>
                         <outlet property="infoView" destination="mUA-lR-roH" id="7BC-ta-Csy"/>
+                        <outlet property="player0Box" destination="2rM-Tx-5bL" id="TB9-bu-Mb6"/>
                         <outlet property="player0Label" destination="3EX-lU-kTM" id="0wA-rg-UUX"/>
                         <outlet property="player0ScoreLabel" destination="qbU-Wq-1CC" id="fwt-3a-5CR"/>
+                        <outlet property="player1Box" destination="n4c-6u-KI5" id="aOb-8V-PxK"/>
                         <outlet property="player1Label" destination="Drb-Pz-EkL" id="m2E-ie-dIk"/>
                         <outlet property="player1ScoreLabel" destination="8eB-6t-WYE" id="VVw-aD-jM0"/>
                     </connections>
