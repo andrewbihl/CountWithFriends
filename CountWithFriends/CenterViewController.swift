@@ -25,6 +25,8 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     var currentlyReloadingGames = false
     let gradient = CAGradientLayer()
     var delegate: CenterViewControllerDelegate?
+    @IBOutlet weak var startGameButton: UIButton!
+    @IBOutlet weak var loginWarningLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -207,6 +209,8 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     }
     
     func didLoginToGameCenter() {
+        loginWarningLabel.hidden = true
+        startGameButton.hidden = false
         matchHelper?.loadExistingMatches()
         GKLocalPlayer.localPlayer().registerListener(self)
     }

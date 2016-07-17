@@ -304,8 +304,14 @@
                                     <rect key="frame" x="113" y="137" width="173.5" height="28"/>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUM-JY-9bB">
-                                <rect key="frame" x="215.5" y="72" width="169" height="38"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please login to GameCenter to play" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maF-13-DQy" userLabel="Login warning">
+                                <rect key="frame" x="166" y="43" width="268.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUM-JY-9bB">
+                                <rect key="frame" x="215" y="72" width="169" height="38"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
                                 <state key="normal" title="Start New Game!">
                                     <color key="titleColor" red="0.1019607843" green="0.4941176471" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -340,6 +346,7 @@
                         <constraints>
                             <constraint firstItem="d1l-1r-cz2" firstAttribute="leading" secondItem="Hfx-CO-nre" secondAttribute="leading" id="67S-Sw-bDJ"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="trailing" secondItem="d1l-1r-cz2" secondAttribute="trailing" id="7RJ-tg-Kee"/>
+                            <constraint firstItem="maF-13-DQy" firstAttribute="centerX" secondItem="NiN-zz-YBb" secondAttribute="centerX" id="85X-Pn-GrI"/>
                             <constraint firstItem="d1l-1r-cz2" firstAttribute="top" secondItem="RjT-8f-ujz" secondAttribute="bottom" constant="16" id="BV7-BG-j2U"/>
                             <constraint firstAttribute="trailingMargin" secondItem="d1l-1r-cz2" secondAttribute="trailing" constant="-8" id="D40-a4-e1b"/>
                             <constraint firstItem="ZAQ-Rm-aTh" firstAttribute="top" secondItem="tMu-CI-uU0" secondAttribute="bottom" constant="11" id="G6F-BZ-Uof"/>
@@ -347,6 +354,7 @@
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="leading" secondItem="NiN-zz-YBb" secondAttribute="leading" constant="8" id="Ml4-fB-hYS"/>
                             <constraint firstItem="Hfx-CO-nre" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" constant="66" id="NAs-Ng-jxb"/>
                             <constraint firstItem="Ow7-CL-XQM" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" id="OYY-2c-G92"/>
+                            <constraint firstItem="vUM-JY-9bB" firstAttribute="top" secondItem="maF-13-DQy" secondAttribute="bottom" constant="8" id="TKg-9Y-HIb"/>
                             <constraint firstItem="x29-HZ-o6B" firstAttribute="top" secondItem="uvh-em-uK5" secondAttribute="bottom" id="cep-Al-vfs"/>
                             <constraint firstItem="RjT-8f-ujz" firstAttribute="top" secondItem="vUM-JY-9bB" secondAttribute="bottom" constant="27" id="dKe-TL-AgK"/>
                             <constraint firstItem="tMu-CI-uU0" firstAttribute="leading" secondItem="Hfx-CO-nre" secondAttribute="leading" id="dxD-yl-m11"/>
@@ -372,7 +380,9 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="loginWarningLabel" destination="maF-13-DQy" id="Gym-s4-HZW"/>
                         <outlet property="menuButton" destination="Ow7-CL-XQM" id="mbk-3H-Fbn"/>
+                        <outlet property="startGameButton" destination="vUM-JY-9bB" id="f8Y-Bh-zF9"/>
                         <outlet property="theirTurnCollectionView" destination="cgS-rr-hTj" id="1fF-n0-1K4"/>
                         <outlet property="yourTurnCollectionView" destination="RbL-hS-QyE" id="lp3-RI-3tV"/>
                         <segue destination="R2P-7h-Udu" kind="show" id="7nR-7q-7b1"/>
