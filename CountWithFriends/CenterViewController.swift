@@ -182,11 +182,11 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     
     func didJoinOrCreateMatch(match: GKTurnBasedMatch?, error : NSError?) {
         if error != nil{
-            presentOfflineAlert("User Offline")
+            presentOfflineAlert(error!.localizedDescription);
         } else{
             matchToBeEntered = match!
             if matchToBeEntered?.matchData == nil {
-                presentOfflineAlert("Failed to Load Match")
+                presentOfflineAlert("Failed to load match. Check connectivity.")
             }else{
                 self.performSegueWithIdentifier("startGameSegue", sender: nil)
             }
@@ -194,7 +194,7 @@ class CenterViewController: UIViewController, GCTurnBasedMatchHelperDelegate,UIC
     }
     
     func presentOfflineAlert(title:String){
-        let offlineAlert = UIAlertController(title: title, message: "Sorry, this game cannot be played offline. Please check your internet connection and try again.", preferredStyle: .Alert)
+        let offlineAlert = UIAlertController(title: title, message: "There was a problem: \(title)", preferredStyle: .Alert)
         let okayAction = UIAlertAction(title: "Okay", style: .Cancel, handler: nil)
         offlineAlert.addAction(okayAction)
         self.presentViewController(offlineAlert, animated: true, completion: nil)
